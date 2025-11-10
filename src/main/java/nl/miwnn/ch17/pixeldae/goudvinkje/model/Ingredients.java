@@ -1,0 +1,27 @@
+package nl.miwnn.ch17.pixeldae.goudvinkje.model;
+
+
+import jakarta.persistence.*;
+
+/**
+ * @author Simon van der Kooij
+ * this model handles all the ingredients
+ */
+
+@Entity
+public class Ingredients {
+
+    @Id
+    @GeneratedValue
+    private Long ingredientId;
+
+    @Column(unique = true)
+    private String name;
+
+    private int caloriesPer100;
+
+    private String quantityUnit;
+
+    public Ingredients() {
+    }
+}

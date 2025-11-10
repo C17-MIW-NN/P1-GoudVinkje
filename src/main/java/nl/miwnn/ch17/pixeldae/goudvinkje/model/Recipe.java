@@ -5,23 +5,38 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+import java.time.LocalDate;
+
 /**
  * @author Simon van der Kooij
- *
+ * This model handles every recipe
  */
 
 @Entity
 public class Recipe {
 
-    @Id @GeneratedValue
-    private Long id;
-    private int recipeID;
+    @Id
+    @GeneratedValue
+    private Long recipeID;
+
+    private String name;
+
+    private String author;
+
+    private LocalDate dateAdded;
+
+    private String description;
+
+    private int nrOfPortions;
+
+    public Recipe() {
+    }
 
     public Long getId() {
-        return id;
+        return recipeID;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.recipeID = recipeID;
     }
 }
