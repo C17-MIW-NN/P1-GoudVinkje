@@ -24,7 +24,7 @@ public class homePageController {
     @GetMapping("/")
     private String showRecipeOverview(Model datamodel) {
 
-        datamodel.addAttribute("recipes", recipeRepository);
+        datamodel.addAttribute("recipes", recipeRepository.findAll());
 
         return "showRecipeOverview";
     }

@@ -6,5 +6,21 @@
 
     <body>
         <div th:replace="~{fragments/general :: navbar}"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Recipe</th>
+                    <th>Author</th>
+                    <th>Date added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="recipe : ${recipes}">
+                    <td><a th:text="${recipe.name}"></a></td>
+                    <td><a th:text="${recipe.author}"></a></td>
+                    <td><a th:text="${recipe.dateAdded}"></a></td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>
