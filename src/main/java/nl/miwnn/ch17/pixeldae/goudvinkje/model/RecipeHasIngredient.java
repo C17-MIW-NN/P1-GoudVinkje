@@ -14,9 +14,9 @@ import java.util.Objects;
  */
 
 @Entity
-@IdClass(RecipeHasIngredients.RecipeHasIngredientsId.class)
+@IdClass(RecipeHasIngredient.RecipeHasIngredientsId.class)
 
-public class RecipeHasIngredients {
+public class RecipeHasIngredient {
 
     @Id
     private Long recipeID;
@@ -31,7 +31,7 @@ public class RecipeHasIngredients {
         private Long ingredientID;
     }
 
-    public RecipeHasIngredients() {
+    public RecipeHasIngredient() {
     }
 
     @Override

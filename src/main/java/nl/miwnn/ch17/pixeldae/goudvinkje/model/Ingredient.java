@@ -9,7 +9,7 @@ import jakarta.persistence.*;
  */
 
 @Entity
-public class Ingredients {
+public class Ingredient {
 
     @Id
     @GeneratedValue
@@ -22,6 +22,6 @@ public class Ingredients {
 
     private String quantityUnit;
 
-    public Ingredients() {
+    public Ingredient() {
     }
 }
