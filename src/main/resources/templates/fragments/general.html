@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head th:fragment="baseheader(title)">
     <meta charset="UTF-8">
     <title th:replace="${title}">This is the base title</title>
 
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
 
     <link rel="stylesheet" type="text/css" href="/css/library.css" />
