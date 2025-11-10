@@ -1,9 +1,7 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,38 +12,39 @@ import java.util.Objects;
  */
 
 @Entity
-@IdClass(RecipeHasIngredient.RecipeHasIngredientsId.class)
-
 public class RecipeHasIngredient {
 
     @Id
-    private Long recipeID;
+    @GeneratedValue
+    private Long recipeHasIngredientID;
 
-    @Id
-    private Long ingredientID;
+    @ManyToOne
+    @JoinColumn(name = "recipe_recipe_id")
+    private Recipe recipe;
+
+    @ManyToOne
+    @JoinColumn(name = "ingredient_ingredient_id")
+    private Ingredient ingredient;
 
     private int quantity;
 
-    public static class RecipeHasIngredientsId implements Serializable {
-        private Long recipeID;
-        private Long ingredientID;
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
     public RecipeHasIngredient() {
-    }
-
-    @Override
-
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof RecipeHasIngredientsId that)) return false;
-        return Objects.equals(recipeID, that.recipeID) &&
-                Objects.equals(ingredientID, that.ingredientID);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(recipeID, ingredientID);
     }
 
 }

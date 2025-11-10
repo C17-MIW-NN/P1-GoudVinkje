@@ -4,8 +4,10 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
+import java.util.Collection;
 
 /**
  * @author Simon van der Kooij
@@ -30,6 +32,17 @@ public class Recipe {
     private int nrOfPortions;
 
     public Recipe() {
+    }
+
+    @OneToMany(mappedBy = "recipe")
+    private Collection<RecipeHasIngredient> ingredients;
+
+    public Collection<RecipeHasIngredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Collection<RecipeHasIngredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public Long getId() {

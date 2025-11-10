@@ -3,6 +3,8 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 /**
  * @author Simon van der Kooij
  * this model handles all the ingredients
@@ -23,5 +25,16 @@ public class Ingredient {
     private String quantityUnit;
 
     public Ingredient() {
+    }
+
+    @OneToMany(mappedBy = "ingredient")
+    private Collection<RecipeHasIngredient> recipes;
+
+    public Collection<RecipeHasIngredient> getRecipes() {
+        return recipes;
+    }
+
+    public void setIngredients(Collection<RecipeHasIngredient> recipes) {
+        this.recipes = recipes;
     }
 }
