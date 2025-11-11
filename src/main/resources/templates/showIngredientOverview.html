@@ -16,9 +16,10 @@
             </thead>
             <tbody>
                 <tr th:each="ingredient : ${ingredients}">
-                    <td th:text="${ingredient.getDescription()}"></td>
-                    <td th:text="${ingredient.getCalories()}"></td>
-                    <td th:text="${ingredient.getQuantityUnit()}"></td>
+                    <td><a th:text="${ingredient.description}"
+                           th:href="@{/ingredient/aanpassen/{iDescr}(iDescr = ${ingredient.description})}"></a></td>
+                    <td><a th:text="${ingredient.calories}"></a></td>
+                    <td><a th:text="${ingredient.quantityUnit}"></a></td>
                 </tr>
             </tbody>
         </table>
