@@ -13,8 +13,6 @@
 <h1 th:unless="${formRecipe.recipeID == null}">Pas het recept aan voor <span th:text="${formRecipe.name}"></span></h1>
 
 <div>
-<!--    WIP Inhoud van het formulier om recept aan te passen-->
-
 <form th:action="@{/recept/opslaan}" method="post" th:object="${formRecipe}">
 
     <input type="hidden" th:field="*{recipeID}">
@@ -48,17 +46,6 @@
         </div>
     </div>
 
-<!--    <div>-->
-<!--        <label for="ingredients">Ingredients</label>-->
-<!--        <input type="hidden" th:field="*{recipeHasIngredient.recipeHasIngredientID}">-->
-<!--        <div>-->
-<!--            <input type="text" th:field="*{recipeHasIngredient.quantity}" placeholder="bijv. 80 gram">-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <input type="text" id="ingredients" th:field="*{recipeHasIngredient.ingredient.name}" placeholder="bijv. Tomaten">-->
-<!--        </div>-->
-<!--    </div>-->
-
     <div>
         <h3>Instructie</h3>
         <div id="steps">
@@ -67,7 +54,7 @@
                     <tr>
                         <td><input type="number" th:field="*{steps[__${order.index}__].sequenceNr}"></td>
                         <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
-                        <td><a th:href="@{recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">verwijder stap</a></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -78,6 +65,7 @@
     <div>
         <button type="submit" name="action" value="save">Opslaan</button>
         <button type="submit" name="action" value="cancel">Annuleren</button>
+        <a th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">verwijder recept</a>
     </div>
 
 </form>
