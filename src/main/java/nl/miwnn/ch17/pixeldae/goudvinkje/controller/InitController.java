@@ -38,13 +38,12 @@ public class InitController {
 
     @EventListener
     private void seed(ContextRefreshedEvent ignoredEvent) {
-        System.err.println(recipeRepository.count() + " - " + ingredientRepository.count());
         if (recipeRepository.count() == 0 && ingredientRepository.count() == 0) {
 
-            // --- Recept ---
+            // --- Recept 1---
             Recipe recipe = makeRecipe(
                     "Veganistische linzencurry",
-                    "Chef Joas",
+                    "Chad G Pete",
                     "Een heerlijke, romige curry met rode linzen en kokosmelk — 100% plantaardig.",
                     4
             );
@@ -84,6 +83,50 @@ public class InitController {
             recipe.addStep(makeStep(6, "Serveer warm met rijst of naanbrood."));
 
             recipeRepository.save(recipe);
+
+            // --- Tweede recept --- (Vegan Tofu Stir-Fry)
+            Recipe tofuStirFry = makeRecipe(
+                    "Vegan Tofu Stir-Fry",
+                    "Chad G Pete",
+                    "Een snelle, kleurrijke roerbak met tofu, groenten en een sojasaus-dressing.",
+                    2
+            );
+
+            Ingredient tofu = makeIngredient("Tofu", 150, "g");
+            Ingredient broccoli = makeIngredient("Broccoli", 35, "g");
+            Ingredient paprika = makeIngredient("Paprika", 30, "g");
+            Ingredient wortel = makeIngredient("Wortel", 41, "g");
+            Ingredient sojasaus = makeIngredient("Sojasaus", 53, "el");
+            Ingredient sesamolie = makeIngredient("Sesamolie", 900, "el");
+            Ingredient peper = makeIngredient("Zwarte peper", 0, "tl");
+
+            addIngredient(tofuStirFry, Map.of(
+                    tofu, 200,
+                    broccoli, 150,
+                    paprika, 100,
+                    wortel, 100,
+                    ui, 1,
+                    knoflook, 2,
+                    gember, 1,
+                    sojasaus, 2,
+                    sesamolie, 1,
+                    peper, 1
+            ));
+
+            tofuStirFry.addStep(makeStep(1,
+                    "Snijd tofu in blokjes en marineer kort in sojasaus."));
+            tofuStirFry.addStep(makeStep(2,
+                    "Verhit sesamolie in een wok en bak tofu goudbruin."));
+            tofuStirFry.addStep(makeStep(3,
+                    "Voeg ui, knoflook en gember toe en roerbak 2 minuten."));
+            tofuStirFry.addStep(makeStep(4,
+                    "Voeg groenten toe (broccoli, paprika, wortel) en bak 5-7 minuten tot ze gaar zijn."));
+            tofuStirFry.addStep(makeStep(5,
+                    "Voeg de rest van de sojasaus toe en breng op smaak met peper."));
+            tofuStirFry.addStep(makeStep(6,
+                    "Serveer direct, eventueel met rijst of noedels."));
+
+            recipeRepository.save(tofuStirFry);
         }
     }
 
