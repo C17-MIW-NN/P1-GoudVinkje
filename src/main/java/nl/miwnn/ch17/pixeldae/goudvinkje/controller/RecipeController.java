@@ -52,7 +52,6 @@ public class RecipeController {
     @PostMapping("/recipe/save")
     public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
                                  BindingResult result, Model datamodel, @RequestParam String action) {
-        //datamodel.addAttribute("recipes", recipeRepository.findAll());
         if (action.equals("save")) {
             if (!result.hasErrors()) {
                 recipeRepository.save(recipe);

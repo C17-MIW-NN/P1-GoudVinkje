@@ -18,11 +18,33 @@
 <form th:action="@{/recipe/save}" method="post" th:object="${formRecipe}">
 
     <input type="hidden" th:field="*{recipeID}">
+    <input type="hidden" th:field="*{dateAdded}">
 
     <div>
-        <label for="name">Name</label>
+        <label for="name">Receptnaam</label>
         <div>
             <input type="text" id="name" th:field="*{name}" placeholder="bijv. Spaghetti Bolognese">
+        </div>
+    </div>
+
+    <div>
+        <label for="description">Korte omschrijving</label>
+        <div>
+            <input type="text" id="description" th:field="*{description}">
+        </div>
+    </div>
+
+    <div>
+        <label for="author">Auteur</label>
+        <div>
+            <input type="text" id="author" th:field="*{author}" placeholder="bijv. Pieter van de Pepermolen">
+        </div>
+    </div>
+
+    <div>
+        <label for="portions">Aantal porties</label>
+        <div>
+            <input type="text" id="portions" th:field="*{nrOfPortions}" placeholder="bijv. 6 personen">
         </div>
     </div>
 
