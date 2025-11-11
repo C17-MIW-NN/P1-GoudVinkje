@@ -46,7 +46,7 @@ public class IngredientController {
             return showIngredientForm(datamodel, optionalIngredient.get());
         }
 
-        return "redirect:/";
+        return "redirect:/ingredient/overzicht";
     }
 
     @PostMapping("/opslaan")
@@ -57,7 +57,7 @@ public class IngredientController {
                 ingredientRepository.save(ingredient);
             }
         }
-        return "redirect:/";
+        return "redirect:/ingredient/overzicht";
     }
 
     private String showIngredientForm(Model datamodel, Ingredient ingredient) {

@@ -17,10 +17,13 @@
             <tbody>
                 <tr th:each="ingredient : ${ingredients}">
                     <td th:text="${ingredient.getDescription()}"></td>
-                    <td th:text="${ingredient.getCaloriesPer100()}"></td>
+                    <td th:text="${ingredient.getCalories()}"></td>
                     <td th:text="${ingredient.getQuantityUnit()}"></td>
                 </tr>
             </tbody>
         </table>
+        <a class="btn btn-primary"
+           th:href="@{/ingredient/toevoegen}"
+           role="button">Voeg een nieuw ingrediënt toe</a>
     </body>
 </html>

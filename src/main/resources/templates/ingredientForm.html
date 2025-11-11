@@ -13,38 +13,36 @@
 <h1 th:unless="${ingredient.description == null}" th:text="Pas een ingrediënt aan"></h1>
 
 <div>
+    <form th:action="@{/ingredient/opslaan}" method="post" th:object="${ingredient}">
 
-<form th:action="@{/ingredient/opslaan}" method="post" th:object="${ingredient}">
+        <input type="hidden" th:field="*{ingredientId}">
 
-    <input type="hidden" th:field="*{ingredientId}">
-
-    <div>
-        <label for="beschrijving">Ingrediënt beschrijving</label>
         <div>
-            <input type="text" id="beschrijving" th:field="*{description}">
+            <label for="beschrijving">Ingrediënt beschrijving</label>
+            <div>
+                <input type="text" id="beschrijving" th:field="*{description}">
+            </div>
         </div>
-    </div>
 
-    <div>
-        <label for="caloriesPer100">Aantal calorieën per 100</label>
         <div>
-            <input type="number" id="caloriesPer100" th:field="*{caloriesPer100}">
+            <label for="calories">Aantal calorieën per 100</label>
+            <div>
+                <input type="number" id="calories" th:field="*{calories}">
+            </div>
         </div>
-    </div>
 
-    <div>
-        <label for="quantityUnit">Gemeten in</label>
         <div>
-            <input type="text" id="quantityUnit" th:field="*{quantityUnit}">
+            <label for="quantityUnit">Gemeten in</label>
+            <div>
+                <input type="text" id="quantityUnit" th:field="*{quantityUnit}">
+            </div>
         </div>
-    </div>
 
-    <div>
-        <button type="submit" name="action" value="save">Opslaan</button>
-        <button type="submit" name="action" value="cancel">Annuleren</button>
-    </div>
-
-</form>
+        <div>
+            <button type="submit" name="action" value="save">Opslaan</button>
+            <button type="submit" name="action" value="cancel">Annuleren</button>
+        </div>
+    </form>
 </div>
 </body>
 

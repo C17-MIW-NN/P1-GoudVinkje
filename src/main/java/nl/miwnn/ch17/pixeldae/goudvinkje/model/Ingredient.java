@@ -20,7 +20,7 @@ public class Ingredient {
     @Column(unique = true)
     private String description;
 
-    private int caloriesPer100;
+    private int calories;
 
     private String quantityUnit;
 
@@ -44,8 +44,8 @@ public class Ingredient {
         return description;
     }
 
-    public int getCaloriesPer100() {
-        return caloriesPer100;
+    public int getCalories() {
+        return calories;
     }
 
     public String getQuantityUnit() {
@@ -61,8 +61,8 @@ public class Ingredient {
         this.description = name;
     }
 
-    public void setCaloriesPer100(int caloriesPer100) {
-        this.caloriesPer100 = caloriesPer100;
+    public void setCalories(int calories) {
+        this.calories = calories;
     }
 
     public void setQuantityUnit(String quantityUnit) {

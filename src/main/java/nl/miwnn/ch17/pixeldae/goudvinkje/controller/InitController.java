@@ -144,12 +144,12 @@ public class InitController {
         return recipe;
     }
 
-    public Ingredient makeIngredient(String description, int caloriesPer100, String quantityUnit) {
+    public Ingredient makeIngredient(String description, int calories, String quantityUnit) {
 
         Ingredient ingredient = new Ingredient();
 
         ingredient.setDescription(description);
-        ingredient.setCaloriesPer100(caloriesPer100);
+        ingredient.setCalories(calories);
         ingredient.setQuantityUnit(quantityUnit);
 
         ingredientRepository.save(ingredient);

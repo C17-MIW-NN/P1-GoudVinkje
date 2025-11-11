@@ -13,7 +13,7 @@ import java.util.Optional;
 
 /**
  * @author Simon van der Kooij
- * controlls everything concerning the homepage
+ * controlls everything concerning recipes
  */
 
 
