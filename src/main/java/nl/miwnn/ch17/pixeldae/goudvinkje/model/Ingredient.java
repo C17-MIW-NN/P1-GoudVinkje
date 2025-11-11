@@ -24,9 +24,6 @@ public class Ingredient {
 
     private String quantityUnit;
 
-    public Ingredient() {
-    }
-
     @OneToMany(mappedBy = "ingredient")
     private Collection<RecipeHasIngredient> recipes;
 
@@ -34,6 +31,28 @@ public class Ingredient {
         return recipes;
     }
 
+    // constructor
+    public Ingredient() {
+    }
+
+    // getters
+    public Long getIngredientId() {
+        return ingredientId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCaloriesPer100() {
+        return caloriesPer100;
+    }
+
+    public String getQuantityUnit() {
+        return quantityUnit;
+    }
+
+    // setters
     public void setIngredients(Collection<RecipeHasIngredient> recipes) {
         this.recipes = recipes;
     }

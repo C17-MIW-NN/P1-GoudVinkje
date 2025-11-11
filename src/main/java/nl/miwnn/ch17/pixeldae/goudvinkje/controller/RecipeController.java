@@ -17,11 +17,11 @@ import java.util.Optional;
 
 
 @Controller
-public class recipeController {
+public class RecipeController {
 
     private final RecipeRepository recipeRepository;
 
-    public recipeController(RecipeRepository recipeRepository) {
+    public RecipeController(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
     }
 
