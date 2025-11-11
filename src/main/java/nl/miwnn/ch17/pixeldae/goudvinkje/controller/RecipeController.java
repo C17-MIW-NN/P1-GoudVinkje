@@ -27,7 +27,7 @@ public class RecipeController {
     }
 
     // showRecipeOverview
-    @GetMapping({"/", "/recipe/"})
+    @GetMapping({"/", "/recept/"})
     private String showRecipeOverview(Model datamodel) {
 
         datamodel.addAttribute("recipes", recipeRepository.findAll());
@@ -36,7 +36,7 @@ public class RecipeController {
     }
 
     // recipeForm methods
-    @GetMapping("/recipe/add")
+    @GetMapping("/recept/toevoegen")
     public String showRecipeForm(Model datamodel) {
         Recipe recipe = new Recipe();
         recipe.getSteps().add(new Step());
@@ -46,7 +46,7 @@ public class RecipeController {
         return showRecipeForm(datamodel, recipe);
     }
 
-    @GetMapping("/recipe/edit/{recipeID}")
+    @GetMapping("/recept/aanpassen/{recipeID}")
     public String showEditRecipeForm(@PathVariable("recipeID") Long recipeID, Model datamodel) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeID);
         if (optionalRecipe.isPresent()) {
@@ -55,7 +55,7 @@ public class RecipeController {
         return "redirect:/";
     }
 
-    @PostMapping("/recipe/save")
+    @PostMapping("/recept/opslaan")
     public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
                                  BindingResult result, Model datamodel, @RequestParam String action) {
         for (Step step : recipe.getSteps()) {
@@ -77,10 +77,10 @@ public class RecipeController {
         return "redirect:/";
     }
 
-    @GetMapping("/recipe/delete/{recipeID}")
+    @GetMapping("/recept/verwijderen/{recipeID}")
     public String deleteRecipe(@PathVariable("recipeID") Long recipeID) {
         recipeRepository.deleteById(recipeID);
-        return "redirect:/recipe/";
+        return "redirect:/recept/";
     }
 
     private String showRecipeForm(Model datamodel, Recipe recipe) {
