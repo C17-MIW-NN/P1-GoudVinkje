@@ -16,7 +16,8 @@
             </thead>
             <tbody>
                 <tr th:each="recipe : ${recipes}">
-                    <td th:text="${recipe.name}"></td>
+                    <td><a th:text="${recipe.name}"
+                    th:href="@{/recept/aanpassen/{recipeId}(recipeId = ${recipe.recipeID})}"></a></td>
                     <td th:text="${recipe.author}"></td>
                     <td th:text="${recipe.dateAdded}"></td>
                 </tr>
