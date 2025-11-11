@@ -26,7 +26,7 @@ public class RecipeController {
     }
 
     // showRecipeOverview
-    @GetMapping("/")
+    @GetMapping({"/", "/recipe/"})
     private String showRecipeOverview(Model datamodel) {
 
         datamodel.addAttribute("recipes", recipeRepository.findAll());
@@ -36,7 +36,7 @@ public class RecipeController {
 
     // recipeForm methods
     @GetMapping("/recipe/add")
-    public String showRecipeForm(@PathVariable("recipeID") Long recipeID, Model datamodel) {
+    public String showAddRecipeForm(@PathVariable("recipeID") Long recipeID, Model datamodel) {
         return showRecipeForm(datamodel, new Recipe());
     }
 

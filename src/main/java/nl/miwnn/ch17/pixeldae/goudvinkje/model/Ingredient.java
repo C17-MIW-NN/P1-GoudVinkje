@@ -18,7 +18,7 @@ public class Ingredient {
     private Long ingredientId;
 
     @Column(unique = true)
-    private String name;
+    private String description;
 
     private int caloriesPer100;
 
@@ -40,8 +40,8 @@ public class Ingredient {
         return ingredientId;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
     public int getCaloriesPer100() {
@@ -57,8 +57,8 @@ public class Ingredient {
         this.recipes = recipes;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String name) {
+        this.description = name;
     }
 
     public void setCaloriesPer100(int caloriesPer100) {

@@ -10,13 +10,13 @@
             <thead>
                 <tr>
                     <th>Ingrediënt</th>
-                    <th>Calorieën per 100</th>
+                    <th>Calorieën</th>
                     <th>Eenheid</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="ingredient : ${ingredients}">
-                    <td th:text="${ingredient.getName()}"></td>
+                    <td th:text="${ingredient.getDescription()}"></td>
                     <td th:text="${ingredient.getCaloriesPer100()}"></td>
                     <td th:text="${ingredient.getQuantityUnit()}"></td>
                 </tr>
