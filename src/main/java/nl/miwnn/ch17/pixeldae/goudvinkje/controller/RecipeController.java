@@ -2,6 +2,7 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
 
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
+import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,8 +37,13 @@ public class RecipeController {
 
     // recipeForm methods
     @GetMapping("/recipe/add")
-    public String showAddRecipeForm(@PathVariable("recipeID") Long recipeID, Model datamodel) {
-        return showRecipeForm(datamodel, new Recipe());
+    public String showRecipeForm(Model datamodel) {
+        Recipe recipe = new Recipe();
+        recipe.getSteps().add(new Step());
+
+        datamodel.addAttribute("recipe", recipe);
+
+        return showRecipeForm(datamodel, recipe);
     }
 
     @GetMapping("/recipe/edit/{recipeID}")
@@ -52,10 +58,21 @@ public class RecipeController {
     @PostMapping("/recipe/save")
     public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
                                  BindingResult result, Model datamodel, @RequestParam String action) {
+        for (Step step : recipe.getSteps()) {
+            step.setRecipe(recipe);
+        }
+
         if (action.equals("save")) {
             if (!result.hasErrors()) {
                 recipeRepository.save(recipe);
             }
+        } else if (action.equals("addStep")) {
+            recipe.getSteps().add(new Step());
+            datamodel.addAttribute("recipe", recipe);
+            if (!result.hasErrors()) {
+                recipeRepository.save(recipe);
+            }
+            return showRecipeForm(datamodel, recipe);
         }
         return "redirect:/";
     }

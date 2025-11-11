@@ -59,16 +59,20 @@
 <!--        </div>-->
 <!--    </div>-->
 
-<!--    <div>-->
-<!--        <label for="steps">Steps</label>-->
-<!--        <input type="hidden" th:field="*{step.stepId}">-->
-<!--        <div>-->
-<!--            <input type="text" th:field="*{step.sequenceNr}">-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <input type="text" id="steps" th:field="*{step.instruction}" placeholder="instructions">-->
-<!--        </div>-->
-<!--    </div>-->
+    <div>
+        <h3>Instructie</h3>
+        <div id="steps">
+            <div th:each="step, order : *{steps}">
+                <table>
+                    <tr>
+                        <td><input type="text" th:field="*{steps[__${order.index}__].sequenceNr}"></td>
+                        <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <button type="submit" name="action" value="addStep">Stap Toevoegen</button>
+    </div>
 
     <div>
         <button type="submit" name="action" value="save">Opslaan</button>

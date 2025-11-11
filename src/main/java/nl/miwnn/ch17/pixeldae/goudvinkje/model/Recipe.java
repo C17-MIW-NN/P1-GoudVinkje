@@ -1,10 +1,7 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,11 +33,14 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe")
     private Collection<RecipeHasIngredient> ingredients;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Step> steps = new ArrayList<>();
 
-    public Collection<RecipeHasIngredient> getIngredients() {
-        return ingredients;
+    // methods
+    public void addStep(Step step) {
+        if (steps == null) steps = new ArrayList<>();
+        step.setRecipe(this);
+        this.steps.add(step);
     }
 
     // getters
@@ -68,17 +68,15 @@ public class Recipe {
         return nrOfPortions;
     }
 
+    public Collection<RecipeHasIngredient> getIngredients() {
+        return ingredients;
+    }
+
     public List<Step> getSteps() {
         return steps;
     }
 
     // setters
-    public void addStep(Step step) {
-        if (steps == null) steps = new ArrayList<>();
-        steps.add(step);
-        step.setRecipe(this);
-    }
-
     public void setIngredients(Collection<RecipeHasIngredient> ingredients) {
         this.ingredients = ingredients;
     }
