@@ -7,7 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Simon van der Kooij
@@ -36,6 +38,9 @@ public class Recipe {
 
     @OneToMany(mappedBy = "recipe")
     private Collection<RecipeHasIngredient> ingredients;
+
+    @OneToMany(mappedBy = "recipe")
+    private List<Step> steps = new ArrayList<>();
 
     public Collection<RecipeHasIngredient> getIngredients() {
         return ingredients;
