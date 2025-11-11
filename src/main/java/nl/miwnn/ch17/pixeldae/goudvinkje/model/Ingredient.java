@@ -37,4 +37,20 @@ public class Ingredient {
     public void setIngredients(Collection<RecipeHasIngredient> recipes) {
         this.recipes = recipes;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCaloriesPer100(int caloriesPer100) {
+        this.caloriesPer100 = caloriesPer100;
+    }
+
+    public void setQuantityUnit(String quantityUnit) {
+        this.quantityUnit = quantityUnit;
+    }
+
+    public void setRecipes(Collection<RecipeHasIngredient> recipes) {
+        this.recipes = recipes;
+    }
 }

@@ -28,23 +28,18 @@ public class RecipeHasIngredient {
 
     private int quantity;
 
-    public Ingredient getIngredient() {
-        return ingredient;
+    public RecipeHasIngredient() {
     }
 
     public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
 
-    public RecipeHasIngredient() {
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-
 }

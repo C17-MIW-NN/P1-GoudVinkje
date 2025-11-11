@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class homePageController {
+public class HomePageController {
 
     private final RecipeRepository recipeRepository;
 
-    public homePageController(RecipeRepository recipeRepository) {
+    public HomePageController(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
     }
 

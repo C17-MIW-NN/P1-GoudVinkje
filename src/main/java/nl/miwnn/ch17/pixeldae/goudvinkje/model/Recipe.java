@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -31,25 +32,53 @@ public class Recipe {
 
     private int nrOfPortions;
 
-    public Recipe() {
-    }
-
     @OneToMany(mappedBy = "recipe")
     private Collection<RecipeHasIngredient> ingredients;
 
+    @OneToMany(mappedBy = "recipe")
+    private Collection<Step> steps;
+
+    public Recipe() {
+    }
+
+    // getters
     public Collection<RecipeHasIngredient> getIngredients() {
         return ingredients;
+    }
+
+    // setters
+    public void addStep(Step step) {
+        if (steps == null) steps = new ArrayList<>();
+        steps.add(step);
+        step.setRecipe(this);
     }
 
     public void setIngredients(Collection<RecipeHasIngredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public Long getId() {
-        return recipeID;
-    }
-
-    public void setId(Long id) {
+    public void setRecipeID(Long recipeID) {
         this.recipeID = recipeID;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setNrOfPortions(int nrOfPortions) {
+        this.nrOfPortions = nrOfPortions;
+    }
+
 }

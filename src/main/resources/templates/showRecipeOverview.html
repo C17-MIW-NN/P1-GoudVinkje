@@ -16,9 +16,9 @@
             </thead>
             <tbody>
                 <tr th:each="recipe : ${recipes}">
-                    <td><a th:text="${recipe.name}"></a></td>
-                    <td><a th:text="${recipe.author}"></a></td>
-                    <td><a th:text="${recipe.dateAdded}"></a></td>
+                    <td th:text="${recipe.name}"></td>
+                    <td th:text="${recipe.author}"></td>
+                    <td th:text="${recipe.dateAdded}"></td>
                 </tr>
             </tbody>
         </table>
