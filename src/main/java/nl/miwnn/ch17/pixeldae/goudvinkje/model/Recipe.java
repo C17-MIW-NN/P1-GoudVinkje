@@ -43,6 +43,35 @@ public class Recipe {
         return ingredients;
     }
 
+    // getters
+    public Long getRecipeID() {
+        return recipeID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public LocalDate getDateAdded() {
+        return dateAdded;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getNrOfPortions() {
+        return nrOfPortions;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
     // setters
     public void addStep(Step step) {
         if (steps == null) steps = new ArrayList<>();
