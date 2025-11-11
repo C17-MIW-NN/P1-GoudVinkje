@@ -77,6 +77,12 @@ public class RecipeController {
         return "redirect:/";
     }
 
+    @GetMapping("/recipe/delete/{recipeID}")
+    public String deleteRecipe(@PathVariable("recipeID") Long recipeID) {
+        recipeRepository.deleteById(recipeID);
+        return "redirect:/recipe/";
+    }
+
     private String showRecipeForm(Model datamodel, Recipe recipe) {
         datamodel.addAttribute("formRecipe", recipe);
         return "recipeForm";

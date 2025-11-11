@@ -67,6 +67,7 @@
                     <tr>
                         <td><input type="text" th:field="*{steps[__${order.index}__].sequenceNr}"></td>
                         <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
+                        <td><a th:href="@{recipe/delete/{recipeID}(recipeID = ${formRecipe.recipeID})}">verwijder stap</a></td>
                     </tr>
                 </table>
             </div>
