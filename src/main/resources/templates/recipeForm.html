@@ -17,14 +17,14 @@
 
 <form th:action="@{/recipe/save}" method="post" th:object="${formRecipe}">
 
-<!--    <input type="hidden" th:field="*{formRecipe.recipeID}">-->
+    <input type="hidden" th:field="*{recipeID}">
 
-<!--    <div>-->
-<!--        <label for="name">Name</label>-->
-<!--        <div>-->
-<!--            <input type="text" id="name" th:field="*{formRecipe.name}" placeholder="bijv. Spaghetti Bolognese">-->
-<!--        </div>-->
-<!--    </div>-->
+    <div>
+        <label for="name">Name</label>
+        <div>
+            <input type="text" id="name" th:field="*{name}" placeholder="bijv. Spaghetti Bolognese">
+        </div>
+    </div>
 
 <!--    <div>-->
 <!--        <label for="ingredients">Ingredients</label>-->
@@ -48,6 +48,10 @@
 <!--        </div>-->
 <!--    </div>-->
 
+    <div>
+        <button type="submit" name="action" value="save">Opslaan</button>
+        <button type="submit" name="action" value="cancel">Annuleren</button>
+    </div>
 
 </form>
 </div>
