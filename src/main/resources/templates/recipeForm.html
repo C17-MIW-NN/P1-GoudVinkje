@@ -74,7 +74,7 @@
     <div>
         <h3>Ingrediënten</h3>
         <div id="ingredients-section">
-            <div th:each="ingredient, order : *{recipeHasIngredientCollection}">
+            <div th:each="ingredient, order : *{recipeHasIngredients}">
                 <table>
                     <tr>
                         <td><input type="hidden" th:field="*{recipeHasIngredientCollection[__${order.index}__].ingredient}"></td>
@@ -85,6 +85,12 @@
                         <td><button type="submit" th:formaction="@{/recept/{recipeID}/ingredient/verwijderen/{ingredientId}(recipeID=${formRecipe.recipeID},
                                     ingredientId=*{recipeHasIngredientCollection[__${order.index}__].ingredient})}"
                                     name="action" value="removeIngredient">Verwijder ingredient</button></td>
+                        <td><input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].ingredient}"></td>
+                        <td><input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID}"></td>
+                        <td><input type="text" th:field="*{recipeHasIngredients[__${order.index}__].quantity}"></td>
+                        <td><input type="text" th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}"></td>
+                        <td><input type="text" th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}"></td>
+<!--                        <td><button type="submit" th:formaction="@{/recept/{recipeID}/ingredient/verwijderen/{stepId}(recipeID=${formRecipe.recipeID}, stepId=*{steps[__${order.index}__].stepId})}" name="action" value="removeStep">Verwijder Stap</button></td>-->
                     </tr>
                 </table>
             </div>

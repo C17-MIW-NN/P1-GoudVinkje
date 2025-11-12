@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ public class Recipe {
     private int nrOfPortions;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RecipeHasIngredient> recipeHasIngredientCollection = new ArrayList<>();
+    private List<RecipeHasIngredient> recipeHasIngredients = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Step> steps = new ArrayList<>();
@@ -68,8 +67,8 @@ public class Recipe {
         return nrOfPortions;
     }
 
-    public List<RecipeHasIngredient> getRecipeHasIngredientCollection() {
-        return recipeHasIngredientCollection;
+    public List<RecipeHasIngredient> getRecipeHasIngredients() {
+        return recipeHasIngredients;
     }
 
     public List<Step> getSteps() {
@@ -77,8 +76,8 @@ public class Recipe {
     }
 
     // setters
-    public void setRecipeHasIngredientCollection(List<RecipeHasIngredient> recipeHasIngredientCollection) {
-        this.recipeHasIngredientCollection = recipeHasIngredientCollection;
+    public void setRecipeHasIngredients(List<RecipeHasIngredient> recipeHasIngredients) {
+        this.recipeHasIngredients = recipeHasIngredients;
     }
 
     public void setRecipeID(Long recipeID) {
