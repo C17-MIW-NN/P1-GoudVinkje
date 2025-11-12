@@ -1,13 +1,16 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
+import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
+import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeHasIngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -19,9 +22,11 @@ import java.util.Optional;
 public class RecipeController {
 
     private final RecipeRepository recipeRepository;
+    private final RecipeHasIngredientRepository recipeHasIngredientRepository;
 
-    public RecipeController(RecipeRepository recipeRepository) {
+    public RecipeController(RecipeRepository recipeRepository, RecipeHasIngredientRepository recipeHasIngredientRepository) {
         this.recipeRepository = recipeRepository;
+        this.recipeHasIngredientRepository = recipeHasIngredientRepository;
     }
 
     // showRecipeOverview
@@ -54,6 +59,7 @@ public class RecipeController {
     @PostMapping("/recept/opslaan")
     public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
                                  BindingResult result, Model datamodel, @RequestParam String action) {
+
         for (Step step : recipe.getSteps()) {
             step.setRecipe(recipe);
         }
