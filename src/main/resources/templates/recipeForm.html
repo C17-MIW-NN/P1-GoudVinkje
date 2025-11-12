@@ -87,15 +87,6 @@
         </div>
     </div>
 
-    <tbody>
-        <tr th:each="ingredient : ${ingredients}">
-            <td><a th:text="${ingredient.description}"
-                   th:href="@{/ingredient/aanpassen/{iDescr}(iDescr = ${ingredient.description})}"></a></td>
-            <td><a th:text="${ingredient.calories}"></a></td>
-            <td><a th:text="${ingredient.quantityUnit}"></a></td>
-        </tr>
-    </tbody>
-
     <div>
         <button type="submit" name="action" value="save">Opslaan</button>
         <button type="submit" name="action" value="cancel">Annuleren</button>
