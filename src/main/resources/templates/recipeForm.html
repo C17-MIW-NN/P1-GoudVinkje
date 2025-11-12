@@ -79,6 +79,7 @@
                     <tr>
                         <td><input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].ingredient}"></td>
                         <td><input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID}"></td>
+                        <td><input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].recipe}"></td>
                         <td><input type="text" th:field="*{recipeHasIngredients[__${order.index}__].quantity}"></td>
                         <td><input type="text" th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}"></td>
                         <td><input type="text" th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}"></td>
@@ -89,6 +90,8 @@
                 </table>
             </div>
         </div>
+        <button type="submit" th:formaction="@{/recept/{recipeID}/ingredienttoevoegen(recipeID=${formRecipe.recipeID})}"
+                name="action" value="addIngredient">Ingrediënt Toevoegen</button>
     </div>
 
     <div>

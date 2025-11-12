@@ -1,7 +1,10 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
+import nl.miwnn.ch17.pixeldae.goudvinkje.model.Ingredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
+import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
+import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeHasIngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.StepRepository;
@@ -21,11 +24,13 @@ import java.util.Optional;
 public class RecipeController {
 
     private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
     private final RecipeHasIngredientRepository recipeHasIngredientRepository;
     private final StepRepository stepRepository;
 
-    public RecipeController(RecipeRepository recipeRepository, RecipeHasIngredientRepository recipeHasIngredientRepository, StepRepository stepRepository) {
+    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, RecipeHasIngredientRepository recipeHasIngredientRepository, StepRepository stepRepository) {
         this.recipeRepository = recipeRepository;
+        this.ingredientRepository = ingredientRepository;
         this.recipeHasIngredientRepository = recipeHasIngredientRepository;
         this.stepRepository = stepRepository;
     }
@@ -44,7 +49,7 @@ public class RecipeController {
     private String showRecipeDetail(@PathVariable("recipeID") Long recipeID, Model datamodel) {
         Optional<Recipe> recipe = recipeRepository.findById(recipeID);
 
-        if (!recipe.isPresent()) {
+        if (recipe.isEmpty()) {
             return "redirect:/recept/lijst";
         }
 
@@ -79,6 +84,14 @@ public class RecipeController {
             step.setRecipe(recipe);
         }
 
+//        for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
+//            for (Ingredient ingredient : recipeHasIngredient) {
+//
+//            }
+//
+//
+//        }
+
         if (action.equals("save")) {
             if (!result.hasErrors()) {
                 recipeRepository.save(recipe);
@@ -91,6 +104,21 @@ public class RecipeController {
     public String deleteRecipe(@PathVariable("recipeID") Long recipeID) {
         recipeRepository.deleteById(recipeID);
         return "redirect:/recept/";
+    }
+
+    @PostMapping("/recept/{recipeID}/ingredienttoevoegen")
+    public String addRecipeIngredient(@PathVariable("recipeID") Long recipeID, Model datamodel) {
+        Recipe recipe = recipeRepository.findById(recipeID).orElseThrow();
+        Ingredient ingredient = new Ingredient();
+        RecipeHasIngredient recipeHasIngredient = new RecipeHasIngredient();
+
+        recipeHasIngredient.setRecipe(recipe);
+        recipeHasIngredient.setIngredient(ingredient);
+
+        ingredientRepository.save(ingredient);
+        recipeHasIngredientRepository.save(recipeHasIngredient);
+
+        return "redirect:/recept/aanpassen/" + recipeID;
     }
 
         //recipeForm mappings related to steps
@@ -108,20 +136,6 @@ public class RecipeController {
     }
     //TODO BindingResult toevoegen?
     //TODO methode werkt nu niet voor nieuwe recepten, omdat die geen ID hebben, dus de url is dan incompleet
-
-//    @PostMapping("/recept/{recipeId}/stap/verwijderen/{stepId}")
-//    public String deleteRecipeStep(@PathVariable("stepId") Long stepId,
-//                                   @PathVariable("recipeId") Long recipeID,
-//                                   Model datamodel) {
-//        Recipe recipeOfStep = recipeRepository.findById(recipeID).orElseThrow();
-//        recipeOfStep.getSteps().removeIf(step -> step.getStepId() == stepId);
-//        recipeRepository.save(recipeOfStep);
-//
-//        return showRecipeForm(datamodel, recipeOfStep);
-//    }
-
-    //TODO Is bovenstaande of onderstaande beter?
-
 
     @PostMapping("/recept/{recipeId}/stap/verwijderen/{stepId}")
     public String deleteRecipeStep(@PathVariable("stepId") Long stepId,
