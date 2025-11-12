@@ -17,14 +17,14 @@ public class Ingredient {
     @GeneratedValue
     private Long ingredientId;
 
-    @Column(unique = true)
+//    @Column(unique = true)
     private String description;
 
     private double calories;
 
     private String quantityUnit;
 
-    @OneToMany(mappedBy = "ingredient")
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<RecipeHasIngredient> recipeHasIngredient;
 
     // constructor
@@ -53,6 +53,12 @@ public class Ingredient {
     }
 
     // setters
+
+
+    public void setIngredientId(Long ingredientId) {
+        this.ingredientId = ingredientId;
+    }
+
     public void setDescription(String name) {
         this.description = name;
     }
@@ -67,5 +73,10 @@ public class Ingredient {
 
     public void setRecipeHasIngredient(Collection<RecipeHasIngredient> recipeHasIngredient) {
         this.recipeHasIngredient = recipeHasIngredient;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("ingredientId: %s, description: %s, calories: %s, quantityUnit: %s, recipeHasIngredient: %s", this.ingredientId, this.description, this.calories, this.quantityUnit, this.recipeHasIngredient);
     }
 }

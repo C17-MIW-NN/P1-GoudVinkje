@@ -84,13 +84,19 @@ public class RecipeController {
             step.setRecipe(recipe);
         }
 
-//        for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
-//            for (Ingredient ingredient : recipeHasIngredient) {
-//
-//            }
-//
-//
-//        }
+        for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
+            Ingredient ingredientFromForm = recipeHasIngredient.getIngredient();
+            String description = ingredientFromForm.getDescription();
+
+            Optional<Ingredient> sameIngredientAlreadyPresent =
+                    ingredientRepository.findByDescription(description);
+
+            if (sameIngredientAlreadyPresent.isPresent() &&
+                !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientFromForm.getIngredientId())) {
+                recipeHasIngredient.setIngredient(sameIngredientAlreadyPresent.get());
+                ingredientRepository.deleteById(ingredientFromForm.getIngredientId());
+            }
+        }
 
         if (action.equals("save")) {
             if (!result.hasErrors()) {

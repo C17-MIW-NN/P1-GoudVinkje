@@ -1,6 +1,5 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
-
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Ingredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
@@ -181,9 +180,5 @@ public class InitController {
         }
 
     }
-
-
-
-
 
 }

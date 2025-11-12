@@ -59,8 +59,4 @@ public class RecipeHasIngredient {
         this.quantity = quantity;
     }
 
-    @Override
-    public String toString() {
-        return String.format("recipeHasIngredientID: %s, recipe: %s, ingredient: %s, quantity: %s", this.recipeHasIngredientID, this.recipe, this.ingredient, this.quantity);
-    }
 }

@@ -3,7 +3,7 @@
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title th:if="${formRecipe.recipeID == null}">Voeg een nieuw recept toe</title>
-    <title th:unless="${formRecipe.recipeID == null}">Pas het recept voor ${formRecipe.name} aan</title>
+    <title th:unless="${formRecipe.recipeID == null}">Pas een recept aan</title>
 </head>
 
 <body>
@@ -102,5 +102,5 @@
 </form>
 </div>
 </body>
-
 </html>
+<script th:src="@{/js/script.js}"></script>

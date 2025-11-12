@@ -1,6 +1,5 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
-
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Ingredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,7 @@ import java.util.Optional;
 
 /**
  * @author Simon van der Kooij
- *
+ * handles everything concerning ingredients.
  */
 
 @Controller
