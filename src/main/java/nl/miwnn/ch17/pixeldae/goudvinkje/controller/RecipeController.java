@@ -30,12 +30,26 @@ public class RecipeController {
     }
 
     // showRecipeOverview
-    @GetMapping({"/", "/recept/"})
+    @GetMapping({"/", "/recept/", "/recept/lijst"})
     private String showRecipeOverview(Model datamodel) {
 
         datamodel.addAttribute("recipes", recipeRepository.findAll());
 
         return "showRecipeOverview";
+    }
+
+    // showRecipeDetail
+    @GetMapping("/recept/{recipeID}")
+    private String showRecipeDeatil(@PathVariable("recipeID") Long recipeID, Model datamodel) {
+        Optional<Recipe> recipe = recipeRepository.findById(recipeID);
+
+        if (!recipe.isPresent()) {
+            return "redirect:/recept/lijst";
+        }
+
+        datamodel.addAttribute("recipe", recipe.get());
+
+        return "recipeDetail";
     }
 
     // recipeForm
