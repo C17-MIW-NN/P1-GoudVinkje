@@ -10,6 +10,8 @@
 
     <h1 th:text="${recipe.name}"></h1>
 
+    <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">Recept aanpassen</a>
+
     <div>
         <label for="author">Auteur</label>
         <p type="text" id="author" th:text="${recipe.author}"><p>
