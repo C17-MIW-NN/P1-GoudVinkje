@@ -82,7 +82,9 @@
                         <td><input type="text" th:field="*{recipeHasIngredientCollection[__${order.index}__].quantity}"></td>
                         <td><input type="text" th:field="*{recipeHasIngredientCollection[__${order.index}__].ingredient.quantityUnit}"></td>
                         <td><input type="text" th:field="*{recipeHasIngredientCollection[__${order.index}__].ingredient.description}"></td>
-<!--                        <td><button type="submit" th:formaction="@{/recept/{recipeID}/ingredient/verwijderen/{stepId}(recipeID=${formRecipe.recipeID}, stepId=*{steps[__${order.index}__].stepId})}" name="action" value="removeStep">Verwijder Stap</button></td>-->
+                        <td><button type="submit" th:formaction="@{/recept/{recipeID}/ingredient/verwijderen/{ingredientId}(recipeID=${formRecipe.recipeID},
+                                    ingredientId=*{recipeHasIngredientCollection[__${order.index}__].ingredient})}"
+                                    name="action" value="removeIngredient">Verwijder ingredient</button></td>
                     </tr>
                 </table>
             </div>

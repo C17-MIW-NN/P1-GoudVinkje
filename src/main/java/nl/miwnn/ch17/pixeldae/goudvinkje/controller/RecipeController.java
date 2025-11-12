@@ -1,16 +1,15 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeHasIngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
+import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.StepRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -23,10 +22,12 @@ public class RecipeController {
 
     private final RecipeRepository recipeRepository;
     private final RecipeHasIngredientRepository recipeHasIngredientRepository;
+    private final StepRepository stepRepository;
 
-    public RecipeController(RecipeRepository recipeRepository, RecipeHasIngredientRepository recipeHasIngredientRepository) {
+    public RecipeController(RecipeRepository recipeRepository, RecipeHasIngredientRepository recipeHasIngredientRepository, StepRepository stepRepository) {
         this.recipeRepository = recipeRepository;
         this.recipeHasIngredientRepository = recipeHasIngredientRepository;
+        this.stepRepository = stepRepository;
     }
 
     // showRecipeOverview
@@ -103,21 +104,44 @@ public class RecipeController {
         }
         recipeRepository.save(recipe);
 
-        return showRecipeForm(datamodel, recipe);
+        return "redirect:/recept/aanpassen/" + recipeID;
     }
     //TODO BindingResult toevoegen?
     //TODO methode werkt nu niet voor nieuwe recepten, omdat die geen ID hebben, dus de url is dan incompleet
 
-    @PostMapping("/recept/{recipeID}/stap/verwijderen/{stepId}")
-    public String deleteRecipeStep(@PathVariable("stepId") Long stepId,
-                                   @PathVariable("recipeID") Long recipeID,
-                                   Model datamodel) {
-        Recipe recipeOfStep = recipeRepository.findById(recipeID).orElseThrow();
-        recipeOfStep.getSteps().removeIf(step -> step.getStepId() == stepId);
-        recipeRepository.save(recipeOfStep);
+//    @PostMapping("/recept/{recipeId}/stap/verwijderen/{stepId}")
+//    public String deleteRecipeStep(@PathVariable("stepId") Long stepId,
+//                                   @PathVariable("recipeId") Long recipeID,
+//                                   Model datamodel) {
+//        Recipe recipeOfStep = recipeRepository.findById(recipeID).orElseThrow();
+//        recipeOfStep.getSteps().removeIf(step -> step.getStepId() == stepId);
+//        recipeRepository.save(recipeOfStep);
+//
+//        return showRecipeForm(datamodel, recipeOfStep);
+//    }
 
-        return showRecipeForm(datamodel, recipeOfStep);
+    //TODO Is bovenstaande of onderstaande beter?
+
+
+    @PostMapping("/recept/{recipeId}/stap/verwijderen/{stepId}")
+//    @Transactional
+    public String deleteRecipeStep(@PathVariable("stepId") Long stepId,
+                                   @PathVariable("recipeId") Long recipeID,
+                                   Model datamodel) {
+
+        stepRepository.deleteById(stepId);
+
+        return "redirect:/recept/aanpassen/" + recipeID;
     }
+
+
+//    @PostMapping("/recept/{recipeId}/ingredient/verwijderen/{ingredientId}")
+//    public String deleteRecipeIngredient(@PathVariable("recipeId") Long recipeId,
+//                                         @PathVariable("ingredientId") Long ingredientId,
+//                                         Model datamodel) {
+//        recipeHasIngredientRepository.deleteById();
+//    }
+
 
     private String showRecipeForm(Model datamodel, Recipe recipe) {
         datamodel.addAttribute("formRecipe", recipe);
