@@ -124,23 +124,25 @@ public class RecipeController {
 
 
     @PostMapping("/recept/{recipeId}/stap/verwijderen/{stepId}")
-//    @Transactional
     public String deleteRecipeStep(@PathVariable("stepId") Long stepId,
-                                   @PathVariable("recipeId") Long recipeID,
+                                   @PathVariable("recipeId") Long recipeId,
                                    Model datamodel) {
 
         stepRepository.deleteById(stepId);
 
-        return "redirect:/recept/aanpassen/" + recipeID;
+        return "redirect:/recept/aanpassen/" + recipeId;
     }
 
 
-//    @PostMapping("/recept/{recipeId}/ingredient/verwijderen/{ingredientId}")
-//    public String deleteRecipeIngredient(@PathVariable("recipeId") Long recipeId,
-//                                         @PathVariable("ingredientId") Long ingredientId,
-//                                         Model datamodel) {
-//        recipeHasIngredientRepository.deleteById();
-//    }
+    @PostMapping("/recept/{recipeId}/ingredient/verwijderen/{recipeHasIngredientId}")
+    public String deleteRecipeIngredient(@PathVariable("recipeId") Long recipeId,
+                                         @PathVariable("recipeHasIngredientId") Long ingredientId,
+                                         Model datamodel) {
+
+        recipeHasIngredientRepository.deleteById(ingredientId);
+
+        return "redirect:/recept/aanpassen/" + recipeId;
+    }
 
 
     private String showRecipeForm(Model datamodel, Recipe recipe) {
