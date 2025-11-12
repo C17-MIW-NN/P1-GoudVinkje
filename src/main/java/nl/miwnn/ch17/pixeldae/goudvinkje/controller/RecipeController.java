@@ -41,7 +41,7 @@ public class RecipeController {
 
     // showRecipeDetail
     @GetMapping("/recept/{recipeID}")
-    private String showRecipeDeatil(@PathVariable("recipeID") Long recipeID, Model datamodel) {
+    private String showRecipeDetail(@PathVariable("recipeID") Long recipeID, Model datamodel) {
         Optional<Recipe> recipe = recipeRepository.findById(recipeID);
 
         if (!recipe.isPresent()) {
