@@ -83,6 +83,17 @@ public class RecipeController {
         return "redirect:/recept/";
     }
 
+    @PostMapping("/recept/{recipeID}/stap/verwijderen/{stepId}")
+    public String deleteRecipeStep(@PathVariable("stepId") Long stepId,
+                                   @PathVariable("recipeID") Long recipeID,
+                                   Model datamodel) {
+        Recipe recipeOfStep = recipeRepository.findById(recipeID).orElseThrow();
+        recipeOfStep.getSteps().removeIf(step -> step.getStepId() == stepId);
+        recipeRepository.save(recipeOfStep);
+
+        return showRecipeForm(datamodel, recipeOfStep);
+    }
+
     private String showRecipeForm(Model datamodel, Recipe recipe) {
         datamodel.addAttribute("formRecipe", recipe);
         return "recipeForm";

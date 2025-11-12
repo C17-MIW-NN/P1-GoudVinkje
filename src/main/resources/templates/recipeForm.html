@@ -21,28 +21,28 @@
     <div>
         <label for="name">Receptnaam</label>
         <div>
-            <input type="text" id="name" th:field="*{name}" placeholder="bijv. Spaghetti Bolognese">
+            <input type="text" id="name" th:field="*{name}" placeholder="Vegan Spaghetti Bolognese">
         </div>
     </div>
 
     <div>
         <label for="description">Korte omschrijving</label>
         <div>
-            <input type="text" id="description" th:field="*{description}">
+            <input type="text" id="description" th:field="*{description}" placeholder="Rijke bolognese saus op basis van champignons">
         </div>
     </div>
 
     <div>
         <label for="author">Auteur</label>
         <div>
-            <input type="text" id="author" th:field="*{author}" placeholder="bijv. Pieter van de Pepermolen">
+            <input type="text" id="author" th:field="*{author}" placeholder="Pieter van de Pepermolen">
         </div>
     </div>
 
     <div>
         <label for="portions">Aantal porties</label>
         <div>
-            <input type="text" id="portions" th:field="*{nrOfPortions}" placeholder="bijv. 6 personen">
+            <input type="text" id="portions" th:field="*{nrOfPortions}" placeholder="6 personen">
         </div>
     </div>
 
@@ -52,9 +52,10 @@
             <div th:each="step, order : *{steps}">
                 <table>
                     <tr>
+                        <td><input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
                         <td><input type="number" th:field="*{steps[__${order.index}__].sequenceNr}"></td>
                         <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
-                        <td></td>
+                        <td><button type="submit" th:formaction="@{/recept/{recipeID}/stap/verwijderen/{stepId}(recipeID=${formRecipe.recipeID}, stepId=*{steps[__${order.index}__].stepId})}" name="action" value="removeStep">Verwijder Stap</button></td>
                     </tr>
                 </table>
             </div>
@@ -67,7 +68,6 @@
         <button type="submit" name="action" value="cancel">Annuleren</button>
         <a th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">verwijder recept</a>
     </div>
-
 </form>
 </div>
 </body>

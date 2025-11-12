@@ -1,9 +1,6 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 /**
  * @author Annelies Hofman
@@ -11,6 +8,8 @@ import jakarta.persistence.ManyToOne;
  */
 
 @Entity
+//code om combinatie van recept en stapID uniek te maken, zodat sequenceNr automatisch afgehandeld kan gaan worden
+//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"sequence_nr", "recipe_recipeid"})})
 public class Step {
 
     protected static final int DEFAULT_SEQUENCE_NR = 0;
@@ -19,10 +18,13 @@ public class Step {
     @Id @GeneratedValue
     private long stepId;
 
+//    @Column(name = "sequence_nr")
     private int sequenceNr;
+
     private String instruction;
 
     @ManyToOne
+//    @Column(name = "recipe_recipeid")
     private Recipe recipe;
 
     // Constructors
