@@ -47,8 +47,8 @@
     </div>
 
     <div>
-        <h3>Instructie</h3>
-        <div id="steps">
+        <h3>Instructies</h3>
+        <div id="steps-section">
             <div th:each="step, order : *{steps}">
                 <table>
                     <tr>
@@ -64,9 +64,34 @@
     </div>
 
     <div>
+        <h3>Ingrediënten</h3>
+        <div id="ingredients-section">
+            <div th:each="ingredient, order : *{recipeHasIngredientCollection}">
+                <table>
+                    <tr>
+                        <td><input type="text" th:field="*{recipeHasIngredientCollection[__${order.index}__].ingredient.description}"></td>
+<!--                        <td><input type="number" th:field="*{steps[__${order.index}__].sequenceNr}"></td>-->
+<!--                        <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>-->
+<!--                        <td><button type="submit" th:formaction="@{/recept/{recipeID}/stap/verwijderen/{stepId}(recipeID=${formRecipe.recipeID}, stepId=*{steps[__${order.index}__].stepId})}" name="action" value="removeStep">Verwijder Stap</button></td>-->
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <tbody>
+        <tr th:each="ingredient : ${ingredients}">
+            <td><a th:text="${ingredient.description}"
+                   th:href="@{/ingredient/aanpassen/{iDescr}(iDescr = ${ingredient.description})}"></a></td>
+            <td><a th:text="${ingredient.calories}"></a></td>
+            <td><a th:text="${ingredient.quantityUnit}"></a></td>
+        </tr>
+    </tbody>
+
+    <div>
         <button type="submit" name="action" value="save">Opslaan</button>
         <button type="submit" name="action" value="cancel">Annuleren</button>
-        <a th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">verwijder recept</a>
+        <button th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">verwijder recept</button>
     </div>
 </form>
 </div>

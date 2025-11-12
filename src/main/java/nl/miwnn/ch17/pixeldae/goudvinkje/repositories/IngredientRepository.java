@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 
     Optional<Ingredient> findByDescription(String ingredientDescription);
+
 }

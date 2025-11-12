@@ -3,9 +3,6 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-import java.util.Objects;
-
 /**
  * @author Simon van der Kooij
  * This model brings ingredients and recipes together.
@@ -28,9 +25,28 @@ public class RecipeHasIngredient {
 
     private int quantity;
 
+    // constructor
     public RecipeHasIngredient() {
     }
 
+    // getters
+    public Long getRecipeHasIngredientID() {
+        return recipeHasIngredientID;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    // setters
     public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
     }
@@ -41,5 +57,10 @@ public class RecipeHasIngredient {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("recipeHasIngredientID: %s, recipe: %s, ingredient: %s, quantity: %s", this.recipeHasIngredientID, this.recipe, this.ingredient, this.quantity);
     }
 }

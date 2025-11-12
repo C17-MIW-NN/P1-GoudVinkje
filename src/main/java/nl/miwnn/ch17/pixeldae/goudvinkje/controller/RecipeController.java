@@ -1,6 +1,7 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
 
+
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
@@ -15,7 +16,6 @@ import java.util.Optional;
  * @author Simon van der Kooij
  * controlls everything concerning recipes
  */
-
 
 @Controller
 public class RecipeController {
@@ -40,8 +40,6 @@ public class RecipeController {
     public String showRecipeForm(Model datamodel) {
         Recipe recipe = new Recipe();
         recipe.getSteps().add(new Step());
-
-        datamodel.addAttribute("recipe", recipe);
 
         return showRecipeForm(datamodel, recipe);
     }
@@ -68,7 +66,8 @@ public class RecipeController {
             }
         } else if (action.equals("addStep")) {
             recipe.getSteps().add(new Step());
-            datamodel.addAttribute("recipe", recipe);
+            datamodel.addAttribute("formRecipe", recipe);
+
             if (!result.hasErrors()) {
                 recipeRepository.save(recipe);
             }
@@ -96,6 +95,7 @@ public class RecipeController {
 
     private String showRecipeForm(Model datamodel, Recipe recipe) {
         datamodel.addAttribute("formRecipe", recipe);
+
         return "recipeForm";
     }
 }

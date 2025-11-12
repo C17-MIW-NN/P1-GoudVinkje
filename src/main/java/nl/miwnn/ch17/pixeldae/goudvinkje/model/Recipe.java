@@ -31,7 +31,7 @@ public class Recipe {
     private int nrOfPortions;
 
     @OneToMany(mappedBy = "recipe")
-    private Collection<RecipeHasIngredient> ingredients;
+    private Collection<RecipeHasIngredient> recipeHasIngredientCollection;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Step> steps = new ArrayList<>();
@@ -68,8 +68,8 @@ public class Recipe {
         return nrOfPortions;
     }
 
-    public Collection<RecipeHasIngredient> getIngredients() {
-        return ingredients;
+    public Collection<RecipeHasIngredient> getRecipeHasIngredientCollection() {
+        return recipeHasIngredientCollection;
     }
 
     public List<Step> getSteps() {
@@ -77,8 +77,8 @@ public class Recipe {
     }
 
     // setters
-    public void setIngredients(Collection<RecipeHasIngredient> ingredients) {
-        this.ingredients = ingredients;
+    public void setRecipeHasIngredientCollection(Collection<RecipeHasIngredient> recipeHasIngredientCollection) {
+        this.recipeHasIngredientCollection = recipeHasIngredientCollection;
     }
 
     public void setRecipeID(Long recipeID) {

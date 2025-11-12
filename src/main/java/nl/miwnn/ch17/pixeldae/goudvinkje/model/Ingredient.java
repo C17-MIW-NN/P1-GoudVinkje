@@ -25,17 +25,17 @@ public class Ingredient {
     private String quantityUnit;
 
     @OneToMany(mappedBy = "ingredient")
-    private Collection<RecipeHasIngredient> recipes;
-
-    public Collection<RecipeHasIngredient> getRecipes() {
-        return recipes;
-    }
+    private Collection<RecipeHasIngredient> recipeHasIngredient;
 
     // constructor
     public Ingredient() {
     }
 
     // getters
+    public Collection<RecipeHasIngredient> getRecipeHasIngredient() {
+        return recipeHasIngredient;
+    }
+
     public Long getIngredientId() {
         return ingredientId;
     }
@@ -53,10 +53,6 @@ public class Ingredient {
     }
 
     // setters
-    public void setIngredients(Collection<RecipeHasIngredient> recipes) {
-        this.recipes = recipes;
-    }
-
     public void setDescription(String name) {
         this.description = name;
     }
@@ -69,7 +65,7 @@ public class Ingredient {
         this.quantityUnit = quantityUnit;
     }
 
-    public void setRecipes(Collection<RecipeHasIngredient> recipes) {
-        this.recipes = recipes;
+    public void setRecipeHasIngredient(Collection<RecipeHasIngredient> recipeHasIngredient) {
+        this.recipeHasIngredient = recipeHasIngredient;
     }
 }
