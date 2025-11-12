@@ -29,5 +29,26 @@
         <label for="portions">Aantal porties</label>
         <p type="text" id="portions" th:text="${recipe.nrOfPortions}"><p>
     </div>
+
+    <div>
+        <h2>Ingrediënten</h2>
+        <table th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
+            <tr>
+                <td><p type="text" th:text="${ingredient.quantity}"><p></td>
+                <td><p type="text" th:text="${ingredient.getIngredient().quantityUnit}"><p></td>
+                <td><p type="text" th:text="${ingredient.getIngredient().description}"><p></td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <h2 >Instructies</h2>
+        <table th:each="step : *{recipe.getSteps()}">
+            <tr>
+                <td><p type="text" th:text="${step.sequenceNr}"><p></td>
+                <td><p type="text" th:text="${step.instruction}"><p></td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
