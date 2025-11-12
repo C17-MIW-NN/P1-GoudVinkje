@@ -1,7 +1,5 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
-
-
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 /**
- * @author Simon van der Kooij
+ * @author Simon van der Kooij & Annelies Hofman
  * controlls everything concerning recipes
  */
 
@@ -35,7 +33,7 @@ public class RecipeController {
         return "showRecipeOverview";
     }
 
-    // recipeForm methods
+    // recipeForm
     @GetMapping("/recept/toevoegen")
     public String showRecipeForm(Model datamodel) {
         Recipe recipe = new Recipe();
@@ -64,14 +62,6 @@ public class RecipeController {
             if (!result.hasErrors()) {
                 recipeRepository.save(recipe);
             }
-        } else if (action.equals("addStep")) {
-            recipe.getSteps().add(new Step());
-            datamodel.addAttribute("formRecipe", recipe);
-
-            if (!result.hasErrors()) {
-                recipeRepository.save(recipe);
-            }
-            return showRecipeForm(datamodel, recipe);
         }
         return "redirect:/";
     }
@@ -81,6 +71,22 @@ public class RecipeController {
         recipeRepository.deleteById(recipeID);
         return "redirect:/recept/";
     }
+
+        //recipeForm mappings related to steps
+    @PostMapping("/recept/{recipeID}/staptoevoegen")
+    public String addRecipeStep(@PathVariable("recipeID") Long recipeID, Model datamodel) {
+        Recipe recipe = recipeRepository.findById(recipeID).orElseThrow();
+
+        recipe.getSteps().add(new Step());
+        for (Step step : recipe.getSteps()) {
+            step.setRecipe(recipe);
+        }
+        recipeRepository.save(recipe);
+
+        return showRecipeForm(datamodel, recipe);
+    }
+    //TODO BindingResult toevoegen?
+    //TODO methode werkt nu niet voor nieuwe recepten, omdat die geen ID hebben, dus de url is dan incompleet
 
     @PostMapping("/recept/{recipeID}/stap/verwijderen/{stepId}")
     public String deleteRecipeStep(@PathVariable("stepId") Long stepId,
