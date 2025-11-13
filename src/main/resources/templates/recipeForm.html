@@ -62,10 +62,7 @@
                             <td><input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
                             <td><input type="number" th:field="*{steps[__${order.index}__].sequenceNr}"></td>
                             <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
-                            <td><button type="submit" th:formaction="@{/recept/{recipeID}/stap/verwijderen/{stepId}
-                                                                       (recipeID=${formRecipe.recipeID},
-                                                                        stepId=*{steps[__${order.index}__].stepId})}"
-                                        name="action" value="removeStep">Verwijder Stap</button></td>
+                            <td><button type="button" class="remove-step">Verwijder stap</button></td>
                         </tr>
                     </tbody>
                 </table>

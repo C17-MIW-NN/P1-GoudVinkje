@@ -18,7 +18,7 @@ $(document).ready(function () {
                     <input type="text" name="steps[${numberOfSteps}].instruction" placeholder="Bijv. Snipper de ui"/>
                 </td>
                 <td>
-                    <button type="button" id="remove-step-${numberOfSteps}">Verwijder stap</button>
+                    <button type="button" class="remove-step">Verwijder stap</button>
                 </td>
             </tr>
             </tbody>
@@ -59,11 +59,29 @@ $(document).ready(function () {
                                th:field="*{recipeHasIngredients[${numberOfIngredients}].ingredient.description}">
                     </td>
                     <td>
-                        <button type="button" id="remove-ingredient-${numberOfSteps}">Verwijder ingrediënt</button>
+                        <button type="button" class="remove-ingredient">Verwijder ingrediënt</button>
                     </td>
                 </tr>
             </table>
             </div>`
         $("#ingredients-section").append(newIngredient);
+    });
+
+    $("#steps-section").on("click",".remove-step", function (){
+        $(this).closest(".step-row").remove();
+
+        numberOfSteps = $("#steps-section .step-row").length;
+
+        $("#steps-section .step-row").each(function (index) {
+            $(this)
+                .find("input, button")
+                .each(function () {
+                    const name = $(this).attr("name");
+                    if (name) {
+                        $(this).attr("name", name.replace(/(steps\[)\d+(\])/, `$1${index}$2`));
+                    }
+                });
+            $(this).find("input[name*='sequenceNr']").val(index + 1);
+        });
     });
 });
