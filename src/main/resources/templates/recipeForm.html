@@ -11,7 +11,7 @@
 
 <div class="container">
     <h1 th:if="${formRecipe.recipeID == null}">Voeg een nieuw recept toe</h1>
-    <h1 th:unless="${formRecipe.recipeID == null}">Pas het recept voor <span th:text="${formRecipe.name}"></span> aan</h1>
+    <h1 th:unless="${formRecipe.recipeID == null}"><span th:text="${formRecipe.name}"></span> aanpassen</h1>
 
     <div>
         <form th:action="@{/recept/opslaan}" method="post" th:object="${formRecipe}">
@@ -62,9 +62,7 @@
                                 <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
                                 <td>
                                     <button type="submit"
-                                            th:formaction="@{/recept/{recipeID}/stap/verwijderen/{stepId}
-                                            (recipeID=${formRecipe.recipeID},
-                                            stepId=*{steps[__${order.index}__].stepId})}"
+                                            th:formaction="@{/recept/{recipeID}/stap/verwijderen/{stepId}(recipeID=${formRecipe.recipeID}, stepId=*{steps[__${order.index}__].stepId})}"
                                             name="action" value="removeStep">Verwijder Stap
                                     </button>
                                 </td>
@@ -85,13 +83,16 @@
                         <table>
                             <tr>
                                 <td><input type="hidden"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].ingredient}"></td>
+                                           th:field="*{recipeHasIngredients[__${order.index}__].ingredient}">
+                                </td>
                                 <td><input type="hidden"
                                            th:field="*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID}">
                                 </td>
-                                <td><input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].recipe}">
+                                <td><input type="hidden"
+                                           th:field="*{recipeHasIngredients[__${order.index}__].recipe}">
                                 </td>
-                                <td><input type="text" th:field="*{recipeHasIngredients[__${order.index}__].quantity}">
+                                <td><input type="text"
+                                           th:field="*{recipeHasIngredients[__${order.index}__].quantity}">
                                 </td>
                                 <td><input type="text"
                                            th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
@@ -101,10 +102,7 @@
                                 </td>
                                 <td>
                                     <button type="submit"
-                                            th:formaction="@{/recept/{recipeId}/ingredient/verwijderen/
-                                            {recipeHasIngredientsId}(recipeId=${formRecipe.recipeID},
-                                            recipeHasIngredientsId=*{recipeHasIngredients[__${order.index}__].
-                                            recipeHasIngredientID})}"
+                                            th:formaction="@{/recept/{recipeId}/ingredient/verwijderen/{recipeHasIngredientsId}(recipeId=${formRecipe.recipeID}, recipeHasIngredientsId=*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID})}"
                                             name="action" value="removeIngredient">Verwijder ingredient
                                     </button>
                                 </td>
@@ -121,8 +119,8 @@
             <div>
                 <button type="submit" name="action" value="save">Opslaan</button>
                 <button type="submit" name="action" value="cancel">Annuleren</button>
-                <button th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">verwijder
-                    recept</button>
+                <button th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">verwijder recept
+                </button>
             </div>
         </form>
     </div>

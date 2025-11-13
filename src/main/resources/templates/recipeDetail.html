@@ -5,58 +5,69 @@
     <title th:text="${recipe.name}"></title>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 main-wrapper">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="container">
-    <h1 th:text="${recipe.name}"></h1>
-
-    <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">Recept aanpassen</a>
-
-    <div>
-        <label for="author">Auteur</label>
-        <p type="text" id="author" th:text="${recipe.author}"><p>
+<div class="container-md border-col p-0 my-5">
+    <div class="row g-0 align-items-stretch">
+        <div class="col d-flex justify-content-start align-items-center border-col">
+            <h1 class="m-0" th:text="${recipe.name}"></h1>
+        </div>
+        <div class="col-1 d-flex flex-end justify-content-center align-items-center border-col square">
+            <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}"><i class="bi bi-pencil-fill"></i>
+            </a>
+        </div>
     </div>
 
-    <div>
-        <label for="date">Publicatiedatum</label>
-        <p type="text" id="date" th:text="${recipe.dateAdded}"><p>
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col mb-0">
+            <p class="mb-0" type="text" id="description" th:text="${recipe.description}"></p>
+        </div>
     </div>
 
-    <div>
-        <label for="description">Korte beschrijving</label>
-        <p type="text" id="description" th:text="${recipe.description}"><p>
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col">
+            <label for="portions">Aantal porties</label>
+            <p class="mb-0" type="text" id="portions" th:text="${recipe.nrOfPortions}"></p>
+        </div>
+        <div class="col border-col">
+            <label for="author">Auteur</label>
+            <p class="mb-0" type="text" id="author" th:text="${recipe.author}"></p>
+        </div>
+        <div class="col border-col">
+            <label for="date">Publicatiedatum</label>
+            <p class="mb-0" type="text" id="date" th:text="${recipe.dateAdded}"></p>
+        </div>
     </div>
 
-    <div>
-        <label for="portions">Aantal porties</label>
-        <p type="text" id="portions" th:text="${recipe.nrOfPortions}"><p>
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col">
+            <h2>Ingrediënten</h2>
+            <div class="row g-0">
+                <div class="col-12 col-lg-6 d-flex" th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
+                    <div class="text-end" th:style="|width:40px|">
+                        <p class="mb-0" type="text" th:text="${ingredient.quantity}"></p></div>
+                    <div class="px-2" th:style="|width:80px|">
+                        <p class="mb-0" type="text" th:text="${ingredient.getIngredient().quantityUnit}"></p></div>
+                    <div>
+                        <p class="mb-0" type="text" th:text="${ingredient.getIngredient().description}"></p></div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <h2>Ingrediënten</h2>
-        <table th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
-            <tr>
-                <td><p type="text" th:text="${ingredient.quantity}">
-                    <p></td>
-                <td><p type="text" th:text="${ingredient.getIngredient().quantityUnit}">
-                    <p></td>
-                <td><p type="text" th:text="${ingredient.getIngredient().description}">
-                    <p></td>
-            </tr>
-        </table>
-    </div>
-
-    <div>
-        <h2>Instructies</h2>
-        <table th:each="step : *{recipe.getSteps()}">
-            <tr>
-                <td><p type="text" th:text="${step.sequenceNr}">
-                    <p></td>
-                <td><p type="text" th:text="${step.instruction}">
-                    <p></td>
-            </tr>
-        </table>
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col">
+            <h2>Instructies</h2>
+            <div class="row g-0">
+                <div class="col-12 d-flex" th:each="step : *{recipe.getSteps()}">
+                    <div class="text-center" th:style="|width:40px|">
+                        <p class="mb-1" type="text" th:text="${step.sequenceNr}"></p></div>
+                    <div>
+                        <p class="mb-1" type="text" th:text="${step.instruction}"></p></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
