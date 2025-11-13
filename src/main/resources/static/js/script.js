@@ -1,5 +1,6 @@
 $(document).ready(function () {
     let numberOfSteps = $("#steps-section .step-row").length;
+    let numberOfIngredients = $("#ingredients-section .ingredients-row").length;
 
     $("#add-step").click(function () {
         const newStep =
@@ -17,7 +18,7 @@ $(document).ready(function () {
                     <input type="text" name="steps[${numberOfSteps}].instruction" placeholder="Bijv. Snipper de ui"/>
                 </td>
                 <td>
-                    <button type="button" class="remove-step">Verwijder stap</button>
+                    <button type="button" id="remove-step-${numberOfSteps}">Verwijder stap</button>
                 </td>
             </tr>
             </tbody>
@@ -28,7 +29,41 @@ $(document).ready(function () {
     });
 
     $("#add-ingredient").click(function () {
+        $("#test").text("nieuwe tekst");
         const newIngredient =
-
-    })
+            `<div class="ingredient-row" th:each="ingredient, order : *{recipeHasIngredients}">
+            <table>
+                <tr>
+                    <td>
+                        <input type="hidden"
+                               th:field="*{recipeHasIngredients[${numberOfIngredients}].ingredient}">
+                    </td>
+                    <td>
+                        <input type="hidden"
+                               th:field="*{recipeHasIngredients[${numberOfIngredients}].recipeHasIngredientID}">
+                    </td>
+                    <td>
+                        <input type="hidden"
+                               th:field="*{recipeHasIngredients[${numberOfIngredients}].recipe}">
+                    </td>
+                    <td>
+                        <input type="text"
+                               th:field="*{recipeHasIngredients[${numberOfIngredients}].quantity}">
+                    </td>
+                    <td>
+                        <input type="text"
+                               th:field="*{recipeHasIngredients[${numberOfIngredients}].ingredient.quantityUnit}">
+                    </td>
+                    <td>
+                        <input type="text"
+                               th:field="*{recipeHasIngredients[${numberOfIngredients}].ingredient.description}">
+                    </td>
+                    <td>
+                        <button type="button" id="remove-ingredient-${numberOfSteps}">Verwijder ingrediënt</button>
+                    </td>
+                </tr>
+            </table>
+            </div>`
+        $("#ingredients-section").append(newIngredient);
+    });
 });
