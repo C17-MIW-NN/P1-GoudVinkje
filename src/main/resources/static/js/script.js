@@ -31,32 +31,32 @@ $(document).ready(function () {
     $("#add-ingredient").click(function () {
         $("#test").text("nieuwe tekst");
         const newIngredient =
-            `<div class="ingredient-row" th:each="ingredient, order : *{recipeHasIngredients}">
+            `<div class="ingredient-row">
             <table>
                 <tr>
                     <td>
                         <input type="hidden"
-                               th:field="*{recipeHasIngredients[${numberOfIngredients}].ingredient}">
+                               name="recipeHasIngredients[${numberOfIngredients}].ingredient">
                     </td>
                     <td>
                         <input type="hidden"
-                               th:field="*{recipeHasIngredients[${numberOfIngredients}].recipeHasIngredientID}">
+                               name="recipeHasIngredients[${numberOfIngredients}].recipeHasIngredientID">
                     </td>
                     <td>
                         <input type="hidden"
-                               th:field="*{recipeHasIngredients[${numberOfIngredients}].recipe}">
+                               name="recipeHasIngredients[${numberOfIngredients}].recipe">
                     </td>
                     <td>
                         <input type="text"
-                               th:field="*{recipeHasIngredients[${numberOfIngredients}].quantity}">
+                               name="recipeHasIngredients[${numberOfIngredients}].quantity">
                     </td>
                     <td>
                         <input type="text"
-                               th:field="*{recipeHasIngredients[${numberOfIngredients}].ingredient.quantityUnit}">
+                               name="recipeHasIngredients[${numberOfIngredients}].ingredient.quantityUnit">
                     </td>
                     <td>
                         <input type="text"
-                               th:field="*{recipeHasIngredients[${numberOfIngredients}].ingredient.description}">
+                               name="recipeHasIngredients[${numberOfIngredients}].ingredient.description">
                     </td>
                     <td>
                         <button type="button" class="remove-ingredient">Verwijder ingrediënt</button>
@@ -65,6 +65,7 @@ $(document).ready(function () {
             </table>
             </div>`
         $("#ingredients-section").append(newIngredient);
+        numberOfIngredients ++;
     });
 
     $("#steps-section").on("click",".remove-step", function (){
@@ -74,14 +75,32 @@ $(document).ready(function () {
 
         $("#steps-section .step-row").each(function (index) {
             $(this)
-                .find("input, button")
+                .find("input")
                 .each(function () {
                     const name = $(this).attr("name");
                     if (name) {
-                        $(this).attr("name", name.replace(/(steps\[)\d+(\])/, `$1${index}$2`));
+                        $(this).attr("name", name.replace(/\d+/, index));
                     }
                 });
             $(this).find("input[name*='sequenceNr']").val(index + 1);
+        });
+    });
+
+    $("#ingredients-section").on("click",".remove-ingredient", function (){
+        $("#test").text('nieuwe tekst')
+        $(this).closest(".ingredient-row").remove();
+
+        numberOfIngredients = $("#ingredients-section .ingredient-row").length;
+
+        $("#ingredients-section .ingredient-row").each(function (index) {
+            $(this)
+                .find("input")
+                .each(function () {
+                    const name = $(this).attr("name");
+                    if (name) {
+                        $(this).attr("name", name.replace(/\d+/, index));
+                    }
+                });
         });
     });
 });

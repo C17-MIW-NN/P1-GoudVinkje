@@ -65,4 +65,8 @@ public class Step {
         this.recipe = recipe;
     }
 
+    @Override
+    public String toString() {
+        return String.format("stepId: %s, sequenceNr: %s, instruction: %s, recipe: %s", this.stepId, this.sequenceNr, this.instruction, this.recipe);
+    }
 }

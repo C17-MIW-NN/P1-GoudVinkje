@@ -9,6 +9,7 @@ import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeHasIngredientReposit
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.StepRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -76,6 +77,7 @@ public class RecipeController {
         return "redirect:/";
     }
 
+
     @PostMapping("/recept/opslaan")
     public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
                                  BindingResult result, Model datamodel, @RequestParam String action) {
@@ -84,13 +86,20 @@ public class RecipeController {
             step.setRecipe(recipe);
         }
 
+        for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
+            System.err.println(recipeHasIngredient.getIngredient().getDescription());
+
+        }
+
         preventDuplicateIngredients(recipe);
 
-        if (action.equals("save")) {
-            if (!result.hasErrors()) {
-                recipeRepository.save(recipe);
-            }
+        if (!result.hasErrors()) {
+            // remove all the ingredients; otherwise deleted ingredients will remain in the database
+            Recipe recipeFromDB = recipeRepository.findById(recipe.getRecipeID()).orElseThrow();
+            recipeFromDB.getRecipeHasIngredients().clear();
+            recipeRepository.save(recipe);
         }
+
         return "redirect:/";
     }
 

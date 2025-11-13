@@ -104,11 +104,7 @@
                                th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}">
                     </td>
                     <td>
-                        <button type="submit"
-                                th:formaction="@{/recept/{recipeId}/ingredient/verwijderen/{recipeHasIngredientsId}
-                                (recipeId=${formRecipe.recipeID}, recipeHasIngredientsId=
-                                *{recipeHasIngredients[__${order.index}__].recipeHasIngredientID})}"
-                            name="action" value="removeIngredient">Verwijder ingredient</button>
+                    <td><button type="button" class="remove-ingredient">Verwijder ingredient</button></td>
                     </td>
                 </tr>
             </table>
