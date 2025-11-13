@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
-    <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-        <title>Receptenoverzicht</title>
-    </head>
 
-    <body>
-        <div th:replace="~{fragments/general :: navbar}"></div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Recipe</th>
-                    <th>Author</th>
-                    <th>Date added</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="recipe : ${recipes}">
-                    <td><a th:text="${recipe.name}"
-                    th:href="@{/recept/{recipeId}(recipeId = ${recipe.recipeID})}"></a></td>
-                    <td th:text="${recipe.author}"></td>
-                    <td th:text="${recipe.dateAdded}"></td>
-                    <td><a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">Recept aanpassen</a></td>
-                </tr>
-            </tbody>
-        </table>
-        <a class="btn btn-primary"
-           th:href="@{/recept/toevoegen}"
-           role="button">Voeg een nieuw recept toe</a>
-    </body>
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>Receptenoverzicht</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+<nav th:replace="~{fragments/general :: navbar}"></nav>
+
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>Recipe</th>
+            <th>Author</th>
+            <th>Date added</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="recipe : ${recipes}">
+            <td><a th:text="${recipe.name}"
+                   th:href="@{/recept/{recipeId}(recipeId = ${recipe.recipeID})}"></a></td>
+            <td th:text="${recipe.author}"></td>
+            <td th:text="${recipe.dateAdded}"></td>
+            <td><a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">Recept aanpassen</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" th:href="@{/recept/toevoegen}" role="button">Voeg een nieuw recept toe</a>
+</div>
+
+<footer th:replace="~{fragments/general :: footer}"></footer>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+</body>
+
 </html>

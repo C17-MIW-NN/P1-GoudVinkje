@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head th:fragment="baseheader(title)">
     <meta charset="UTF-8">
     <title th:replace="${title}">This is the base title</title>
@@ -7,11 +8,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.min.css}">
 
-    <link rel="stylesheet" type="text/css" href="/css/library.css" />
+    <link rel="stylesheet" type="text/css" href="/css/goudvinkje.css">
 </head>
-<body>
 
-<div th:fragment="navbar">
+<body>
+<nav th:fragment="navbar">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <!-- Titel links -->
@@ -43,7 +44,17 @@
             </div>
         </div>
     </nav>
-</div>
+</nav>
 
+<footer th:fragment="footer" class="footer mt-auto text-center py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">&copy; 2025 Pixeldae</span>
+    </div>
+</footer>
+
+<div th:fragment="bottomScripts">
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</div>
 </body>
+
 </html>
