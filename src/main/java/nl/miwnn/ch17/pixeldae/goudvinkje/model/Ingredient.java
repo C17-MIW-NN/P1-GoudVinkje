@@ -17,7 +17,7 @@ public class Ingredient {
     @GeneratedValue
     private Long ingredientId;
 
-//    @Column(unique = true)
+    @Column(unique = true)
     private String description;
 
     private double calories;

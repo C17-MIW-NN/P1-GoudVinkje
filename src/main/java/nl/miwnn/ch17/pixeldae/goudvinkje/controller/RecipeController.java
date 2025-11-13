@@ -84,6 +84,17 @@ public class RecipeController {
             step.setRecipe(recipe);
         }
 
+        preventDuplicateIngredients(recipe);
+
+        if (action.equals("save")) {
+            if (!result.hasErrors()) {
+                recipeRepository.save(recipe);
+            }
+        }
+        return "redirect:/";
+    }
+
+    private void preventDuplicateIngredients(Recipe recipe) {
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
             Ingredient ingredientFromForm = recipeHasIngredient.getIngredient();
             String description = ingredientFromForm.getDescription();
@@ -97,13 +108,6 @@ public class RecipeController {
                 ingredientRepository.deleteById(ingredientFromForm.getIngredientId());
             }
         }
-
-        if (action.equals("save")) {
-            if (!result.hasErrors()) {
-                recipeRepository.save(recipe);
-            }
-        }
-        return "redirect:/";
     }
 
     @GetMapping("/recept/verwijderen/{recipeID}")
