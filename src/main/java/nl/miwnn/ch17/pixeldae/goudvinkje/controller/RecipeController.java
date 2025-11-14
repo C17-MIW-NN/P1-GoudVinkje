@@ -103,7 +103,7 @@ public class RecipeController {
                 recipeRepository.save(recipe);
             }
         }
-        return "redirect:/";
+        return "redirect:/recept/{recipe.getRecipeID()}";
     }
 
     @GetMapping("/recept/verwijderen/{recipeID}")
