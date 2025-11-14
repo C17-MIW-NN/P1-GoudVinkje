@@ -16,23 +16,28 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <!-- Titel links -->
-            <a class="navbar-brand" href="/">GoudVinkje</a>
+            <div class="mt-2">
+                <a class="navbar-brand" href="/">
+                    <img src="/images/goudvinkje-logo.png" width="auto" height="40" alt="goudvinkje logo" class="d-inline-block pe-2 align-text-center">
+                    GoudVinkje
+                </a>
+            </div>
 
             <!-- Menu rechts -->
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" th:href="@{/recept/lijst}">Alle Recepten</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" th:href="@{/ingredient/overzicht}">Alle Ingrediënten</a>-->
+<!--                    </li>-->
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/recept/lijst}">Alle Recepten</a>
+                        <a class="nav-link" th:href="@{/recept/toevoegen}">nieuw recept</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/ingredient/overzicht}">Alle Ingrediënten</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/recept/toevoegen}">Recepten toevoegen</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/ingredient/toevoegen}">Ingrediënten toevoegen</a>
-                    </li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" th:href="@{/ingredient/toevoegen}">Ingrediënten toevoegen</a>-->
+<!--                    </li>-->
 <!--                    <li class="nav-item" sec:authorize="isAnonymous()">-->
 <!--                        <a class="nav-link" th:href="@{/login}"><i class="bi bi-lock-fill"></i></a>-->
 <!--                    </li>-->

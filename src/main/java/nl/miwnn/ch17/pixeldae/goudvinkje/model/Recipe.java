@@ -25,6 +25,7 @@ public class Recipe {
 
     private LocalDate dateAdded;
 
+    @Column(columnDefinition = "text")
     private String description;
 
     private int nrOfPortions;

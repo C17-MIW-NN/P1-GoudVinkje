@@ -21,6 +21,7 @@ public class Step {
 //    @Column(name = "sequence_nr")
     private int sequenceNr;
 
+    @Column(columnDefinition = "text")
     private String instruction;
 
     @ManyToOne

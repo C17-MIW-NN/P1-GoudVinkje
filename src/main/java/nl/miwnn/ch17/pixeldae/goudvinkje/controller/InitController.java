@@ -126,6 +126,104 @@ public class InitController {
                     "Serveer direct, eventueel met rijst of noedels."));
 
             recipeRepository.save(tofuStirFry);
+
+            // --- Derde recept --- (Extreem Lang Recept)
+            Recipe langRecept = makeRecipe(
+                    "Romige Plantbased Pasta Met Groenten, Kruiden En Een Langzaam Gekookte Saus",
+                    "Alexandra van der Laan",
+                    "Een uitgebreide, plantaardige pastamaaltijd met een romige saus op basis van "
+                            + "geweekte noten, kruidige groenten en zorgvuldig opgebouwde smaken. De "
+                            + "omschrijving is bewust lang zodat de layout getest kan worden.",
+                    4
+            );
+
+            Ingredient plantaardigeMelk = makeIngredient(
+                    "Plantaardige melk, bijvoorbeeld havermelk", 300, "ml");
+
+            Ingredient cashewPasta = makeIngredient(
+                    "Gebrande cashewnoten, geweekt en gepureerd", 120, "g");
+
+            Ingredient groentebouillon = makeIngredient(
+                    "Groentebouillon van goede kwaliteit voor extra diepgang", 200, "ml");
+
+            Ingredient citroensap = makeIngredient(
+                    "Vers citroensap voor een frisse, lichte zurige toets", 2, "el");
+
+            Ingredient edelgist = makeIngredient(
+                    "Edelgistvlokken (voedingsgist) voor een subtiele kaasachtige smaak", 3, "el");
+
+            Ingredient cherryTomaten = makeIngredient("Cherry tomaten", 200, "g");
+            Ingredient pasta = makeIngredient("Volkoren pasta", 300, "g");
+            Ingredient olijfolie = makeIngredient("Olijfolie extra vierge", 2, "el");
+
+            addIngredient(langRecept, Map.of(
+                    plantaardigeMelk, 300,
+                    cashewPasta, 80,
+                    groentebouillon, 800,
+                    citroensap, 10,
+                    ui, 1,
+                    knoflook, 3,
+                    edelgist, 50,
+                    cherryTomaten, 200,
+                    pasta, 300,
+                    olijfolie, 2
+            ));
+
+            langRecept.addStep(makeStep(1,
+                    "Kook de pasta volgens de aanwijzingen op de verpakking in ruim gezouten water. "
+                            + "Roer af en toe, zodat de pasta niet gaat plakken, en zorg dat hij beetgaar wordt "
+                            + "om later goed te kunnen mengen met de romige saus."));
+
+            langRecept.addStep(makeStep(2,
+                    "Verhit ondertussen een ruime hoeveelheid olijfolie in een grote pan op middelhoog vuur. "
+                            + "Bak de ui en knoflook voorzichtig aan tot ze glazig en aromatisch zijn. Laat ze niet "
+                            + "te donker worden, zodat de smaak mild blijft en de uiteindelijke saus niet bitter wordt."));
+
+            langRecept.addStep(makeStep(3,
+                    "Voeg de rode paprika en cherry tomaten toe en bak ze gedurende enkele minuten totdat "
+                            + "ze beginnen te karamelliseren. Dit draagt bij aan een diepere, lichtzoete smaak in de saus. "
+                            + "Roer regelmatig om aanbranden te voorkomen."));
+
+            langRecept.addStep(makeStep(4,
+                    "Schenk de groentebouillon en plantaardige melk in de pan en breng het geheel langzaam aan "
+                            + "de kook. Voeg vervolgens de gepureerde geweekte cashewnoten toe om de saus romig en vol "
+                            + "van textuur te maken. Laat dit geheel op laag vuur zachtjes pruttelen, waardoor de smaken "
+                            + "zich goed kunnen ontwikkelen en versmelten."));
+
+            langRecept.addStep(makeStep(5,
+                    "Voeg wanneer de saus heeft ingedikt de verse spinazie, edelgist, oregano en basilicum toe. "
+                            + "Meng alles rustig door elkaar totdat de spinazie is geslonken. Breng op smaak met zout, "
+                            + "peper en eventueel een scheutje citroensap voor frisheid. Proef en pas naar wens aan."));
+
+            langRecept.addStep(makeStep(6,
+                    "Giet de pasta af, voeg deze toe aan de saus en schep zorgvuldig om zodat alle pasta volledig "
+                            + "bedekt is met de romige mengsel. Laat het geheel nog één minuut zachtjes verwarmen voordat "
+                            + "je serveert. Garneer met extra edelgist of een handje verse kruiden indien gewenst."));
+
+            recipeRepository.save(langRecept);
+
+
+            // --- Vierde recept --- (Supersnel ei)
+            Recipe kortRecept = makeRecipe(
+                    "Snel Ei",
+                    "JP",
+                    "Een heel snel ontbijtje.",
+                    1
+            );
+
+            Ingredient ei = makeIngredient("Ei", 1, "st");
+            Ingredient boter = makeIngredient("Boter", 5, "g");
+
+            addIngredient(kortRecept, Map.of(
+                    ei, 1,
+                    boter, 1
+            ));
+
+            kortRecept.addStep(makeStep(1, "Verhit boter."));
+            kortRecept.addStep(makeStep(2, "Bak ei."));
+            kortRecept.addStep(makeStep(3, "Serveer."));
+
+            recipeRepository.save(kortRecept);
         }
     }
 

@@ -48,7 +48,7 @@
                 <div class="col-12 col-lg-6 d-flex" th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
                     <div class="col-3">
                         <p class="mb-0" type="text" th:text="|${ingredient.quantity} ${ingredient.getIngredient().quantityUnit}|"></p></div>
-                    <div>
+                    <div class="pe-3 pb-2">
                         <p class="mb-0" type="text" th:text="${ingredient.getIngredient().description}"></p></div>
                 </div>
             </div>
