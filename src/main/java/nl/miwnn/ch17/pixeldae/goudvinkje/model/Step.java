@@ -16,16 +16,16 @@ public class Step implements Comparable<Step> {
     protected static final String DEFAULT_INSTRUCTION = "";
 
     @Id @GeneratedValue
-    private long stepId;
+    private Long stepId;
 
 //    @Column(name = "sequence_nr")
-    private int sequenceNr;
+    private Integer sequenceNr;
 
     @Column(columnDefinition = "text")
     private String instruction;
 
     @ManyToOne
-//    @Column(name = "recipe_recipeid")
+    @JoinColumn(name = "recipe_recipeid")
     private Recipe recipe;
 
     // Constructors
@@ -39,10 +39,10 @@ public class Step implements Comparable<Step> {
     }
 
     // Getters
-    public long getStepId() {
+    public Long getStepId() {
         return stepId;
     }
-    public int getSequenceNr() {
+    public Integer getSequenceNr() {
         return sequenceNr;
     }
     public String getInstruction() {
@@ -53,10 +53,10 @@ public class Step implements Comparable<Step> {
     }
 
     // Setters
-    public void setStepId(long stepId) {
+    public void setStepId(Long stepId) {
         this.stepId = stepId;
     }
-    public void setSequenceNr(int sequenceNr) {
+    public void setSequenceNr(Integer sequenceNr) {
         this.sequenceNr = sequenceNr;
     }
     public void setInstruction(String instruction) {

@@ -9,10 +9,6 @@ $(document).ready(function () {
         }
     });
 
-    $('#ingredients-section').sortable({
-        items: '.ingredient-row'
-    });
-
     $("#add-step").click(function () {
         const newStep =
         `<div class="step-row">
@@ -23,7 +19,7 @@ $(document).ready(function () {
                     <input type="hidden" name="steps[${numberOfSteps}].stepId" value=""/>
                 </td>
                 <td>
-                    <input type="number" name="steps[${numberOfSteps}].sequenceNr" value="${numberOfSteps + 1}"/>
+                    <input type="number" name="steps[${numberOfSteps}].sequenceNr" value="${numberOfSteps + 1}" readonly/>
                 </td>
                 <td>
                     <input type="text" name="steps[${numberOfSteps}].instruction" placeholder="Bijv. Snipper de ui"/>

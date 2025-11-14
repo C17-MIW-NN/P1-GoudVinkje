@@ -59,7 +59,8 @@
                     <tbody>
                         <tr>
                             <td><input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
-                            <td><input type="number" th:field="*{steps[__${order.index}__].sequenceNr}"></td>
+                            <td><input type="text" th:field="*{steps[__${order.index}__].sequenceNr}" readonly>
+                                </td>
                             <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
                             <td><button type="button" class="remove-step">Verwijder stap</button></td>
                         </tr>

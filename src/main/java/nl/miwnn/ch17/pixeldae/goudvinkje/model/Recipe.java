@@ -31,7 +31,6 @@ public class Recipe {
     private int nrOfPortions;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderBy("recipeHasIngredientID ASC")
     private List<RecipeHasIngredient> recipeHasIngredients = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -81,6 +80,10 @@ public class Recipe {
     // setters
     public void setRecipeHasIngredients(List<RecipeHasIngredient> recipeHasIngredients) {
         this.recipeHasIngredients = recipeHasIngredients;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
     }
 
     public void setRecipeID(Long recipeID) {
