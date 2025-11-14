@@ -33,6 +33,7 @@ public class Recipe {
     private List<RecipeHasIngredient> recipeHasIngredients = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("sequenceNr ASC")
     private List<Step> steps = new ArrayList<>();
 
     // methods

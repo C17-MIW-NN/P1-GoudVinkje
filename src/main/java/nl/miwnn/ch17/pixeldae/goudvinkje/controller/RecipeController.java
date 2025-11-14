@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -79,24 +82,18 @@ public class RecipeController {
 
     @PostMapping("/recept/opslaan")
     public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
-                                 BindingResult result, Model datamodel, @RequestParam String action) {
+                                 BindingResult result, Model datamodel) {
 
         for (Step step : recipe.getSteps()) {
-            step.setRecipe(recipe);
-        }
-
-        for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
-            System.err.println("Desc: " + recipeHasIngredient.getIngredient().getDescription());
-            System.err.println("Id:   " + recipeHasIngredient.getIngredient().getIngredientId());
+            System.err.println("Inst: " + step.getInstruction());
+            System.err.println("Seq:  " + step.getSequenceNr());
+            System.err.println("Id:   " + step.getStepId());
             System.err.println();
+            step.setRecipe(recipe);
         }
 
         preventDuplicateIngredients(recipe);
 
-//        for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
-//            ingredientRepository.save(recipeHasIngredient.getIngredient());
-//            recipeHasIngredient.setRecipe(recipe);
-//        }
 
         if (!result.hasErrors()) {
             // remove all the ingredients; otherwise deleted ingredients will remain in the database

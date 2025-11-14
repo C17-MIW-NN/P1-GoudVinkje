@@ -2,6 +2,17 @@ $(document).ready(function () {
     let numberOfSteps = $("#steps-section .step-row").length;
     let numberOfIngredients = $("#ingredients-section .ingredient-row").length;
 
+    $('#steps-section').sortable({
+        items: '.step-row',
+        onEnd: function () {
+            renumberStepRows();
+        }
+    });
+
+    $('#ingredients-section').sortable({
+        items: '.ingredient-row'
+    });
+
     $("#add-step").click(function () {
         const newStep =
         `<div class="step-row">
@@ -71,20 +82,35 @@ $(document).ready(function () {
     $("#steps-section").on("click",".remove-step", function (){
         $(this).closest(".step-row").remove();
 
+        renumberStepRows();
+
         numberOfSteps = $("#steps-section .step-row").length;
+    });
+
+    function renumberStepRows() {
 
         $("#steps-section .step-row").each(function (index) {
+
+            $(this).find("input[name*='sequenceNr']").val(index + 1);
+
             $(this)
-                .find("input")
+                .find("input, textarea, select")
                 .each(function () {
                     const name = $(this).attr("name");
                     if (name) {
                         $(this).attr("name", name.replace(/\d+/, index));
                     }
+                    const id = $(this).attr("id");
+                    if (id) {
+                        $(this).attr("id", id.replace(/\d+/, index));
+                    }
+
                 });
             $(this).find("input[name*='sequenceNr']").val(index + 1);
         });
-    });
+
+    }
+
 
     $("#ingredients-section").on("click",".remove-ingredient", function (){
 
