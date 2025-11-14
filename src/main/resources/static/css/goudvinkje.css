@@ -51,3 +51,7 @@ body {
     column-gap: 2rem;
     list-style-position: inside;
 }
+
+.checked {
+    text-decoration: line-through;
+}
