@@ -13,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -78,30 +81,44 @@ public class RecipeController {
 
     @PostMapping("/recept/opslaan")
     public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
-                                 BindingResult result, Model datamodel, @RequestParam String action) {
+                                 BindingResult result, Model datamodel) {
 
         for (Step step : recipe.getSteps()) {
             step.setRecipe(recipe);
         }
 
+        preventDuplicateIngredients(recipe);
+
+
+        if (!result.hasErrors()) {
+            // remove all the ingredients; otherwise deleted ingredients will remain in the database
+            Recipe recipeFromDB = recipeRepository.findById(recipe.getRecipeID()).orElseThrow();
+            recipeFromDB.getRecipeHasIngredients().clear();
+            recipeRepository.save(recipe);
+        }
+
+        return "redirect:/";
+    }
+
+    private void preventDuplicateIngredients(Recipe recipe) {
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
             Ingredient ingredientFromForm = recipeHasIngredient.getIngredient();
             String description = ingredientFromForm.getDescription();
+            Long ingredientID = ingredientFromForm.getIngredientId();
 
             Optional<Ingredient> sameIngredientAlreadyPresent =
                     ingredientRepository.findByDescription(description);
 
             if (sameIngredientAlreadyPresent.isPresent() &&
-                !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientFromForm.getIngredientId())) {
+                !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientID)) {
                 recipeHasIngredient.setIngredient(sameIngredientAlreadyPresent.get());
-                ingredientRepository.deleteById(ingredientFromForm.getIngredientId());
+                if (ingredientID != null) {
+                    ingredientRepository.deleteById(ingredientID);
+                }
             }
-        }
 
-        if (action.equals("save")) {
-            if (!result.hasErrors()) {
-                recipeRepository.save(recipe);
-            }
+            ingredientRepository.save(recipeHasIngredient.getIngredient());
+            recipeHasIngredient.setRecipe(recipe);
         }
         return "redirect:/recept/{recipe.getRecipeID()}";
     }

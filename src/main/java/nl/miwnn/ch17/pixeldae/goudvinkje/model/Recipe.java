@@ -31,9 +31,11 @@ public class Recipe {
     private int nrOfPortions;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("recipeHasIngredientID ASC")
     private List<RecipeHasIngredient> recipeHasIngredients = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("sequenceNr ASC")
     private List<Step> steps = new ArrayList<>();
 
     // methods

@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @Entity
 //code om combinatie van recept en stapID uniek te maken, zodat sequenceNr automatisch afgehandeld kan gaan worden
 //@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"sequence_nr", "recipe_recipeid"})})
-public class Step {
+public class Step implements Comparable<Step> {
 
     protected static final int DEFAULT_SEQUENCE_NR = 0;
     protected static final String DEFAULT_INSTRUCTION = "";
@@ -66,4 +66,13 @@ public class Step {
         this.recipe = recipe;
     }
 
+    @Override
+    public String toString() {
+        return String.format("stepId: %s, sequenceNr: %s, instruction: %s, recipe: %s", this.stepId, this.sequenceNr, this.instruction, this.recipe);
+    }
+
+    @Override
+    public int compareTo(Step otherStep) {
+        return this.sequenceNr - otherStep.sequenceNr;
+    }
 }
