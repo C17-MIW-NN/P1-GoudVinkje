@@ -9,7 +9,6 @@ import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeHasIngredientReposit
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.StepRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -87,11 +86,17 @@ public class RecipeController {
         }
 
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
-            System.err.println(recipeHasIngredient.getIngredient().getDescription());
-
+            System.err.println("Desc: " + recipeHasIngredient.getIngredient().getDescription());
+            System.err.println("Id:   " + recipeHasIngredient.getIngredient().getIngredientId());
+            System.err.println();
         }
 
         preventDuplicateIngredients(recipe);
+
+//        for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
+//            ingredientRepository.save(recipeHasIngredient.getIngredient());
+//            recipeHasIngredient.setRecipe(recipe);
+//        }
 
         if (!result.hasErrors()) {
             // remove all the ingredients; otherwise deleted ingredients will remain in the database
@@ -107,15 +112,21 @@ public class RecipeController {
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
             Ingredient ingredientFromForm = recipeHasIngredient.getIngredient();
             String description = ingredientFromForm.getDescription();
+            Long ingredientID = ingredientFromForm.getIngredientId();
 
             Optional<Ingredient> sameIngredientAlreadyPresent =
                     ingredientRepository.findByDescription(description);
 
             if (sameIngredientAlreadyPresent.isPresent() &&
-                !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientFromForm.getIngredientId())) {
+                !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientID)) {
                 recipeHasIngredient.setIngredient(sameIngredientAlreadyPresent.get());
-                ingredientRepository.deleteById(ingredientFromForm.getIngredientId());
+                if (ingredientID != null) {
+                    ingredientRepository.deleteById(ingredientID);
+                }
             }
+
+            ingredientRepository.save(recipeHasIngredient.getIngredient());
+            recipeHasIngredient.setRecipe(recipe);
         }
     }
 

@@ -13,7 +13,6 @@
 <h1 th:unless="${formRecipe.recipeID == null}">Pas het recept voor <span th:text="${formRecipe.name}"></span> aan</h1>
 
 <div>
-    <p id="test">oude tekst</p>
 
 <form th:action="@{/recept/opslaan}" method="post" th:object="${formRecipe}">
 
@@ -105,7 +104,6 @@
                     </td>
                     <td>
                     <td><button type="button" class="remove-ingredient">Verwijder ingredient</button></td>
-                    </td>
                 </tr>
             </table>
             </div>
@@ -125,4 +123,4 @@
 </body>
 </html>
 <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-<script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/recipeForm.js}"></script>

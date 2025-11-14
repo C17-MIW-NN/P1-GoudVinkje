@@ -1,6 +1,6 @@
 $(document).ready(function () {
     let numberOfSteps = $("#steps-section .step-row").length;
-    let numberOfIngredients = $("#ingredients-section .ingredients-row").length;
+    let numberOfIngredients = $("#ingredients-section .ingredient-row").length;
 
     $("#add-step").click(function () {
         const newStep =
@@ -29,7 +29,7 @@ $(document).ready(function () {
     });
 
     $("#add-ingredient").click(function () {
-        $("#test").text("nieuwe tekst");
+
         const newIngredient =
             `<div class="ingredient-row">
             <table>
@@ -87,7 +87,7 @@ $(document).ready(function () {
     });
 
     $("#ingredients-section").on("click",".remove-ingredient", function (){
-        $("#test").text('nieuwe tekst')
+
         $(this).closest(".ingredient-row").remove();
 
         numberOfIngredients = $("#ingredients-section .ingredient-row").length;
