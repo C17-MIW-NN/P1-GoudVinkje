@@ -97,7 +97,7 @@ public class RecipeController {
             recipeRepository.save(recipe);
         }
 
-        return "redirect:/";
+        return "redirect:/recept/{recipe.getRecipeID()}";
     }
 
     private void preventDuplicateIngredients(Recipe recipe) {
@@ -120,7 +120,7 @@ public class RecipeController {
             ingredientRepository.save(recipeHasIngredient.getIngredient());
             recipeHasIngredient.setRecipe(recipe);
         }
-        return "redirect:/recept/{recipe.getRecipeID()}";
+
     }
 
     @GetMapping("/recept/verwijderen/{recipeID}")
