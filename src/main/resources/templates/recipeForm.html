@@ -28,7 +28,7 @@
                 </div>
                 <div class="ms-auto flex-end col-1">
                     <a th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">
-                        <i class="bi bi-trash-fill text-danger"></i>
+                        <i class="bi bi-trash-fill"></i>
                     </a>
                 </div>
             </div>
@@ -66,34 +66,25 @@
             <h2 class="mb-2">Ingrediënten</h2>
             <div id="ingredients-section">
                 <div class="ingredient-row" th:each="ingredient, order : *{recipeHasIngredients}">
+                    <input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].ingredient}">
+                    <input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID}">
+                    <input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].recipe}">
                     <table>
                         <tr>
                             <td>
-                                <input type="hidden"
-                                       th:field="*{recipeHasIngredients[__${order.index}__].ingredient}">
-                            </td>
-                            <td>
-                                <input type="hidden"
-                                       th:field="*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID}">
-                            </td>
-                            <td>
-                                <input type="hidden"
-                                       th:field="*{recipeHasIngredients[__${order.index}__].recipe}">
-                            </td>
-                            <td>
-                                <input type="text"
+                                <input type="text" class="form-control"
                                        th:field="*{recipeHasIngredients[__${order.index}__].quantity}">
                             </td>
                             <td>
-                                <input type="text"
+                                <input type="text" class="form-control"
                                        th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
                             </td>
-                            <td>
-                                <input type="text"
+                            <td class="description-line">
+                                <input type="text" class="form-control"
                                        th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}">
                             </td>
                             <td>
-                            <td><button type="button" class="remove-ingredient">Verwijder ingredient</button></td>
+                            <td><i class="ms-2 bi bi-trash-fill remove-ingredient"></i></td>
                         </tr>
                     </table>
                 </div>
@@ -102,21 +93,25 @@
         <button type="button" id="add-ingredient">Ingrediënt toevoegen</button>
     </div>
 
-    <div>
-        <h3>Instructies</h3>
-        <div id="steps-section">
-            <div class="step-row" th:each="step, order : *{steps}">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td><input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
-                            <td><input type="text" th:field="*{steps[__${order.index}__].sequenceNr}" readonly>
-                                </td>
-                            <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
-                            <td><button type="button" class="remove-step">Verwijder stap</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col px-3 pb-3">
+            <h2 class="mb-2">Instructies</h2>
+            <div id="steps-section">
+                <div class="step-row" th:each="step, order : *{steps}">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><i class="bi-grip-vertical"></i>
+                                    <input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
+                                <td><input class="form-control" type="text"
+                                           th:field="*{steps[__${order.index}__].sequenceNr}"></td>
+                                <td class="instruction-line"><input class="form-control"
+                                           type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
+                                <td><i class="ms-2 bi bi-trash-fill remove-step"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <button type="button" id="add-step">Stap toevoegen</button>

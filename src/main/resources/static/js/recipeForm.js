@@ -12,20 +12,23 @@ $(document).ready(function () {
     $("#add-step").click(function () {
         const newStep =
         `<div class="step-row">
+   
             <table>
             <tbody>
             <tr>
-                <td>
+                <td><i class="bi-grip-vertical"></i>
                     <input type="hidden" name="steps[${numberOfSteps}].stepId" value=""/>
                 </td>
                 <td>
-                    <input type="number" name="steps[${numberOfSteps}].sequenceNr" value="${numberOfSteps + 1}" readonly/>
+                    <input type="number" class="form-control"
+                           name="steps[${numberOfSteps}].sequenceNr" value="${numberOfSteps + 1}" readonly/>
+                </td>
+                <td class="instruction-line">
+                    <input type="text" class="form-control" 
+                    name="steps[${numberOfSteps}].instruction" placeholder="Bijv. Snipper de ui"/>
                 </td>
                 <td>
-                    <input type="text" name="steps[${numberOfSteps}].instruction" placeholder="Bijv. Snipper de ui"/>
-                </td>
-                <td>
-                    <button type="button" class="remove-step">Verwijder stap</button>
+                    <i class="ms-2 bi bi-trash-fill remove-step"></i></button>
                 </td>
             </tr>
             </tbody>
@@ -39,34 +42,25 @@ $(document).ready(function () {
 
         const newIngredient =
             `<div class="ingredient-row">
+            <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].ingredient">
+            <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].recipeHasIngredientID">
+            <input type="hidden"name="recipeHasIngredients[${numberOfIngredients}].recipe">
             <table>
                 <tr>
                     <td>
-                        <input type="hidden"
-                               name="recipeHasIngredients[${numberOfIngredients}].ingredient">
-                    </td>
-                    <td>
-                        <input type="hidden"
-                               name="recipeHasIngredients[${numberOfIngredients}].recipeHasIngredientID">
-                    </td>
-                    <td>
-                        <input type="hidden"
-                               name="recipeHasIngredients[${numberOfIngredients}].recipe">
-                    </td>
-                    <td>
-                        <input type="text"
+                        <input type="text" class="form-control"
                                name="recipeHasIngredients[${numberOfIngredients}].quantity">
                     </td>
                     <td>
-                        <input type="text"
+                        <input type="text" class="form-control"
                                name="recipeHasIngredients[${numberOfIngredients}].ingredient.quantityUnit">
                     </td>
-                    <td>
-                        <input type="text"
+                    <td class="description-line">
+                        <input type="text" class="form-control"
                                name="recipeHasIngredients[${numberOfIngredients}].ingredient.description">
                     </td>
                     <td>
-                        <button type="button" class="remove-ingredient">Verwijder ingrediënt</button>
+                        <td><i class="ms-2 bi bi-trash-fill remove-ingredient"></i></td>
                     </td>
                 </tr>
             </table>

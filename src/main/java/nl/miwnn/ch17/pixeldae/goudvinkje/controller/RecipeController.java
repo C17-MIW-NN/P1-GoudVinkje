@@ -85,17 +85,15 @@ public class RecipeController {
 
         for (Step step : recipe.getSteps()) {
             step.setRecipe(recipe);
-            System.err.println("ID:" + step.getStepId());
-            System.err.println("De:" + step.getInstruction());
         }
 
-//        preventDuplicateIngredients(recipe);
+        preventDuplicateIngredients(recipe);
 
 
         if (!result.hasErrors()) {
             // remove all the ingredients; otherwise deleted ingredients will remain in the database
-//            Recipe recipeFromDB = recipeRepository.findById(recipe.getRecipeID()).orElseThrow();
-//            recipeFromDB.getRecipeHasIngredients().clear();
+            Recipe recipeFromDB = recipeRepository.findById(recipe.getRecipeID()).orElseThrow();
+            recipeFromDB.getRecipeHasIngredients().clear();
             recipeRepository.save(recipe);
         }
 
