@@ -29,6 +29,10 @@ public class RecipeHasIngredient {
     public RecipeHasIngredient() {
     }
 
+    public RecipeHasIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
     // getters
     public Long getRecipeHasIngredientID() {
         return recipeHasIngredientID;

@@ -24,7 +24,7 @@
                         recept:
                     </label>
                     <input class="fs-2 mb-2 mx-0 px-1 form-control w-100" type="text" id="name" th:field="*{name}"
-                           placeholder="Vegan Spaghetti Bolognese">
+                           placeholder="bijv. Vegan Spaghetti Bolognese">
                 </div>
                 <div class="ms-auto flex-end col-1">
                     <a th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">
@@ -39,25 +39,23 @@
         <div class="col border-col mb-0 px-3">
             <label class="mt-2 mx-0 px-0 form-label" for="description">Korte omschrijving</label>
             <input class="mb-2 mx-0 px-1 form-control" type="text" id="description" th:field="*{description}"
-                   placeholder="Rijke bolognese saus op basis van champignons">
+                   placeholder="bijv. Rijke bolognese saus op basis van champignons">
         </div>
     </div>
 
     <div class="row g-0 align-items-stretch">
         <div class="col border-col px-3">
             <label for="portions">Aantal porties</label>
-            <input class="mb-2 mx-0 px-1 form-control" type="text" id="portions" th:field="*{nrOfPortions}"
-                   placeholder="6 personen">
+            <input class="mb-2 mx-0 px-1 form-control" type="text" id="portions" th:field="*{nrOfPortions}">
         </div>
         <div class="col border-col px-3">
             <label for="author">Auteur</label>
             <input class="mb-2 mx-0 px-1 form-control" type="text" id="author" th:field="*{author}"
-                   placeholder="Pieter van de Pepermolen">
+                   placeholder="bijv. Pieter van de Pepermolen">
         </div>
         <div class="col border-col px-3">
             <label for="date">Publicatiedatum</label>
-            <input class="mb-2 mx-0 px-1 form-control" type="text" id="date" th:field="*{dateAdded}" readonly>
-
+            <input class="mb-2 mx-0 px-1 form-control" type="text" id="date" th:field="*{dateAdded}">
         </div>
     </div>
 
@@ -104,7 +102,7 @@
                                 <td><i class="bi-grip-vertical"></i>
                                     <input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
                                 <td><input class="form-control" type="text"
-                                           th:field="*{steps[__${order.index}__].sequenceNr}"></td>
+                                           th:field="*{steps[__${order.index}__].sequenceNr}" readonly></td>
                                 <td class="instruction-line"><input class="form-control"
                                            type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
                                 <td><i class="ms-2 bi bi-trash-fill remove-step"></i></td>

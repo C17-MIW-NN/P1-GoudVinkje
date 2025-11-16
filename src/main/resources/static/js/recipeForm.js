@@ -1,6 +1,8 @@
 $(document).ready(function () {
-    let numberOfSteps = $("#steps-section .step-row").length;
-    let numberOfIngredients = $("#ingredients-section .ingredient-row").length;
+    let stepsSectionRows = $("#steps-section .step-row")
+    let numberOfSteps = stepsSectionRows.length;
+    let ingredientSectionRows = $("#ingredients-section .ingredient-row")
+    let numberOfIngredients = ingredientSectionRows.length;
 
     $('#steps-section').sortable({
         items: '.step-row',
@@ -44,7 +46,7 @@ $(document).ready(function () {
             `<div class="ingredient-row">
             <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].ingredient">
             <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].recipeHasIngredientID">
-            <input type="hidden"name="recipeHasIngredients[${numberOfIngredients}].recipe">
+            <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].recipe">
             <table>
                 <tr>
                     <td>
@@ -74,12 +76,30 @@ $(document).ready(function () {
 
         renumberStepRows();
 
-        numberOfSteps = $("#steps-section .step-row").length;
+        numberOfSteps = stepsSectionRows.length;
+    });
+
+    $("#ingredients-section").on("click",".remove-ingredient", function (){
+
+        $(this).closest(".ingredient-row").remove();
+
+        numberOfIngredients = ingredientSectionRows.length;
+
+        ingredientSectionRows.each(function (index) {
+            $(this)
+                .find("input")
+                .each(function () {
+                    const name = $(this).attr("name");
+                    if (name) {
+                        $(this).attr("name", name.replace(/\d+/, index));
+                    }
+                });
+        });
     });
 
     function renumberStepRows() {
 
-        $("#steps-section .step-row").each(function (index) {
+        stepsSectionRows.each(function (index) {
 
             $(this).find("input[name*='sequenceNr']").val(index + 1);
 
@@ -100,23 +120,4 @@ $(document).ready(function () {
         });
 
     }
-
-
-    $("#ingredients-section").on("click",".remove-ingredient", function (){
-
-        $(this).closest(".ingredient-row").remove();
-
-        numberOfIngredients = $("#ingredients-section .ingredient-row").length;
-
-        $("#ingredients-section .ingredient-row").each(function (index) {
-            $(this)
-                .find("input")
-                .each(function () {
-                    const name = $(this).attr("name");
-                    if (name) {
-                        $(this).attr("name", name.replace(/\d+/, index));
-                    }
-                });
-        });
-    });
 });
