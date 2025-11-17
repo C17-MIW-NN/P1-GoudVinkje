@@ -41,6 +41,7 @@ public class InitController {
         if (recipeRepository.count() == 0 && ingredientRepository.count() == 0) {
 
             makeUser("Chad G Pete", "Vinkje123!");
+            makeUser("Simon", "2025");
 
             // --- Recept 1---
             Recipe recipe = makeRecipe(

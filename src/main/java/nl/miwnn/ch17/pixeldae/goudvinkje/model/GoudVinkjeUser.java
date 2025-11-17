@@ -1,6 +1,7 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -23,6 +24,7 @@ public class GoudVinkjeUser implements UserDetails {
     @GeneratedValue
     private Long userID;
 
+    @Column(unique = true)
     private String username;
 
     private String password;
