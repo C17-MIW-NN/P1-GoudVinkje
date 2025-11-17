@@ -33,6 +33,11 @@ public class RecipeHasIngredient {
         this.ingredient = ingredient;
     }
 
+    // methods
+    public double countCaloriesPerIngredient() {
+        return (double) this.quantity * ingredient.getCalories();
+    }
+
     // getters
     public Long getRecipeHasIngredientID() {
         return recipeHasIngredientID;

@@ -47,7 +47,6 @@ public class Recipe {
         this.dateAdded = dateAdded;
     }
 
-    // methods
     public void addStep(Step step) {
         if (steps == null) steps = new ArrayList<>();
         step.setRecipe(this);
