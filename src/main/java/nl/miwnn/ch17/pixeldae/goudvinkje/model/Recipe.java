@@ -57,7 +57,7 @@ public class Recipe {
     public double countRecipeCalories() {
         double totalCalories = 0;
         for (RecipeHasIngredient recipeIngredient : recipeHasIngredients) {
-            double calories = (recipeIngredient.getQuantity() * recipeIngredient.getIngredient().getCalories());
+            double calories = (recipeIngredient.getQuantity() * recipeIngredient.getIngredient().getCorrectedCalories());
             totalCalories += calories;
         }
         return totalCalories;

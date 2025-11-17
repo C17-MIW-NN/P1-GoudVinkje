@@ -62,6 +62,10 @@ public class Ingredient {
     }
 
     public double getCalories() {
+        return calories;
+    }
+
+    public double getCorrectedCalories() {
         return Math.round((calories / checkCaloryUnitFactor()) * 100.0) / 100.0;
     }
 
