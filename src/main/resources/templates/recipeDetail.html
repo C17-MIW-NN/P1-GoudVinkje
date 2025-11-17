@@ -46,17 +46,18 @@
             <div class="row g-0">
                 <div class="col-12 col-lg-6 d-flex" th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
                     <div class="form-check col-3">
-                        <input class="form-check-input ingredient-checkbox"
+                        <input class="form-check-input cross-checkbox"
                                type="checkbox"
-                               th:id="'checker' + ${ingredient.getIngredient().ingredientId}"
-                               th:data-ingredient-id="${ingredient.getIngredient().ingredientId}">
+                               th:data-type="'ingredient'"
+                               th:data-id="${ingredient.getIngredient().ingredientId}"
+                               th:id="'checker' + ${ingredient.getIngredient().ingredientId}">
                         <label class="mb-0 form-check-label"
                                th:for="'checker' + ${ingredient.getIngredient().ingredientId}"
                                th:text="|${ingredient.quantity} ${ingredient.getIngredient().quantityUnit}|"></label>
                     </div>
                     <div class="pe-3 pb-2">
                         <p class="mb-0 checkable"
-                           th:id="'description-' + ${ingredient.getIngredient().ingredientId}"
+                           th:id="'ingredient' + ${ingredient.getIngredient().ingredientId}"
                            th:text="${ingredient.getIngredient().description}"></p>
                     </div>
                 </div>
@@ -70,17 +71,18 @@
             <div class="row g-0">
                 <div class="col-12 d-flex" th:each="step : *{recipe.getSteps()}">
                     <div class="form-check col-1">
-                        <input class="form-check-input step-checkbox"
+                        <input class="form-check-input cross-checkbox"
                                type="checkbox"
-                               th:id="'checker' + ${step.stepId}"
-                               th:data-step-id="${step.stepId}">
+                               th:data-type="'step'"
+                               th:data-id="${step.stepId}"
+                               th:id="'checker' + ${step.stepId}">
                         <label class="form-check-label"
                                th:for="'checker' + ${step.stepId}"
                                th:text="${step.sequenceNr}"></label>
                     </div>
                     <div>
                         <p class="mb-1 checkable"
-                           th:id="'instruction-' + ${step.stepId}"
+                           th:id="'step' + ${step.stepId}"
                            th:text="${step.instruction}"></p>
                     </div>
                 </div>
