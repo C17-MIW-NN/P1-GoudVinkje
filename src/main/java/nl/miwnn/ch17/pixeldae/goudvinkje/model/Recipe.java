@@ -53,6 +53,16 @@ public class Recipe {
         this.steps.add(step);
     }
 
+    // methods
+    public double countRecipeCalories() {
+        double totalCalories = 0;
+        for (RecipeHasIngredient recipeIngredient : recipeHasIngredients) {
+            double calories = (recipeIngredient.getQuantity() * recipeIngredient.getIngredient().getCalories());
+            totalCalories += calories;
+        }
+        return totalCalories;
+    }
+
     // getters
     public Long getRecipeID() {
         return recipeID;
@@ -84,6 +94,10 @@ public class Recipe {
 
     public List<Step> getSteps() {
         return steps;
+    }
+
+    public double getCalories() {
+        return countRecipeCalories();
     }
 
     // setters
