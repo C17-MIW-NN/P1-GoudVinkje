@@ -2,19 +2,14 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
 
 import nl.miwnn.ch17.pixeldae.goudvinkje.dto.GoudVinkjeUserDTO;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.GoudVinkjeUser;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.GoudVinkjeUserRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 /**
  * @author Simon van der Kooij
- *
  */
 
 @Controller
@@ -23,8 +18,7 @@ public class UserController {
 
     private final GoudVinkjeUserService goudVinkjeUserService;
 
-    public UserController(GoudVinkjeUserRepository goudVinkjeUserRepository,
-                          GoudVinkjeUserService goudVinkjeUserService) {
+    public UserController(GoudVinkjeUserService goudVinkjeUserService) {
         this.goudVinkjeUserService = goudVinkjeUserService;
     }
 
@@ -58,8 +52,7 @@ public class UserController {
     }
 
     @PostMapping("/opslaan")
-    public String saveUserForm(@ModelAttribute("user") GoudVinkjeUserDTO goudVinkjeUserDTO, BindingResult result,
-                               Model datamodel) {
+    public String saveUserForm(@ModelAttribute("user") GoudVinkjeUserDTO goudVinkjeUserDTO, BindingResult result) {
 
         if (goudVinkjeUserService.usernameInUse(goudVinkjeUserDTO.getUsername()) &&
                 goudVinkjeUserDTO.getUserID() == null) {

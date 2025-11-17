@@ -40,16 +40,6 @@ public class GoudVinkjeUserService implements UserDetailsService {
         return goudVinkjeUserRepository.existsByUsername(username);
     }
 
-    public boolean hasNotSameID(Long userID, String username) {
-        Optional<GoudVinkjeUser> optionalGoudVinkjeUser = goudVinkjeUserRepository.findByUsername(username);
-
-        if (optionalGoudVinkjeUser.isPresent()) {
-            return !Objects.equals(userID, optionalGoudVinkjeUser.get().getUserID());
-        }
-
-        return false;
-    }
-
     public void deleteUserByID(Long userID) {
         goudVinkjeUserRepository.deleteById(userID);
     }
@@ -60,7 +50,6 @@ public class GoudVinkjeUserService implements UserDetailsService {
         if (optionalGoudVinkjeUser.isPresent()) {
             return GoudVinkjeUserMapper.toDTO(optionalGoudVinkjeUser.get());
         }
-
         return null;
     }
 
