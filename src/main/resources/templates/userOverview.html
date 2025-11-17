@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>Gebruikte ingredienten</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+<nav th:replace="~{fragments/general :: navbar}"></nav>
+
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Gebruiker</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><a th:text="${user.username}"
+                   th:href="@{/gebruiker/aanpassen/{username}(username = ${user.username})}"></a></td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" th:href="@{/gebruiker/toevoegen}" role="button">Voeg een nieuw gebruiker toe</a>
+</div>
+
+<footer th:replace="~{fragments/general :: footer}"></footer>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+</body>
+
+</html>

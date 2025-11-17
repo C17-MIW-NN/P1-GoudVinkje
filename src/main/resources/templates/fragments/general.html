@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 <head th:fragment="baseheader(title)">
     <meta charset="UTF-8">
@@ -26,25 +26,25 @@
             <!-- Menu rechts -->
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" th:href="@{/recept/lijst}">Alle Recepten</a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link" th:href="@{/ingredient/overzicht}">Alle Ingrediënten</a>-->
-<!--                    </li>-->
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/recept/toevoegen}">nieuw recept</a>
+                        <a class="nav-link" th:href="@{/recept/overzicht}">Recepten</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/ingredient/overzicht}">Ingrediënten</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/gebruiker/overzicht}">Gebruikers</a>
                     </li>
 <!--                    <li class="nav-item">-->
 <!--                        <a class="nav-link" th:href="@{/ingredient/toevoegen}">Ingrediënten toevoegen</a>-->
 <!--                    </li>-->
-<!--                    <li class="nav-item" sec:authorize="isAnonymous()">-->
-<!--                        <a class="nav-link" th:href="@{/login}"><i class="bi bi-lock-fill"></i></a>-->
-<!--                    </li>-->
-<!--                    <li class="nav-item" sec:authorize="isAuthenticated()">-->
-<!--                        <a class="nav-link" th:href="@{/logout}">-->
-<!--                            <i class="bi bi-unlock-fill"></i></a>-->
-<!--                    </li>-->
+                    <li class="nav-item" sec:authorize="isAnonymous()">
+                        <a class="nav-link" th:href="@{/login}"><i class="bi bi-lock-fill"></i></a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/logout}">
+                            <i class="bi bi-unlock-fill"></i></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -59,6 +59,9 @@
 
 <div th:fragment="bottomScripts">
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/Sortable.min.js}"></script>
+    <script th:src="@{/js/jquery-sortable.js}"></script>
 </div>
 </body>
 

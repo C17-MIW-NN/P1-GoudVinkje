@@ -26,7 +26,7 @@
             </div>
 
             <div>
-                <label for="calories">Aantal calorieën per 100</label>
+                <label for="calories">Aantal calorieën per <span id="unitDisplay"></span></label>
                 <div>
                     <input type="number" id="calories" th:field="*{calories}">
                 </div>
@@ -50,5 +50,4 @@
 <footer th:replace="~{fragments/general :: footer}"></footer>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 </body>
-
 </html>

@@ -28,7 +28,7 @@ public class IngredientController {
     public String showIngredients(Model datamodel) {
         datamodel.addAttribute("ingredients", ingredientRepository.findAll());
 
-        return "showIngredientOverview";
+        return "ingredientOverview";
     }
 
     @GetMapping("/toevoegen")
@@ -50,13 +50,20 @@ public class IngredientController {
 
     @PostMapping("/opslaan")
     public String saveIngredientForm(@ModelAttribute("ingredient") Ingredient ingredient,
-                                 BindingResult result, Model datamodel) {
+                                 BindingResult result) {
 
         if (!result.hasErrors()) {
             ingredientRepository.save(ingredient);
         }
 
         return "redirect:/ingredient/overzicht";
+    }
+
+    @GetMapping("/verwijderen/{ingredientID}")
+    public String deleteIngredient(@PathVariable("ingredientID") Long ingredientID) {
+        ingredientRepository.deleteById(ingredientID);
+
+        return "redirect:/ingredient/";
     }
 
     private String showIngredientForm(Model datamodel, Ingredient ingredient) {

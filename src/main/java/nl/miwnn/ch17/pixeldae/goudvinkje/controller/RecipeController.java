@@ -32,11 +32,11 @@ public class RecipeController {
     }
 
     // showRecipeOverview
-    @GetMapping({"/", "/recept/", "/recept/lijst"})
+    @GetMapping({"/", "/recept/", "/recept/overzicht"})
     private String showRecipeOverview(Model datamodel) {
         datamodel.addAttribute("recipes", recipeRepository.findAll());
 
-        return "showRecipeOverview";
+        return "recipeOverview";
     }
 
     // showRecipeDetail

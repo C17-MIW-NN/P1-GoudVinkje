@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title th:if="${user.username == null}">Voeg een nieuwe gebruiker toe</title>
+    <title th:unless="${user.username == null}">Pas een gebruiker aan</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+<nav th:replace="~{fragments/general :: navbar}"></nav>
+
+<div class="container">
+    <h1 th:if="${user.username == null}">Voeg een nieuwe gebruiker toe</h1>
+    <h1 th:unless="${user.username == null}">Pas een gebruiker aan</h1>
+
+    <div>
+        <form th:action="@{/gebruiker/opslaan}" method="post" th:object="${user}">
+
+            <input type="hidden" th:field="*{userID}">
+
+            <div>
+                <label for="name">Gebruikersnaam</label>
+                <div>
+                    <input type="text" id="name" th:field="*{username}">
+                </div>
+            </div>
+
+            <div>
+                <label for="passwordOne">Wachtwoord</label>
+                <div>
+                    <input type="password" id="passwordOne" th:field="*{password}">
+                </div>
+            </div>
+            <div>
+                <label for="passwordTwo">Wachtwoord bevestigen</label>
+                <div>
+                    <input type="password" id="passwordTwo" th:field="*{password}">
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" name="action" value="save">Opslaan</button>
+                <button type="submit" name="action" value="cancel">Annuleren</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer th:replace="~{fragments/general :: footer}"></footer>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+</body>
+
+</html>

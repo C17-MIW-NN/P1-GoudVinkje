@@ -23,6 +23,8 @@
                    th:href="@{/ingredient/aanpassen/{iDescr}(iDescr = ${ingredient.description})}"></a></td>
             <td><a th:text="${ingredient.calories}"></a></td>
             <td><a th:text="${ingredient.quantityUnit}"></a></td>
+            <td><a th:href="@{/ingredient/verwijderen/{ingredientID}(ingredientID = ${ingredient.ingredientId})}">
+                <i class="bi bi-trash-fill"></i></a></td>
         </tr>
         </tbody>
     </table>

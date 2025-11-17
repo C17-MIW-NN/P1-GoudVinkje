@@ -1,13 +1,8 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.Ingredient;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeHasIngredientRepository;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.StepRepository;
+import nl.miwnn.ch17.pixeldae.goudvinkje.model.*;
+import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.*;
+import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
@@ -27,17 +22,25 @@ public class InitController {
     private final IngredientRepository ingredientRepository;
     private final RecipeHasIngredientRepository recipeHasIngredientRepository;
     private final StepRepository stepRepository;
+    private final GoudVinkjeUserService goudVinkjeUserService;
 
-    public InitController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, RecipeHasIngredientRepository recipeHasIngredientRepository, StepRepository stepRepository) {
+    public InitController(RecipeRepository recipeRepository,
+                          IngredientRepository ingredientRepository,
+                          RecipeHasIngredientRepository recipeHasIngredientRepository,
+                          StepRepository stepRepository,
+                          GoudVinkjeUserService goudVinkjeUserService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.recipeHasIngredientRepository = recipeHasIngredientRepository;
         this.stepRepository = stepRepository;
+        this.goudVinkjeUserService = goudVinkjeUserService;
     }
 
     @EventListener
     private void seed(ContextRefreshedEvent ignoredEvent) {
         if (recipeRepository.count() == 0 && ingredientRepository.count() == 0) {
+
+            makeUser("Chad G Pete", "Vinkje123!");
 
             // --- Recept 1---
             Recipe recipe = makeRecipe(
@@ -227,7 +230,7 @@ public class InitController {
         }
     }
 
-    public Recipe makeRecipe(String name, String author, String description, int nrOfPortions) {
+    private Recipe makeRecipe(String name, String author, String description, int nrOfPortions) {
         Recipe recipe = new Recipe();
 
         recipe.setName(name);
@@ -241,7 +244,7 @@ public class InitController {
         return recipe;
     }
 
-    public Ingredient makeIngredient(String description, int calories, String quantityUnit) {
+    private Ingredient makeIngredient(String description, int calories, String quantityUnit) {
 
         Ingredient ingredient = new Ingredient();
 
@@ -254,7 +257,7 @@ public class InitController {
         return ingredient;
     }
 
-    public Step makeStep(int sequenceNr, String instruction) {
+    private Step makeStep(int sequenceNr, String instruction) {
 
         Step step = new Step();
 
@@ -266,7 +269,7 @@ public class InitController {
         return step;
     }
 
-    public void addIngredient(Recipe recipe, Map<Ingredient, Integer> ingredientsQuantities) {
+    private void addIngredient(Recipe recipe, Map<Ingredient, Integer> ingredientsQuantities) {
 
         for (Map.Entry<Ingredient, Integer> ingredientQuantity : ingredientsQuantities.entrySet()) {
             RecipeHasIngredient recipeHasIngredient = new RecipeHasIngredient();
@@ -277,6 +280,15 @@ public class InitController {
             recipeHasIngredientRepository.save(recipeHasIngredient);
         }
 
+    }
+
+    private void makeUser(String username, String password) {
+        GoudVinkjeUser goudVinkjeUser = new GoudVinkjeUser();
+
+        goudVinkjeUser.setUsername(username);
+        goudVinkjeUser.setPassword(password);
+
+        goudVinkjeUserService.saveUser(goudVinkjeUser);
     }
 
 }
