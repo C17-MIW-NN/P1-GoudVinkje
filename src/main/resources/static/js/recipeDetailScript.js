@@ -10,3 +10,16 @@ document.querySelectorAll('.step-checkbox').forEach(checkbox => {
         }
     });
 });
+
+document.querySelectorAll('.ingredient-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        const ingredientId = this.dataset.ingredientId;
+        const textElement = document.getElementById('description-' + ingredientId);
+
+        if (this.checked) {
+            textElement.classList.add('checked')
+        } else {
+            textElement.classList.remove('checked');
+        }
+    });
+});

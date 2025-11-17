@@ -45,10 +45,20 @@
             <h2 class="mb-2">Ingrediënten</h2>
             <div class="row g-0">
                 <div class="col-12 col-lg-6 d-flex" th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
-                    <div class="col-3">
-                        <p class="mb-0" type="text" th:text="|${ingredient.quantity} ${ingredient.getIngredient().quantityUnit}|"></p></div>
+                    <div class="form-check col-3">
+                        <input class="form-check-input ingredient-checkbox"
+                               type="checkbox"
+                               th:id="'checker' + ${ingredient.getIngredient().ingredientId}"
+                               th:data-ingredient-id="${ingredient.getIngredient().ingredientId}">
+                        <label class="mb-0 form-check-label"
+                               th:for="'checker' + ${ingredient.getIngredient().ingredientId}"
+                               th:text="|${ingredient.quantity} ${ingredient.getIngredient().quantityUnit}|"></label>
+                    </div>
                     <div class="pe-3 pb-2">
-                        <p class="mb-0" type="text" th:text="${ingredient.getIngredient().description}"></p></div>
+                        <p class="mb-0 checkable"
+                           th:id="'description-' + ${ingredient.getIngredient().ingredientId}"
+                           th:text="${ingredient.getIngredient().description}"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,7 +69,7 @@
             <h2 class="mb-2">Instructies</h2>
             <div class="row g-0">
                 <div class="col-12 d-flex" th:each="step : *{recipe.getSteps()}">
-                    <div class="form-check col-1 text-center">
+                    <div class="form-check col-1">
                         <input class="form-check-input step-checkbox"
                                type="checkbox"
                                th:id="'checker' + ${step.stepId}"
@@ -71,7 +81,8 @@
                     <div>
                         <p class="mb-1 checkable"
                            th:id="'instruction-' + ${step.stepId}"
-                           th:text="${step.instruction}"></p></div>
+                           th:text="${step.instruction}"></p>
+                    </div>
                 </div>
             </div>
         </div>
