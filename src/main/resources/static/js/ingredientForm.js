@@ -5,5 +5,9 @@ $(document).ready(function() {
         $("#unitDisplay").text(value);
     });
 
-    $("#unitDisplay").text(quantityUnit.val());
+    if (quantityUnit.val() == "") {
+        $("#unitDisplay").text("...");
+    } else {
+        $("#unitDisplay").text(quantityUnit.val());
+    }
 });
