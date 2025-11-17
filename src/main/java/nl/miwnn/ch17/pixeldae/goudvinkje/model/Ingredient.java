@@ -13,6 +13,10 @@ import java.util.Collection;
 @Entity
 public class Ingredient {
 
+    protected static final int AMOUNT_OF_GRAMS_IN_100_GRAM = 100;
+    protected static final int AMOUNT_OF_TBSP_IN_100_GRAM = 7;
+    protected static final int AMOUNT_OF_TSP_IN_100_GRAM = 33;
+
     @Id
     @GeneratedValue
     private Long ingredientId;
@@ -31,6 +35,19 @@ public class Ingredient {
     public Ingredient() {
     }
 
+    // methods
+    public int checkCaloryUnitFactor() {
+        int factor = 1;
+        if (this.quantityUnit.equals("g") || this.quantityUnit.equals("ml")) {
+            factor = AMOUNT_OF_GRAMS_IN_100_GRAM;
+        } else if (this.quantityUnit.equals("el")) {
+            factor = AMOUNT_OF_TBSP_IN_100_GRAM;
+        } else if (this.quantityUnit.equals("tl")) {
+            factor = AMOUNT_OF_TSP_IN_100_GRAM;
+        }
+        return factor;
+    }
+
     // getters
     public Collection<RecipeHasIngredient> getRecipeHasIngredient() {
         return recipeHasIngredient;
@@ -45,7 +62,7 @@ public class Ingredient {
     }
 
     public double getCalories() {
-        return calories;
+        return Math.round((calories / checkCaloryUnitFactor()) * 100.0) / 100.0;
     }
 
     public String getQuantityUnit() {

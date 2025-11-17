@@ -97,7 +97,7 @@ public class Recipe {
     }
 
     public double getCalories() {
-        return countRecipeCalories();
+        return (Math.round((countRecipeCalories()/ nrOfPortions) * 100.0) / 100.0) ;
     }
 
     // setters
