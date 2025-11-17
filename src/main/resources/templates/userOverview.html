@@ -19,6 +19,9 @@
         <tr th:each="user : ${users}">
             <td><a th:text="${user.username}"
                    th:href="@{/gebruiker/aanpassen/{username}(username = ${user.username})}"></a></td>
+            <td><a th:href="@{/gebruiker/verwijderen/{userID}(userID = ${user.userID})}">
+                <i class="bi bi-trash-fill"></i></a>
+            </td>
         </tr>
         </tbody>
     </table>

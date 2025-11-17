@@ -55,9 +55,10 @@ public class UserController {
 
     @GetMapping("/verwijderen/{userID}")
     public String deleteUser (@PathVariable("userID") Long userID) {
+
         goudVinkjeUserRepository.deleteById(userID);
 
-        return "redirect:/gebruikers/";
+        return "redirect:/gebruiker/overzicht";
     }
 
     @PostMapping("/opslaan")
@@ -75,8 +76,6 @@ public class UserController {
     private String showUserForm(Model datamodel, GoudVinkjeUser goudVinkjeUser) {
 
         datamodel.addAttribute("user", goudVinkjeUser);
-
-        System.err.println(datamodel);
 
         return "userForm";
     }
