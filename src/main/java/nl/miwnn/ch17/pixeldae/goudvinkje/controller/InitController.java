@@ -47,7 +47,7 @@ public class InitController {
                     4
             );
 
-            // --- Ingrediënten aanmaken ---
+            //  Ingrediënten aanmaken
             Ingredient linzen = makeIngredient("Rode linzen", 350, "g");
             Ingredient kokosmelk = makeIngredient("Kokosmelk", 190, "ml");
             Ingredient ui = makeIngredient("Ui", 40, "stuks");
@@ -59,7 +59,7 @@ public class InitController {
             Ingredient olie = makeIngredient("Plantaardige olie", 900, "el");
             Ingredient zout = makeIngredient("Zout", 0, "tl");
 
-            // --- Ingrediënten toevoegen via Map ---
+            // Ingrediënten toevoegen via Map
             addIngredient(recipe, Map.of(
                     linzen, 200,
                     kokosmelk, 400,
@@ -129,7 +129,7 @@ public class InitController {
 
             // --- Derde recept --- (Extreem Lang Recept)
             Recipe langRecept = makeRecipe(
-                    "Romige Plantbased Pasta Met Groenten, Kruiden En Een Langzaam Gekookte Saus",
+                    "Romige Plant-based Pasta Met Groenten, Kruiden En Een Langzaam Gekookte Saus",
                     "Alexandra van der Laan",
                     "Een uitgebreide, plantaardige pastamaaltijd met een romige saus op basis van "
                             + "geweekte noten, kruidige groenten en zorgvuldig opgebouwde smaken. De "
@@ -150,7 +150,7 @@ public class InitController {
                     "Vers citroensap voor een frisse, lichte zurige toets", 2, "el");
 
             Ingredient edelgist = makeIngredient(
-                    "Edelgistvlokken (voedingsgist) voor een subtiele kaasachtige smaak", 3, "el");
+                    "Edelgist vlokken (voedingsgist) voor een subtiele kaasachtige smaak", 3, "el");
 
             Ingredient cherryTomaten = makeIngredient("Cherry tomaten", 200, "g");
             Ingredient pasta = makeIngredient("Volkoren pasta", 300, "g");

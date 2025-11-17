@@ -8,41 +8,33 @@ import jakarta.persistence.*;
  */
 
 @Entity
-//code om combinatie van recept en stapID uniek te maken, zodat sequenceNr automatisch afgehandeld kan gaan worden
-//@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"sequence_nr", "recipe_recipeid"})})
 public class Step {
 
-    protected static final int DEFAULT_SEQUENCE_NR = 0;
-    protected static final String DEFAULT_INSTRUCTION = "";
-
     @Id @GeneratedValue
-    private long stepId;
+    private Long stepId;
 
-//    @Column(name = "sequence_nr")
-    private int sequenceNr;
+    private Integer sequenceNr;
 
     @Column(columnDefinition = "text")
     private String instruction;
 
     @ManyToOne
-//    @Column(name = "recipe_recipeid")
+    @JoinColumn(name = "recipe_recipeid")
     private Recipe recipe;
 
     // Constructors
-    public Step(Recipe recipe) {
-        this.recipe = recipe;
-        this.sequenceNr = DEFAULT_SEQUENCE_NR;
-        this.instruction = DEFAULT_INSTRUCTION;
-    }
-
     public Step() {
     }
 
+    public Step(Integer sequenceNr) {
+        this.sequenceNr = sequenceNr;
+    }
+
     // Getters
-    public long getStepId() {
+    public Long getStepId() {
         return stepId;
     }
-    public int getSequenceNr() {
+    public Integer getSequenceNr() {
         return sequenceNr;
     }
     public String getInstruction() {
@@ -53,10 +45,10 @@ public class Step {
     }
 
     // Setters
-    public void setStepId(long stepId) {
+    public void setStepId(Long stepId) {
         this.stepId = stepId;
     }
-    public void setSequenceNr(int sequenceNr) {
+    public void setSequenceNr(Integer sequenceNr) {
         this.sequenceNr = sequenceNr;
     }
     public void setInstruction(String instruction) {
@@ -65,5 +57,4 @@ public class Step {
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
-
 }

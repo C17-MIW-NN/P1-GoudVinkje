@@ -11,7 +11,7 @@ import java.util.Optional;
 
 /**
  * @author Simon van der Kooij
- * handles everything concerning ingredients.
+ * handles all data concerning ingredients.
  */
 
 @Controller
@@ -50,12 +50,12 @@ public class IngredientController {
 
     @PostMapping("/opslaan")
     public String saveIngredientForm(@ModelAttribute("ingredient") Ingredient ingredient,
-                                 BindingResult result, Model datamodel, @RequestParam String action) {
-        if (action.equals("save")) {
-            if (!result.hasErrors()) {
-                ingredientRepository.save(ingredient);
-            }
+                                 BindingResult result, Model datamodel) {
+
+        if (!result.hasErrors()) {
+            ingredientRepository.save(ingredient);
         }
+
         return "redirect:/ingredient/overzicht";
     }
 

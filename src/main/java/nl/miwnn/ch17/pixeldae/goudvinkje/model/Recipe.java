@@ -2,6 +2,7 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Recipe {
 
     private String author;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateAdded;
 
     @Column(columnDefinition = "text")
@@ -34,7 +36,16 @@ public class Recipe {
     private List<RecipeHasIngredient> recipeHasIngredients = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("sequenceNr ASC")
     private List<Step> steps = new ArrayList<>();
+
+    // constructors
+    public Recipe() {
+    }
+
+    public Recipe(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
+    }
 
     // methods
     public void addStep(Step step) {
@@ -79,6 +90,10 @@ public class Recipe {
     // setters
     public void setRecipeHasIngredients(List<RecipeHasIngredient> recipeHasIngredients) {
         this.recipeHasIngredients = recipeHasIngredients;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
     }
 
     public void setRecipeID(Long recipeID) {

@@ -5,19 +5,18 @@ import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeHasIngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.StepRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
  * @author Simon van der Kooij & Annelies Hofman
- * controlls everything concerning recipes
+ * controls all data concerning recipes
  */
 
 @Controller
@@ -25,20 +24,16 @@ public class RecipeController {
 
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
-    private final RecipeHasIngredientRepository recipeHasIngredientRepository;
-    private final StepRepository stepRepository;
 
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, RecipeHasIngredientRepository recipeHasIngredientRepository, StepRepository stepRepository) {
+    public RecipeController(RecipeRepository recipeRepository,
+                            IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
-        this.recipeHasIngredientRepository = recipeHasIngredientRepository;
-        this.stepRepository = stepRepository;
     }
 
     // showRecipeOverview
     @GetMapping({"/", "/recept/", "/recept/lijst"})
     private String showRecipeOverview(Model datamodel) {
-
         datamodel.addAttribute("recipes", recipeRepository.findAll());
 
         return "showRecipeOverview";
@@ -61,8 +56,9 @@ public class RecipeController {
     // recipeForm
     @GetMapping("/recept/toevoegen")
     public String showRecipeForm(Model datamodel) {
-        Recipe recipe = new Recipe();
-        recipe.getSteps().add(new Step());
+        Recipe recipe = new Recipe(LocalDate.now());
+        recipe.getSteps().add(new Step(1));
+        recipe.getRecipeHasIngredients().add(new RecipeHasIngredient(new Ingredient()));
 
         return showRecipeForm(datamodel, recipe);
     }
@@ -76,98 +72,64 @@ public class RecipeController {
         return "redirect:/";
     }
 
+    private String showRecipeForm(Model datamodel, Recipe recipe) {
+        datamodel.addAttribute("formRecipe", recipe);
+
+        return "recipeForm";
+    }
+
     @PostMapping("/recept/opslaan")
     public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
-                                 BindingResult result, Model datamodel, @RequestParam String action) {
+                                 BindingResult result) {
 
-        for (Step step : recipe.getSteps()) {
-            step.setRecipe(recipe);
+        for (Step step : recipe.getSteps()) { step.setRecipe(recipe); }
+
+        preventDuplicateIngredients(recipe);
+
+        if (!result.hasErrors()) {
+            ifRecipeExistsRemoveAllIngredients(recipe);
+            recipeRepository.save(recipe);
         }
 
+        return "redirect:/recept/" + recipe.getRecipeID();
+    }
+
+    // if the recipe already exists, remove all the ingredients;
+    // otherwise deleted ingredients would remain in the database.
+    private void ifRecipeExistsRemoveAllIngredients(Recipe recipe) {
+        if (recipe.getRecipeID() == null) { return; }
+
+        Recipe recipeFromDB = recipeRepository.findById(recipe.getRecipeID()).orElseThrow();
+        recipeFromDB.getRecipeHasIngredients().clear();
+    }
+
+    // if the ingredient already exists, use the prior existing ingrediënt
+    private void preventDuplicateIngredients(Recipe recipe) {
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
             Ingredient ingredientFromForm = recipeHasIngredient.getIngredient();
             String description = ingredientFromForm.getDescription();
+            Long ingredientID = ingredientFromForm.getIngredientId();
 
             Optional<Ingredient> sameIngredientAlreadyPresent =
                     ingredientRepository.findByDescription(description);
 
             if (sameIngredientAlreadyPresent.isPresent() &&
-                !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientFromForm.getIngredientId())) {
+                !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientID)) {
                 recipeHasIngredient.setIngredient(sameIngredientAlreadyPresent.get());
-                ingredientRepository.deleteById(ingredientFromForm.getIngredientId());
+                if (ingredientID != null) {
+                    ingredientRepository.deleteById(ingredientID);
+                }
             }
+
+            ingredientRepository.save(recipeHasIngredient.getIngredient());
+            recipeHasIngredient.setRecipe(recipe);
         }
 
-        if (action.equals("save")) {
-            if (!result.hasErrors()) {
-                recipeRepository.save(recipe);
-            }
-        }
-        return "redirect:/recept/{recipe.getRecipeID()}";
     }
 
     @GetMapping("/recept/verwijderen/{recipeID}")
     public String deleteRecipe(@PathVariable("recipeID") Long recipeID) {
         recipeRepository.deleteById(recipeID);
         return "redirect:/recept/";
-    }
-
-    @PostMapping("/recept/{recipeID}/ingredienttoevoegen")
-    public String addRecipeIngredient(@PathVariable("recipeID") Long recipeID, Model datamodel) {
-        Recipe recipe = recipeRepository.findById(recipeID).orElseThrow();
-        Ingredient ingredient = new Ingredient();
-        RecipeHasIngredient recipeHasIngredient = new RecipeHasIngredient();
-
-        recipeHasIngredient.setRecipe(recipe);
-        recipeHasIngredient.setIngredient(ingredient);
-
-        ingredientRepository.save(ingredient);
-        recipeHasIngredientRepository.save(recipeHasIngredient);
-
-        return "redirect:/recept/aanpassen/" + recipeID;
-    }
-
-        //recipeForm mappings related to steps
-    @PostMapping("/recept/{recipeID}/staptoevoegen")
-    public String addRecipeStep(@PathVariable("recipeID") Long recipeID, Model datamodel) {
-        Recipe recipe = recipeRepository.findById(recipeID).orElseThrow();
-
-        recipe.getSteps().add(new Step());
-        for (Step step : recipe.getSteps()) {
-            step.setRecipe(recipe);
-        }
-        recipeRepository.save(recipe);
-
-        return "redirect:/recept/aanpassen/" + recipeID;
-    }
-    //TODO BindingResult toevoegen?
-    //TODO methode werkt nu niet voor nieuwe recepten, omdat die geen ID hebben, dus de url is dan incompleet
-
-    @PostMapping("/recept/{recipeId}/stap/verwijderen/{stepId}")
-    public String deleteRecipeStep(@PathVariable("stepId") Long stepId,
-                                   @PathVariable("recipeId") Long recipeId,
-                                   Model datamodel) {
-
-        stepRepository.deleteById(stepId);
-
-        return "redirect:/recept/aanpassen/" + recipeId;
-    }
-
-
-    @PostMapping("/recept/{recipeId}/ingredient/verwijderen/{recipeHasIngredientId}")
-    public String deleteRecipeIngredient(@PathVariable("recipeId") Long recipeId,
-                                         @PathVariable("recipeHasIngredientId") Long ingredientId,
-                                         Model datamodel) {
-
-        recipeHasIngredientRepository.deleteById(ingredientId);
-
-        return "redirect:/recept/aanpassen/" + recipeId;
-    }
-
-
-    private String showRecipeForm(Model datamodel, Recipe recipe) {
-        datamodel.addAttribute("formRecipe", recipe);
-
-        return "recipeForm";
     }
 }

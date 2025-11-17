@@ -55,3 +55,15 @@ body {
 .checked {
     text-decoration: line-through;
 }
+/* recipeForm */
+.bi-trash-fill {
+    color: #f26947;
+}
+
+.description-line {
+ width: 70%;
+}
+
+.instruction-line {
+    width: 86%;
+}

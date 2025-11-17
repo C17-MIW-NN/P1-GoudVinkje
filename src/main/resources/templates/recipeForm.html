@@ -6,130 +6,135 @@
     <title th:unless="${formRecipe.recipeID == null}">Pas een recept aan</title>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 main-wrapper">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="container">
-    <h1 th:if="${formRecipe.recipeID == null}">Voeg een nieuw recept toe</h1>
-    <h1 th:unless="${formRecipe.recipeID == null}"><span th:text="${formRecipe.name}"></span> aanpassen</h1>
+<form th:action="@{/recept/opslaan}" method="post" th:object="${formRecipe}">
+    <input type="hidden" th:field="*{recipeID}">
+    <input type="hidden" th:field="*{dateAdded}">
+
+<div class="container-md border-col p-0 my-5">
+    <div class="row g-0 align-items-stretch">
+        <div class="col d-flex flex-column justify-content-start align-items-start border-col p-0">
+            <div class="d-flex align-items-center my-0 mx-3 w-100">
+                <div class="flex-grow-1 me-4 d-flex flex-column">
+                    <label class="mt-2 mx-0 px-0 form-label" for="name">Naam van het
+                        <span th:if="${formRecipe.recipeID == null}">nieuwe</span>
+                        <span th:unless="${formRecipe.recipeID == null}">te wijzigen</span>
+                        recept:
+                    </label>
+                    <input class="fs-2 mb-2 mx-0 px-1 form-control w-100" type="text" id="name" th:field="*{name}"
+                           placeholder="bijv. Vegan Spaghetti Bolognese">
+                </div>
+                <div class="ms-auto flex-end col-1">
+                    <a th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">
+                        <i class="bi bi-trash-fill"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col mb-0 px-3">
+            <label class="mt-2 mx-0 px-0 form-label" for="description">Korte omschrijving</label>
+            <input class="mb-2 mx-0 px-1 form-control" type="text" id="description" th:field="*{description}"
+                   placeholder="bijv. Rijke bolognese saus op basis van champignons">
+        </div>
+    </div>
+
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col px-3">
+            <label for="portions">Aantal porties</label>
+            <input class="mb-2 mx-0 px-1 form-control" type="text" id="portions" th:field="*{nrOfPortions}">
+        </div>
+        <div class="col border-col px-3">
+            <label for="author">Auteur</label>
+            <input class="mb-2 mx-0 px-1 form-control" type="text" id="author" th:field="*{author}"
+                   placeholder="bijv. Pieter van de Pepermolen">
+        </div>
+        <div class="col border-col px-3">
+            <label for="date">Publicatiedatum</label>
+            <input class="mb-2 mx-0 px-1 form-control" type="text" id="date" th:field="*{dateAdded}">
+        </div>
+    </div>
+
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col px-3 pb-3">
+            <h2 class="mb-2">Ingrediënten</h2>
+            <div id="ingredients-section">
+                <div class="ingredient-row" th:each="ingredient, order : *{recipeHasIngredients}">
+                    <input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].ingredient}">
+                    <input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID}">
+                    <input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].recipe}">
+                    <table>
+                        <tr>
+                            <td>
+                                <input type="text" class="form-control"
+                                       th:field="*{recipeHasIngredients[__${order.index}__].quantity}">
+                            </td>
+                            <td>
+                                <input type="text" class="form-control"
+                                       th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
+                            </td>
+                            <td class="description-line">
+                                <input type="text" class="form-control"
+                                       th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}">
+                            </td>
+                            <td>
+                            <td><i class="ms-2 bi bi-trash-fill remove-ingredient"></i></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <button type="button" id="add-ingredient">Ingrediënt toevoegen</button>
+    </div>
+
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col px-3 pb-3">
+            <h2 class="mb-2">Instructies</h2>
+            <div id="steps-section">
+                <div class="step-row" th:each="step, order : *{steps}">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><i class="bi-grip-vertical"></i>
+                                    <input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
+                                <td><input class="form-control" type="text"
+                                           th:field="*{steps[__${order.index}__].sequenceNr}" readonly></td>
+                                <td class="instruction-line"><input class="form-control"
+                                           type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
+                                <td><i class="ms-2 bi bi-trash-fill remove-step"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <button type="button" id="add-step">Stap toevoegen</button>
+
+    </div>
 
     <div>
-        <form th:action="@{/recept/opslaan}" method="post" th:object="${formRecipe}">
 
-            <input type="hidden" th:field="*{recipeID}">
-            <input type="hidden" th:field="*{dateAdded}">
 
-            <div>
-                <label for="name">Receptnaam</label>
-                <div>
-                    <input type="text" id="name" th:field="*{name}"
-                           placeholder="Vegan Spaghetti Bolognese">
-                </div>
-            </div>
-
-            <div>
-                <label for="description">Korte omschrijving</label>
-                <div>
-                    <input type="text" id="description" th:field="*{description}"
-                           placeholder="Rijke bolognese saus op basis van champignons">
-                </div>
-            </div>
-
-            <div>
-                <label for="author">Auteur</label>
-                <div>
-                    <input type="text" id="author" th:field="*{author}"
-                           placeholder="Pieter van de Pepermolen">
-                </div>
-            </div>
-
-            <div>
-                <label for="portions">Aantal porties</label>
-                <div>
-                    <input type="text" id="portions" th:field="*{nrOfPortions}"
-                           placeholder="6 personen">
-                </div>
-            </div>
-
-            <div>
-                <h3>Instructies</h3>
-                <div id="steps-section">
-                    <div th:each="step, order : *{steps}">
-                        <table>
-                            <tr>
-                                <td><input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
-                                <td><input type="number" th:field="*{steps[__${order.index}__].sequenceNr}"></td>
-                                <td><input type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
-                                <td>
-                                    <button type="submit"
-                                            th:formaction="@{/recept/{recipeID}/stap/verwijderen/{stepId}(recipeID=${formRecipe.recipeID}, stepId=*{steps[__${order.index}__].stepId})}"
-                                            name="action" value="removeStep">Verwijder Stap
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <button type="submit"
-                        th:formaction="@{/recept/{recipeID}/staptoevoegen(recipeID=${formRecipe.recipeID})}"
-                        name="action" value="addStep">Stap Toevoegen
-                </button>
-            </div>
-
-            <div>
-                <h3>Ingrediënten</h3>
-                <div id="ingredients-section">
-                    <div th:each="ingredient, order : *{recipeHasIngredients}">
-                        <table>
-                            <tr>
-                                <td><input type="hidden"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].ingredient}">
-                                </td>
-                                <td><input type="hidden"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID}">
-                                </td>
-                                <td><input type="hidden"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].recipe}">
-                                </td>
-                                <td><input type="text"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].quantity}">
-                                </td>
-                                <td><input type="text"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
-                                </td>
-                                <td><input type="text"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}">
-                                </td>
-                                <td>
-                                    <button type="submit"
-                                            th:formaction="@{/recept/{recipeId}/ingredient/verwijderen/{recipeHasIngredientsId}(recipeId=${formRecipe.recipeID}, recipeHasIngredientsId=*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID})}"
-                                            name="action" value="removeIngredient">Verwijder ingredient
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <button type="submit"
-                        th:formaction="@{/recept/{recipeID}/ingredienttoevoegen(recipeID=${formRecipe.recipeID})}"
-                        name="action" value="addIngredient">Ingrediënt Toevoegen
-                </button>
-            </div>
+    </div>
 
             <div>
                 <button type="submit" name="action" value="save">Opslaan</button>
                 <button type="submit" name="action" value="cancel">Annuleren</button>
-                <button th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">verwijder recept
-                </button>
             </div>
-        </form>
     </div>
-</div>
+</form>
+
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/js/Sortable.min.js}"></script>
+<script th:src="@{/js/jquery-sortable.js}"></script>
+<script th:src="@{/js/recipeForm.js}"></script>
+
 
 <footer th:replace="~{fragments/general :: footer}"></footer>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 </body>
-
 </html>
-
-<script th:src="@{/js/script.js}"></script>
