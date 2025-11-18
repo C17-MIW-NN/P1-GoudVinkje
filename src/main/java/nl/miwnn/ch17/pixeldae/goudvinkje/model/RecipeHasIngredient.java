@@ -29,8 +29,14 @@ public class RecipeHasIngredient {
 
     private int quantity;
 
+    // constructors
     public RecipeHasIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
+    }
+
+    public RecipeHasIngredient(Ingredient ingredient, int quantity) {
+        this.ingredient = ingredient;
+        this.quantity = quantity;
     }
 
     // methods

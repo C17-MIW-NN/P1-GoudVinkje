@@ -5,10 +5,10 @@
     <title>Receptenoverzicht</title>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="container">
+<div class="container-md my-5">
     <table>
         <thead>
         <tr>
@@ -19,8 +19,8 @@
         </thead>
         <tbody>
         <tr th:each="recipe : ${recipes}">
-            <td><a th:text="${recipe.name}"
-                   th:href="@{/recept/{recipeId}(recipeId = ${recipe.recipeID})}"></a></td>
+            <td><h3><a th:text="${recipe.name}"
+                   th:href="@{/recept/{recipeId}(recipeId = ${recipe.recipeID})}"></a></h3></td>
             <td th:text="${recipe.author.username}"></td>
             <td th:text="${recipe.dateAdded}"></td>
             <td><a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">Recept aanpassen</a></td>
