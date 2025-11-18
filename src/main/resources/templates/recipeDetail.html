@@ -36,13 +36,10 @@
             <label class="recipe-detail-label" for="kcal">Kcal per portie</label>
             <p class="mb-0 text-center" type="text" id="kcal" th:text="${recipe.calories}"></p>
         </div>
-        <div class="col border-col px-3">
-            <label for="author">Auteur</label>
-            <p class="mb-0" type="text" id="author" th:text="${recipe.author.username}"></p>
         <div class="col border-col py-2">
             <i class="bi bi-person-circle"></i>
             <label class="recipe-detail-label" for="author">Auteur</label>
-            <p class="mb-0 text-center" type="text" id="author" th:text="${recipe.author}"></p>
+            <p class="mb-0 text-center" type="text" id="author" th:text="${recipe.author.username}"></p>
         </div>
         <div class="col border-col py-2">
             <i class="bi bi-calendar-fill"></i>
