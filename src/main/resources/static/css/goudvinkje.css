@@ -19,43 +19,110 @@
     src: url('/fonts/Chicle-Regular.ttf');
 }
 
+
 body {
     font-family: 'Inria';
     font-weight: 400;
+    color: #450707;
+    background-color: #F0EBD6;
 }
 
+/*Navbar*/
+.navbar-brand {
+    color: #450707;
+    font-weight: 400;
+    font-size: 1.8em;
+}
+.navbar-brand:hover {
+    color: #F29120;
+    font-weight: 400;
+    font-size: 1.8em;
+}
+
+.nav-link {
+    color: #450707;
+}
+.nav-link:hover {
+    color: #F29120;
+}
+
+/*Footer*/
+.footer {
+    color: #450707;
+    font-weight: 300;
+    font-size: .875em;
+}
+
+/*Clickable*/
+a {
+    color: #F29120;
+}
+a:hover {
+    color: #EFD86F;
+}
+
+.icon-button {
+    color: #F29120;
+}
+.icon-button:hover {
+    color: #EFD86F;
+}
+
+.btn-primary {
+    color: #450707;
+    background-color: #F0EBD6;
+    border: 2px solid #450707;
+    height: 40px;
+    border-radius: 40px;
+}
+
+.btn-primary:hover {
+    color: #F29120;
+    background-color: #F0EBD6;
+    border-color: #F29120;
+    height: 40px;
+    border-radius: 40px;
+}
+
+/*Container styling*/
 .border-col {
-    border: 1px solid #000;
+    border: 1px solid #450707;
     box-sizing: border-box;
     padding: 10px;
 }
 
 .outline-col {
-    border: 1px solid #000;
+    border: 1px solid #450707;
     box-sizing: border-box;
     padding: 10px;
 }
 
-.square {
-    aspect-ratio: 1 / 1;
-}
-
-.main-wrapper {
+.main-width {
     max-width: 800px;
     margin: 0 auto;
     width: 100%;
 }
 
+
+/*recipeDetail*/
+.square {
+    aspect-ratio: 1 / 1;
+}
 .wrap-list {
     columns: 2;
     column-gap: 2rem;
     list-style-position: inside;
 }
-
+.recipe-detail-label {
+    font-weight: 300;
+    font-size: .875em;
+}
 .checked {
     text-decoration: line-through;
 }
-/* recipeForm */
+
+
+ /*recipeForm*/
 .bi-trash-fill {
     color: #f26947;
 }
@@ -67,3 +134,26 @@ body {
 .instruction-line {
     width: 86%;
 }
+
+/*Bootstrap kleuren overschrijven*/
+:root {
+    --bs-primary: #F29120;
+    --bs-secondary: #EFD86F;
+    --bs-light: #F0EBD6;
+    --bs-dark: #450707;
+}
+
+[class*="primary"] {
+    color: #F29120;
+}
+[class*="light"] {
+    color: #F0EBD6;
+}
+[class*="dark"] {
+    color: #450707;
+}
+[class*="secondary"] {
+    color: #EFD86F;
+}
+
+

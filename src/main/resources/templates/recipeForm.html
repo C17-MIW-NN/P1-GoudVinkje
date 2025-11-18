@@ -6,7 +6,7 @@
     <title th:unless="${formRecipe.recipeID == null}">Pas een recept aan</title>
 </head>
 
-<body class="d-flex flex-column min-vh-100 main-wrapper">
+<body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
 <form th:action="@{/recept/opslaan}" method="post" th:object="${formRecipe}">
