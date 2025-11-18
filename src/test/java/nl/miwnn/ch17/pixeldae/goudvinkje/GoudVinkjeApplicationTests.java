@@ -36,23 +36,25 @@ class GoudVinkjeApplicationTests {
     @DisplayName("test if calories are counted correctly for each recipe")
     void countCaloriesPerRecipe() {
         // Arrange
-        Recipe recipe = new Recipe();
-
         Ingredient ingredient1 = new Ingredient();
-        ingredient1.setCalories(50);
+        ingredient1.setCalories(500);
+        ingredient1.setQuantityUnit("g");
         Ingredient ingredient2 = new Ingredient();
-        ingredient2.setCalories(15);
+        ingredient2.setCalories(150);
+        ingredient2.setQuantityUnit("g");
 
         List<RecipeHasIngredient> ingredientList = new ArrayList<>();
         ingredientList.add( new RecipeHasIngredient(ingredient1, 1));
-        ingredientList.add(new RecipeHasIngredient(ingredient2, 2));
+        ingredientList.add(new RecipeHasIngredient(ingredient2, 1));
 
+        Recipe recipe = new Recipe();
         recipe.setRecipeHasIngredients(ingredientList);
+        recipe.setNrOfPortions(1);
 
         // Act
         double result = recipe.countRecipeCalories();
 
         // Assert
-        assertEquals(65.0, result);
+        assertEquals(6.5, result);
     }
 }
