@@ -1,6 +1,9 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Annelies Hofman
@@ -8,6 +11,7 @@ import jakarta.persistence.*;
  */
 
 @Entity
+@Getter @Setter @NoArgsConstructor
 public class Step {
 
     @Id @GeneratedValue
@@ -23,38 +27,9 @@ public class Step {
     private Recipe recipe;
 
     // Constructors
-    public Step() {
-    }
-
     public Step(Integer sequenceNr) {
         this.sequenceNr = sequenceNr;
     }
 
-    // Getters
-    public Long getStepId() {
-        return stepId;
-    }
-    public Integer getSequenceNr() {
-        return sequenceNr;
-    }
-    public String getInstruction() {
-        return instruction;
-    }
-    public Recipe getRecipe() {
-        return recipe;
-    }
 
-    // Setters
-    public void setStepId(Long stepId) {
-        this.stepId = stepId;
-    }
-    public void setSequenceNr(Integer sequenceNr) {
-        this.sequenceNr = sequenceNr;
-    }
-    public void setInstruction(String instruction) {
-        this.instruction = instruction;
-    }
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
 }

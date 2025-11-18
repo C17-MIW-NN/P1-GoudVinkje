@@ -14,7 +14,7 @@ public class GoudVinkjeUserMapper {
     public static GoudVinkjeUser fromDTO(GoudVinkjeUserDTO goudVinkjeUserDTO) {
         GoudVinkjeUser goudVinkjeUser = new GoudVinkjeUser();
 
-        goudVinkjeUser.setGoudVinkjeUserID(goudVinkjeUserDTO.getUserID());
+        goudVinkjeUser.setUserID(goudVinkjeUserDTO.getUserID());
         goudVinkjeUser.setUsername(goudVinkjeUserDTO.getUsername());
         goudVinkjeUser.setPassword(goudVinkjeUserDTO.getPassword());
 
