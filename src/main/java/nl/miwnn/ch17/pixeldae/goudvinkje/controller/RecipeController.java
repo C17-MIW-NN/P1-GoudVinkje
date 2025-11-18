@@ -1,11 +1,9 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.Ingredient;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
+import nl.miwnn.ch17.pixeldae.goudvinkje.model.*;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
+import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,11 +22,14 @@ public class RecipeController {
 
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
+    private final GoudVinkjeUserService goudVinkjeUserService;
 
     public RecipeController(RecipeRepository recipeRepository,
-                            IngredientRepository ingredientRepository) {
+                            IngredientRepository ingredientRepository,
+                            GoudVinkjeUserService goudVinkjeUserService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
+        this.goudVinkjeUserService = goudVinkjeUserService;
     }
 
     // showRecipeOverview
@@ -88,6 +89,11 @@ public class RecipeController {
 
         if (!result.hasErrors()) {
             ifRecipeExistsRemoveAllIngredients(recipe);
+            GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
+            if (!recipe.getAuthor().getUsername().equals(loggedInUser.getUsername())) {
+                recipe = recipe.newCopiedRecipe(loggedInUser);
+            }
+            recipe.setAuthor(loggedInUser);
             recipeRepository.save(recipe);
         }
 

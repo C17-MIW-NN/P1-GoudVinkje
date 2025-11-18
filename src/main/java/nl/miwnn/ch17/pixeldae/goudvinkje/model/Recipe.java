@@ -1,9 +1,7 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -16,7 +14,7 @@ import java.util.List;
  */
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @With
 public class Recipe {
 
     @Id
@@ -25,7 +23,9 @@ public class Recipe {
 
     private String name;
 
-    private String author;
+    @ManyToOne
+    @JoinColumn(name = "author_user_id")
+    private GoudVinkjeUser author;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate dateAdded;
@@ -61,6 +61,30 @@ public class Recipe {
             totalCalories += calories;
         }
         return totalCalories;
+    }
+
+    public Recipe newCopiedRecipe(GoudVinkjeUser newAuthor) {
+        Recipe copiedRecipe = this.withAuthor(newAuthor).withRecipeID(null).withDateAdded(LocalDate.now());
+
+        List<RecipeHasIngredient> copiedRHIlist = this.recipeHasIngredients.stream().map(originalRHI -> {
+            RecipeHasIngredient copiedRHI = new RecipeHasIngredient();
+            copiedRHI.setIngredient(originalRHI.getIngredient());
+            copiedRHI.setQuantity(originalRHI.getQuantity());
+            copiedRHI.setRecipe(copiedRecipe);
+            return copiedRHI;
+        }).toList();
+
+        List<Step> copiedSteplist = this.steps.stream().map(originalStep -> {
+            Step copiedStep = new Step();
+            copiedStep.setInstruction(originalStep.getInstruction());
+            copiedStep.setRecipe(copiedRecipe);
+            return copiedStep;
+        }).toList();
+
+        copiedRecipe.setRecipeHasIngredients(copiedRHIlist);
+        copiedRecipe.setSteps(copiedSteplist);
+
+        return copiedRecipe;
     }
 
     public double getCalories() {

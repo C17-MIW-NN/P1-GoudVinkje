@@ -40,13 +40,14 @@ public class InitController {
     private void seed(ContextRefreshedEvent ignoredEvent) {
         if (recipeRepository.count() == 0 && ingredientRepository.count() == 0) {
 
-            makeUser("Chad G Pete", "Vinkje123!");
-            makeUser("Simon", "2025");
+            GoudVinkjeUser chadGPete = makeUser("Chad G Pete", "2025");
+            GoudVinkjeUser simon = makeUser("Simon", "2025");
+            GoudVinkjeUser annelies = makeUser("Annelies", "2025");
 
             // --- Recept 1---
             Recipe recipe = makeRecipe(
                     "Veganistische linzencurry",
-                    "Chad G Pete",
+                    chadGPete,
                     "Een heerlijke, romige curry met rode linzen en kokosmelk — 100% plantaardig.",
                     4
             );
@@ -90,7 +91,7 @@ public class InitController {
             // --- Tweede recept --- (Vegan Tofu Stir-Fry)
             Recipe tofuStirFry = makeRecipe(
                     "Vegan Tofu Stir-Fry",
-                    "Chad G Pete",
+                    chadGPete,
                     "Een snelle, kleurrijke roerbak met tofu, groenten en een sojasaus-dressing.",
                     2
             );
@@ -134,7 +135,7 @@ public class InitController {
             // --- Derde recept --- (Extreem Lang Recept)
             Recipe langRecept = makeRecipe(
                     "Romige Plant-based Pasta Met Groenten, Kruiden En Een Langzaam Gekookte Saus",
-                    "Alexandra van der Laan",
+                    annelies,
                     "Een uitgebreide, plantaardige pastamaaltijd met een romige saus op basis van "
                             + "geweekte noten, kruidige groenten en zorgvuldig opgebouwde smaken. De "
                             + "omschrijving is bewust lang zodat de layout getest kan worden.",
@@ -210,7 +211,7 @@ public class InitController {
             // --- Vierde recept --- (Supersnel ei)
             Recipe kortRecept = makeRecipe(
                     "Snel Ei",
-                    "JP",
+                    annelies,
                     "Een heel snel ontbijtje.",
                     1
             );
@@ -231,7 +232,7 @@ public class InitController {
         }
     }
 
-    private Recipe makeRecipe(String name, String author, String description, int nrOfPortions) {
+    private Recipe makeRecipe(String name, GoudVinkjeUser author, String description, int nrOfPortions) {
         Recipe recipe = new Recipe();
 
         recipe.setName(name);
@@ -283,13 +284,15 @@ public class InitController {
 
     }
 
-    private void makeUser(String username, String password) {
+    private GoudVinkjeUser makeUser(String username, String password) {
         GoudVinkjeUser goudVinkjeUser = new GoudVinkjeUser();
 
         goudVinkjeUser.setUsername(username);
         goudVinkjeUser.setPassword(password);
 
         goudVinkjeUserService.saveUser(goudVinkjeUser);
+
+        return goudVinkjeUser;
     }
 
 }
