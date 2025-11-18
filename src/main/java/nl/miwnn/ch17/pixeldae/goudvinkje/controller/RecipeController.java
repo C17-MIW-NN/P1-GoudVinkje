@@ -94,15 +94,6 @@ public class RecipeController {
         return "redirect:/recept/" + recipe.getRecipeID();
     }
 
-    // if the recipe already exists, remove all the ingredients;
-    // otherwise deleted ingredients would remain in the database.
-    private void ifRecipeExistsRemoveAllIngredients(Recipe recipe) {
-        if (recipe.getRecipeID() == null) { return; }
-
-        Recipe recipeFromDB = recipeRepository.findById(recipe.getRecipeID()).orElseThrow();
-        recipeFromDB.getRecipeHasIngredients().clear();
-    }
-
     // if the ingredient already exists, use the prior existing ingrediënt
     private void preventDuplicateIngredients(Recipe recipe) {
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
@@ -114,7 +105,7 @@ public class RecipeController {
                     ingredientRepository.findByDescription(description);
 
             if (sameIngredientAlreadyPresent.isPresent() &&
-                !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientID)) {
+                    !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientID)) {
                 recipeHasIngredient.setIngredient(sameIngredientAlreadyPresent.get());
                 if (ingredientID != null) {
                     ingredientRepository.deleteById(ingredientID);
@@ -125,6 +116,15 @@ public class RecipeController {
             recipeHasIngredient.setRecipe(recipe);
         }
 
+    }
+
+    // if the recipe already exists, remove all the ingredients;
+    // otherwise deleted ingredients would remain in the database.
+    private void ifRecipeExistsRemoveAllIngredients(Recipe recipe) {
+        if (recipe.getRecipeID() == null) { return; }
+
+        Recipe recipeFromDB = recipeRepository.findById(recipe.getRecipeID()).orElseThrow();
+        recipeFromDB.getRecipeHasIngredients().clear();
     }
 
     @GetMapping("/recept/verwijderen/{recipeID}")

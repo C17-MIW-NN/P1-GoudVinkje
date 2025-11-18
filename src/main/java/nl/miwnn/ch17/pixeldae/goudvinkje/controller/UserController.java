@@ -1,81 +1,80 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
 
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.GoudVinkjeUser;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.GoudVinkjeUserRepository;
+import nl.miwnn.ch17.pixeldae.goudvinkje.dto.GoudVinkjeUserDTO;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 /**
  * @author Simon van der Kooij
- *
  */
 
 @Controller
 @RequestMapping("/gebruiker")
 public class UserController {
 
-    private final GoudVinkjeUserRepository goudVinkjeUserRepository;
     private final GoudVinkjeUserService goudVinkjeUserService;
 
-    public UserController(GoudVinkjeUserRepository goudVinkjeUserRepository,
-                          GoudVinkjeUserService goudVinkjeUserService) {
-        this.goudVinkjeUserRepository = goudVinkjeUserRepository;
+    public UserController(GoudVinkjeUserService goudVinkjeUserService) {
         this.goudVinkjeUserService = goudVinkjeUserService;
     }
 
     @GetMapping({"/", "/overzicht"})
     public String showUserOverview(Model datamodel) {
-        datamodel.addAttribute("users", goudVinkjeUserRepository.findAll());
+        datamodel.addAttribute("users", goudVinkjeUserService.findAll());
 
         return "userOverview";
     }
 
     @GetMapping("/aanpassen/{username}")
     public String showEditUserForm(@PathVariable("username") String username, Model datamodel) {
-        Optional<GoudVinkjeUser> optionalUser = goudVinkjeUserRepository.findByUsername(username);
 
-        if (optionalUser.isPresent()) {
-            return showUserForm(datamodel, optionalUser.get());
-        }
+        GoudVinkjeUserDTO goudVinkjeDTO = goudVinkjeUserService.editUser(username);
 
-        return "redirect:/gebruiker/overzicht";
+        return showUserForm(datamodel, goudVinkjeDTO);
     }
 
     @GetMapping("/toevoegen")
     public String showAddUserForm(Model datamodel) {
 
-        return showUserForm(datamodel, new GoudVinkjeUser());
+        return showUserForm(datamodel, new GoudVinkjeUserDTO());
     }
 
     @GetMapping("/verwijderen/{userID}")
     public String deleteUser (@PathVariable("userID") Long userID) {
 
-        goudVinkjeUserRepository.deleteById(userID);
+        goudVinkjeUserService.deleteUserByID(userID);
 
         return "redirect:/gebruiker/overzicht";
     }
 
     @PostMapping("/opslaan")
-    public String saveUserForm(@ModelAttribute("user") GoudVinkjeUser goudVinkjeUser, BindingResult result) {
+    public String saveUserForm(@ModelAttribute("user") GoudVinkjeUserDTO goudVinkjeUserDTO, BindingResult result) {
+
+        if (goudVinkjeUserService.usernameInUse(goudVinkjeUserDTO.getUsername()) &&
+                goudVinkjeUserDTO.getUserID() == null) {
+            result.rejectValue("username", "duplicate", "This username is not available");
+        }
+
+        if (!goudVinkjeUserDTO.getPassword().equals(goudVinkjeUserDTO.getConfirmPassword())) {
+            result.rejectValue("password", "no.match", "The passwords do not match");
+        }
 
         if (!result.hasErrors()) {
-            goudVinkjeUserService.saveUser(goudVinkjeUser);
+            goudVinkjeUserService.save(goudVinkjeUserDTO);
+        } else {
+            return "userForm";
         }
 
         return "redirect:/gebruiker/overzicht";
     }
 
+    private String showUserForm(Model datamodel, GoudVinkjeUserDTO goudVinkjeUserDTO) {
 
-
-    private String showUserForm(Model datamodel, GoudVinkjeUser goudVinkjeUser) {
-
-        datamodel.addAttribute("user", goudVinkjeUser);
+        datamodel.addAttribute("user", goudVinkjeUserDTO);
 
         return "userForm";
     }

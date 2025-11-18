@@ -13,4 +13,7 @@ import java.util.Optional;
 
 public interface GoudVinkjeUserRepository extends JpaRepository<GoudVinkjeUser, Long> {
     Optional<GoudVinkjeUser> findByUsername(String username);
+
+    boolean existsByUsername(String username);
+
 }

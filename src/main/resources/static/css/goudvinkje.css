@@ -105,11 +105,6 @@ a:hover {
     width: 100%;
 }
 
-
-/*recipeDetail*/
-/*.square {*/
-/*    aspect-ratio: 1 / 1;*/
-/*}*/
 .wrap-list {
     columns: 2;
     column-gap: 2rem;
@@ -122,10 +117,8 @@ a:hover {
 .checked {
     text-decoration: line-through;
 }
-
-
- /*recipeForm*/
-.bi-trash-fill {
+/* recipeForm */
+.bi-trash-fill .form-text {
     color: #f26947;
 }
 
@@ -138,13 +131,6 @@ a:hover {
 }
 
 /*Bootstrap kleuren overschrijven*/
-:root {
-    --bs-primary: #F29120;
-    --bs-secondary: #EFD86F;
-    --bs-light: #F0EBD6;
-    --bs-dark: #450707;
-}
-
 [class*="primary"] {
     color: #F29120;
 }
