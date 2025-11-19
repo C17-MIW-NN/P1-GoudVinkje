@@ -16,7 +16,9 @@ import java.util.List;
  */
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class Recipe {
 
     @Id
@@ -34,6 +36,8 @@ public class Recipe {
     private String description;
 
     private int nrOfPortions;
+
+    private String imageURL;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeHasIngredient> recipeHasIngredients = new ArrayList<>();

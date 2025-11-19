@@ -6,6 +6,7 @@ import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
+import nl.miwnn.ch17.pixeldae.goudvinkje.service.ImageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,11 +25,13 @@ public class RecipeController {
 
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
+    private final ImageService imageService;
 
     public RecipeController(RecipeRepository recipeRepository,
-                            IngredientRepository ingredientRepository) {
+                            IngredientRepository ingredientRepository, ImageService imageService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
+        this.imageService = imageService;
     }
 
     // showRecipeOverview
