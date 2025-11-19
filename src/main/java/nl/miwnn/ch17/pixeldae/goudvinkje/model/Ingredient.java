@@ -50,6 +50,10 @@ public class Ingredient {
         return factor;
     }
 
+    public int countUsesInRecipes() {
+        return recipeHasIngredient.size();
+    }
+
     public double getCorrectedCalories() {
         return Math.round((calories / checkCaloryUnitFactor()) * 100.0) / 100.0;
     }

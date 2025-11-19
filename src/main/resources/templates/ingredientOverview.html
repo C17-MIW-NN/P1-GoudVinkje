@@ -15,6 +15,7 @@
             <th>Ingrediënt</th>
             <th>Kcal per 100g/stuk</th>
             <th>Eenheid</th>
+            <th>Aantal keer gebruikt</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                    th:href="@{/ingredient/aanpassen/{iDescr}(iDescr = ${ingredient.description})}"></a></td>
             <td><a th:text="${ingredient.calories}"></a></td>
             <td><a th:text="${ingredient.quantityUnit}"></a></td>
+            <td><a th:text="${ingredient.countUsesInRecipes()}"></a></td>
             <td><a th:href="@{/ingredient/verwijderen/{ingredientID}(ingredientID = ${ingredient.ingredientId})}">
                 <i class="bi bi-trash-fill"></i></a></td>
         </tr>

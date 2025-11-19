@@ -17,4 +17,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findAllByAuthor(GoudVinkjeUser loggedInUser);
 
     List<Recipe> findAllByAuthorNot(GoudVinkjeUser loggedInUser);
+
+    List<Recipe> findAllByPubliclyVisibleAndAuthorNot(boolean publiclyVisible, GoudVinkjeUser goudVinkjeUser);
 }

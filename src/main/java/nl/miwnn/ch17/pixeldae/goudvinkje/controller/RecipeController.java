@@ -41,7 +41,7 @@ public class RecipeController {
     @GetMapping({ "/", "/overzicht"})
     private String showRecipeOverview(Model datamodel) {
         GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
-        datamodel.addAttribute("publicRecipes", recipeRepository.findAllByAuthorNot(loggedInUser));
+        datamodel.addAttribute("publicRecipes", recipeRepository.findAllByPubliclyVisibleAndAuthorNot(true, loggedInUser));
         datamodel.addAttribute("ownRecipes", recipeRepository.findAllByAuthor(loggedInUser));
 
         return "recipeOverview";
