@@ -13,13 +13,21 @@
         <thead>
             <tr>
                 <th>Gebruiker</th>
+                <th>Admin</th>
+<!--                <th>Aantal recepten</th>-->
             </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users}">
-            <td><a th:text="${user.username}"
-                   th:href="@{/gebruiker/aanpassen/{username}(username = ${user.username})}"></a></td>
-            <td><a th:href="@{/gebruiker/verwijderen/{userID}(userID = ${user.userID})}">
+            <td><div th:text="${user.username}"></div></td>
+            <td><input type="checkbox" class="form-check-input custom-checkbox"
+                       th:checked="${user.role == 'ROLE_ADMIN'}" readonly/></td>
+<!--            <td><div th:text="${user.countRecipes()}"></div></td>-->
+            <td><a th:href="@{/gebruiker/aanpassen/{username}(username = ${user.username})}">
+                <i class="bi bi-pencil-fill"></i></a>
+            </td>
+            <td><a th:href="@{/gebruiker/verwijderen/{userID}(userID = ${user.userID})}"
+                   onclick="return confirm('Weet je zeker dat je dit recept wilt verwijderen?');">
                 <i class="bi bi-trash-fill"></i></a>
             </td>
         </tr>

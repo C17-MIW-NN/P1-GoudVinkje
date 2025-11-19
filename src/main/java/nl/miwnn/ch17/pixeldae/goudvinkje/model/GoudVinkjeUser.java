@@ -33,7 +33,7 @@ public class GoudVinkjeUser implements UserDetails {
     private String role; // bv. "ROLE_USER" of "ROLE_ADMIN"
 
     @OneToMany
-    @JoinColumn(name = "recipe_recipeid")
+    @JoinColumn(name = "userID")
     private List<Recipe> recipes;
 
     @Override
@@ -42,6 +42,10 @@ public class GoudVinkjeUser implements UserDetails {
     }
 
     //methods
+    public int countRecipes() {
+        return this.recipes.size();
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
