@@ -74,6 +74,8 @@ a:hover {
     border: 2px solid #450707;
     height: 40px;
     border-radius: 40px;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .btn-primary:hover {
@@ -82,6 +84,8 @@ a:hover {
     border-color: #F29120;
     height: 40px;
     border-radius: 40px;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 /*Container styling*/
@@ -110,12 +114,40 @@ a:hover {
     column-gap: 2rem;
     list-style-position: inside;
 }
+
+/*recipeDetail*/
+.card-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    aspect-ratio: 3 / 2;
+    position: relative;
+}
+
+.card-title {
+    font-weight: 400;
+    font-size: 1.2em;
+}
+
 .recipe-detail-label {
     font-weight: 300;
     font-size: .875em;
 }
 .checked {
     text-decoration: line-through;
+}
+
+.card-button {
+    color: #450707;
+    z-index: 2;
+    position: relative;
+}
+.card-button:hover {
+    color: #F29120;
+}
+
+.stretched-link {
+    z-index: 1;
 }
 
 /* recipeForm */

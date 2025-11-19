@@ -37,6 +37,8 @@ public class Recipe {
 
     private boolean publiclyVisible;
 
+    private String imageURL;
+
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeHasIngredient> recipeHasIngredients = new ArrayList<>();
 

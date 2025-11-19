@@ -3,6 +3,7 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.*;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
+import nl.miwnn.ch17.pixeldae.goudvinkje.service.ImageService;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,13 +25,16 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final GoudVinkjeUserService goudVinkjeUserService;
+    private final ImageService imageService;
 
     public RecipeController(RecipeRepository recipeRepository,
                             IngredientRepository ingredientRepository,
-                            GoudVinkjeUserService goudVinkjeUserService) {
+                            GoudVinkjeUserService goudVinkjeUserService,
+                            ImageService imageService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.goudVinkjeUserService = goudVinkjeUserService;
+        this.imageService = imageService;
     }
 
     // showRecipeOverview
