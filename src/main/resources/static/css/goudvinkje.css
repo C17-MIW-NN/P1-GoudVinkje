@@ -68,12 +68,19 @@ a:hover {
     color: #EFD86F;
 }
 
+/*.btn {*/
+/*    outline: none !important;*/
+/*    box-shadow: none !important;*/
+/*    border: 2px solid #450707;*/
+/*}*/
 .btn-primary {
     color: #450707;
     background-color: #F0EBD6;
     border: 2px solid #450707;
     height: 40px;
     border-radius: 40px;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .btn-primary:hover {
@@ -82,6 +89,8 @@ a:hover {
     border-color: #F29120;
     height: 40px;
     border-radius: 40px;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 /*Container styling*/
