@@ -10,100 +10,101 @@
 
 <div class="container-md my-5">
     <div class="outline-col">
-    <div class="row g-0 align-items-stretch">
-        <div class="d-flex border-col">
-            <h1 class="" th:text="${recipe.name}"></h1>
-            <div class="col-1 d-flex flex-end justify-content-center align-items-center ms-auto">
-                <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}"><i class="icon-button bi-pencil-fill"></i>
-                </a>
+        <div class="row g-0 align-items-stretch">
+            <div class="d-flex border-col">
+                <h1 class="" th:text="${recipe.name}"></h1>
+                <div class="col-1 d-flex flex-end justify-content-center align-items-center ms-auto">
+                    <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}"><i
+                            class="icon-button bi-pencil-fill"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    </div>
 
-    <div class="row">
-        <img th:src="${recipe.imageURL}" th:alt="|Image for ${recipe.name}|">
-    </div>
 
-    <div class="outline-col">
-    <div class="row g-0 align-items-stretch">
-        <div class="col border-col">
-            <p class="mb-0" type="text" id="description" th:text="${recipe.description}"></p>
+        <div class="row border-col p-0">
+            <img class="p-0" th:src="${recipe.imageURL}" th:alt="|Image for ${recipe.name}|">
         </div>
-    </div>
 
-    <div class="row g-0 align-items-stretch">
-        <div class="col border-col py-2">
-            <i class="bi bi-people-fill"></i>
-            <label class="recipe-detail-label" for="portions">Aantal porties</label>
-            <p class="mb-0 text-center" type="text" id="portions" th:text="${recipe.nrOfPortions}"></p>
-        </div>
-        <div class="col border-col py-2">
-            <i class="bi bi-fire"></i>
-            <label class="recipe-detail-label" for="kcal">Kcal per portie</label>
-            <p class="mb-0 text-center" type="text" id="kcal" th:text="${recipe.calories}"></p>
-        </div>
-        <div class="col border-col py-2">
-            <i class="bi bi-person-circle"></i>
-            <label class="recipe-detail-label" for="author">Auteur</label>
-            <p class="mb-0 text-center" type="text" id="author" th:text="${recipe.author}"></p>
-        </div>
-        <div class="col border-col py-2">
-            <i class="bi bi-calendar-fill"></i>
-            <label class="recipe-detail-label" for="date">Publicatiedatum</label>
-            <p class="mb-0 text-center" type="text" id="date" th:text="${recipe.dateAdded}"></p>
-        </div>
-    </div>
 
-    <div class="row g-0 align-items-stretch">
-        <div class="col border-col">
-            <h2 class="mb-4">Ingrediënten</h2>
-            <div class="row g-0">
-                <div class="col-12 col-lg-6 d-flex" th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
-                    <div class="form-check col-3">
-                        <input class="form-check-input cross-checkbox"
-                               type="checkbox"
-                               th:data-type="'ingredient'"
-                               th:data-id="${ingredient.getIngredient().ingredientId}"
-                               th:id="'checker' + ${ingredient.getIngredient().ingredientId}">
-                        <label class="mb-0 form-check-label"
-                               th:for="'checker' + ${ingredient.getIngredient().ingredientId}"
-                               th:text="|${ingredient.quantity} ${ingredient.getIngredient().quantityUnit}|"></label>
-                    </div>
-                    <div class="pe-3 pb-2">
-                        <p class="mb-0 checkable"
-                           th:id="'ingredient' + ${ingredient.getIngredient().ingredientId}"
-                           th:text="${ingredient.getIngredient().description}"></p>
+        <div class="row g-0 align-items-stretch">
+            <div class="col border-col">
+                <p class="mb-0" type="text" id="description" th:text="${recipe.description}"></p>
+            </div>
+        </div>
+
+        <div class="row g-0 align-items-stretch">
+            <div class="col border-col py-2">
+                <i class="bi bi-people-fill"></i>
+                <label class="recipe-detail-label" for="portions">Aantal porties</label>
+                <p class="mb-0 text-center" type="text" id="portions" th:text="${recipe.nrOfPortions}"></p>
+            </div>
+            <div class="col border-col py-2">
+                <i class="bi bi-fire"></i>
+                <label class="recipe-detail-label" for="kcal">Kcal per portie</label>
+                <p class="mb-0 text-center" type="text" id="kcal" th:text="${recipe.calories}"></p>
+            </div>
+            <div class="col border-col py-2">
+                <i class="bi bi-person-circle"></i>
+                <label class="recipe-detail-label" for="author">Auteur</label>
+                <p class="mb-0 text-center" type="text" id="author" th:text="${recipe.author}"></p>
+            </div>
+            <div class="col border-col py-2">
+                <i class="bi bi-calendar-fill"></i>
+                <label class="recipe-detail-label" for="date">Publicatiedatum</label>
+                <p class="mb-0 text-center" type="text" id="date" th:text="${recipe.dateAdded}"></p>
+            </div>
+        </div>
+
+        <div class="row g-0 align-items-stretch">
+            <div class="col border-col">
+                <h2 class="mb-4">Ingrediënten</h2>
+                <div class="row g-0">
+                    <div class="col-12 col-lg-6 d-flex" th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
+                        <div class="form-check col-3">
+                            <input class="form-check-input cross-checkbox"
+                                   type="checkbox"
+                                   th:data-type="'ingredient'"
+                                   th:data-id="${ingredient.getIngredient().ingredientId}"
+                                   th:id="'checker' + ${ingredient.getIngredient().ingredientId}">
+                            <label class="mb-0 form-check-label"
+                                   th:for="'checker' + ${ingredient.getIngredient().ingredientId}"
+                                   th:text="|${ingredient.quantity} ${ingredient.getIngredient().quantityUnit}|"></label>
+                        </div>
+                        <div class="pe-3 pb-2">
+                            <p class="mb-0 checkable"
+                               th:id="'ingredient' + ${ingredient.getIngredient().ingredientId}"
+                               th:text="${ingredient.getIngredient().description}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row g-0 align-items-stretch">
-        <div class="border-col">
-            <h2 class="mb-4">Instructies</h2>
-            <div class="row g-0 me-4">
-                <div class="col-12 d-flex" th:each="step : *{recipe.getSteps()}">
-                    <div class="form-check col-1">
-                        <input class="form-check-input cross-checkbox"
-                               type="checkbox"
-                               th:data-type="'step'"
-                               th:data-id="${step.stepId}"
-                               th:id="'checker' + ${step.stepId}">
-                        <label class="form-check-label"
-                               th:for="'checker' + ${step.stepId}"
-                               th:text="${step.sequenceNr}"></label>
-                    </div>
-                    <div>
-                        <p class="mb-2 checkable"
-                           th:id="'step' + ${step.stepId}"
-                           th:text="${step.instruction}"></p>
+        <div class="row g-0 align-items-stretch">
+            <div class="border-col">
+                <h2 class="mb-4">Instructies</h2>
+                <div class="row g-0 me-4">
+                    <div class="col-12 d-flex" th:each="step : *{recipe.getSteps()}">
+                        <div class="form-check col-1">
+                            <input class="form-check-input cross-checkbox"
+                                   type="checkbox"
+                                   th:data-type="'step'"
+                                   th:data-id="${step.stepId}"
+                                   th:id="'checker' + ${step.stepId}">
+                            <label class="form-check-label"
+                                   th:for="'checker' + ${step.stepId}"
+                                   th:text="${step.sequenceNr}"></label>
+                        </div>
+                        <div>
+                            <p class="mb-2 checkable"
+                               th:id="'step' + ${step.stepId}"
+                               th:text="${step.instruction}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>
 

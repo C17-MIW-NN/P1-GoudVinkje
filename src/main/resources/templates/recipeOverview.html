@@ -8,27 +8,20 @@
 <body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="container-md my-5">
-    <table>
-        <thead>
-        <tr>
-            <th>Recipe</th>
-            <th>Author</th>
-            <th>Date added</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="recipe : ${recipes}">
-            <td><h3><a th:text="${recipe.name}"
-                   th:href="@{/recept/{recipeId}(recipeId = ${recipe.recipeID})}"></a></h3></td>
-            <td th:text="${recipe.author}"></td>
-            <td th:text="${recipe.dateAdded}"></td>
-            <td><a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">Recept aanpassen</a></td>
-        </tr>
-        </tbody>
-    </table>
-    <a class="btn btn-primary" th:href="@{/recept/toevoegen}" role="button">Voeg een nieuw recept toe</a>
+<div class="flex-fill container my-5">
+
+    <div class="row row-cols-4 g-3">
+
+        <div th:each="recipe : ${recipes}">
+            <div class="outline-col">
+            <div th:replace="~{fragments/recipe :: recipeCard(${recipe})}"></div>
+            </div>
+        </div>
+
+    </div>
 </div>
+
+<a class="btn btn-primary" th:href="@{/recept/toevoegen}" role="button">Voeg een nieuw recept toe</a>
 
 <footer th:replace="~{fragments/general :: footer}"></footer>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>

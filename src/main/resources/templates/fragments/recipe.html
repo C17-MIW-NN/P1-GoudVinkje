@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="recipeCard(recipe)">
+    <div>
+        <div class="card-image border-col p-0 d-flex justify-content-end p-2"
+             th:style="'background-image:url(' + ${recipe.imageURL} + ')'">
+
+            <a class="stretched-link" th:href="@{/recept/{recipeId}(recipeId = ${recipe.recipeID})}"></a>
+
+            <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">
+                <i class="icon-button bi-pencil-fill card-button"></i></a>
+        </div>
+        <div class="p-0">
+            <p class="border-col card-title p-2" th:text="${recipe.name}"></p>
+            <div class="row g-0 align-items-stretch">
+                <div class="col border-col p-2 text-center">
+                    <i class="bi bi-people-fill"></i>
+                    <span class="mb-0" type="text" id="portions" th:text="${recipe.nrOfPortions}"></span>
+                </div>
+                <div class="col border-col p-2 text-center">
+                    <i class="bi bi-fire"></i>
+                    <span class="mb-0" type="text" id="kcal" th:text="${recipe.calories}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -110,6 +110,21 @@ a:hover {
     column-gap: 2rem;
     list-style-position: inside;
 }
+
+/*recipeDetail*/
+.card-image {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    aspect-ratio: 3 / 2;
+    position: relative;
+}
+
+.card-title {
+    font-weight: 400;
+    font-size: 1.2em;
+}
+
 .recipe-detail-label {
     font-weight: 300;
     font-size: .875em;
@@ -117,6 +132,20 @@ a:hover {
 .checked {
     text-decoration: line-through;
 }
+
+.card-button {
+    color: #450707;
+    z-index: 2;
+    position: relative;
+}
+.card-button:hover {
+    color: #F29120;
+}
+
+.stretched-link {
+    z-index: 1;
+}
+
 /* recipeForm */
 .bi-trash-fill .form-text {
     color: #f26947;
