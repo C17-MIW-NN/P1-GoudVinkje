@@ -26,8 +26,10 @@
                     <input class="fs-2 mb-2 mx-0 px-1 form-control w-100" type="text" id="name" th:field="*{name}"
                            placeholder="bijv. Vegan Spaghetti Bolognese">
                 </div>
-                <div class="ms-auto flex-end col-1">
-                    <a th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">
+                <div class="ms-auto flex-end col-1" th:if="${formRecipe.author.username == #authentication.name}
+                                                    or ${#authorization.expression('hasRole(''ADMIN'')')}">
+                    <a th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}"
+                       onclick="return confirm('Weet je zeker dat je dit recept wilt verwijderen?');">
                         <i class="bi bi-trash-fill"></i>
                     </a>
                 </div>
