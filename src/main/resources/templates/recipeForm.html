@@ -50,12 +50,17 @@
         </div>
         <div class="col border-col px-3">
             <label for="author">Auteur</label>
-            <input class="mb-2 mx-0 px-1 form-control" type="text" id="author" th:field="*{author.username}"
-                   placeholder="bijv. Pieter van de Pepermolen">
+            <input class="mb-2 mx-0 px-1 form-control" type="text" id="author" th:field="*{author.username}" readonly>
         </div>
         <div class="col border-col px-3">
             <label for="date">Publicatiedatum</label>
             <input class="mb-2 mx-0 px-1 form-control" type="text" id="date" th:field="*{dateAdded}">
+        </div>
+        <div class="col border-col px-3">
+            <label for="shared" class="d-block">Gedeeld</label>
+            <div class="form-check mt-2">
+                <input class="form-check-input custom-checkbox" type="checkbox" id="shared" th:field="*{publiclyVisible}">
+            </div>
         </div>
     </div>
 

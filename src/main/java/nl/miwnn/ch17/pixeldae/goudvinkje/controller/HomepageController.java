@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomepageController {
 
-    @GetMapping("/")
+    @GetMapping({"/", "/login"})
     public String gotoHomepage() {
         return "homepage.html";
     }

@@ -35,6 +35,8 @@ public class Recipe {
 
     private int nrOfPortions;
 
+    private boolean publiclyVisible;
+
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeHasIngredient> recipeHasIngredients = new ArrayList<>();
 

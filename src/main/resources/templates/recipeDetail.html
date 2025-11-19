@@ -54,7 +54,7 @@
             <div class="row g-0">
                 <div class="col-12 col-lg-6 d-flex" th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
                     <div class="form-check col-3">
-                        <input class="form-check-input cross-checkbox"
+                        <input class="form-check-input cross-checkbox custom-checkbox"
                                type="checkbox"
                                th:data-type="'ingredient'"
                                th:data-id="${ingredient.getIngredient().ingredientId}"

@@ -59,10 +59,12 @@ public class RecipeController {
 
     // recipeForm
     @GetMapping("/toevoegen")
-    public String showRecipeForm(Model datamodel) {
+    public String showAddRecipeForm(Model datamodel) {
         Recipe recipe = new Recipe(LocalDate.now());
         recipe.getSteps().add(new Step(1));
         recipe.getRecipeHasIngredients().add(new RecipeHasIngredient(new Ingredient()));
+        recipe.setAuthor(goudVinkjeUserService.getLoggedInUser());
+        recipe.setPubliclyVisible(true);
 
         return showRecipeForm(datamodel, recipe);
     }
@@ -105,7 +107,7 @@ public class RecipeController {
         return "redirect:/recept/" + recipe.getRecipeID();
     }
 
-    // if the ingredient already exists, use the prior existing ingrediënt
+    // if an ingredient already exists, use the prior existing ingrediënt
     private void preventDuplicateIngredients(Recipe recipe) {
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
             Ingredient ingredientFromForm = recipeHasIngredient.getIngredient();
@@ -129,8 +131,8 @@ public class RecipeController {
 
     }
 
-    // if the recipe already exists, remove all the ingredients;
-    // otherwise deleted ingredients would remain in the database.
+    // if the recipe already exists, remove all references to the ingredients;
+    // otherwise references to deleted ingredients would remain in the RecipeHasIngredients table.
     private void ifRecipeExistsRemoveAllIngredients(Recipe recipe) {
         if (recipe.getRecipeID() == null) { return; }
 
