@@ -32,11 +32,15 @@ public class GoudVinkjeUser implements UserDetails {
 
     private String password;
 
+    @Column(nullable = false)
+    private String role; // bv. "ROLE_USER" of "ROLE_ADMIN"
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
+    //methods
     @Override
     public boolean isAccountNonExpired() {
         return true;

@@ -17,6 +17,7 @@ public class GoudVinkjeUserMapper {
         goudVinkjeUser.setUserID(goudVinkjeUserDTO.getUserID());
         goudVinkjeUser.setUsername(goudVinkjeUserDTO.getUsername());
         goudVinkjeUser.setPassword(goudVinkjeUserDTO.getPassword());
+        goudVinkjeUser.setRole(goudVinkjeUserDTO.isAdminUser() ? "ROLE_ADMIN" : "ROLE_USER");
 
         return goudVinkjeUser;
     }
@@ -26,6 +27,7 @@ public class GoudVinkjeUserMapper {
 
         goudVinkjeUserDTO.setUserID(goudVinkjeUser.getUserID());
         goudVinkjeUserDTO.setUsername(goudVinkjeUser.getUsername());
+        goudVinkjeUserDTO.setAdminUser(goudVinkjeUser.getRole().equals("ROLE_ADMIN"));
 
         return goudVinkjeUserDTO;
     }

@@ -29,14 +29,14 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recept/overzicht}">Recepten</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                         <a class="nav-link" th:href="@{/ingredient/overzicht}">Ingrediënten</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                         <a class="nav-link" th:href="@{/gebruiker/overzicht}">Gebruikers</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a class="nav-link" th:href="@{/login}"><i class="bi bi-lock-fill"></i></a>
+                        <a class="nav-link" th:href="@{/login}">inloggen</a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post" class="d-inline">
