@@ -14,8 +14,10 @@
         <h2>Mijn recepten</h2>
         <a class="btn btn-primary" th:href="@{/recept/toevoegen}" role="button">nieuw recept</a>
     </div>
+    <div class="text-center" th:if="${#lists.isEmpty(ownRecipes)}">
+        Op dit moment heb je nog geen eigen recepten.
+    </div>
     <div class="row row-cols-3 g-3">
-
         <div th:each="recipe : ${ownRecipes}">
             <div class="outline-col">
             <div th:replace="~{fragments/recipe :: recipeCard(${recipe})}"></div>
