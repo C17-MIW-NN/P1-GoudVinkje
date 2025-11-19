@@ -12,9 +12,15 @@
 
     <div class="row row-cols-4 g-3">
 
-        <div th:each="recipe : ${recipes}">
+        <div th:each="recipe : ${ownRecipes}">
             <div class="outline-col">
             <div th:replace="~{fragments/recipe :: recipeCard(${recipe})}"></div>
+            </div>
+        </div>
+
+        <div th:each="recipe : ${publicRecipes}">
+            <div class="outline-col">
+                <div th:replace="~{fragments/recipe :: recipeCard(${recipe})}"></div>
             </div>
         </div>
 

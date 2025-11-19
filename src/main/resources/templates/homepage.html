@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title th:text="GoudVinkje"></title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<main class="flex-fill d-flex flex-column justify-content-center align-items-center gap-4">
+    <img src="/images/goudvinkje-logo.png" alt="Logo" class="img-fluid" style="max-width: 200px;">
+    <h1>GoudVinkje</h1>
+    <div sec:authorize="isAnonymous()">
+        <form class="d-flex flex-column gap-3" style="min-width: 300px;" th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username">Gebruikersnaam</label>
+                <input type="text" class="form-control" id="username"
+                       name="username" placeholder="type hier je gebruikersnaam" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Wachtwoord</label>
+                <input type="password" class="form-control" id="password"
+                       name="password" placeholder="type hier je wachtwoord" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </form>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <a href="/recept/overzicht"><button type="button" class="btn btn-primary">Bekijk de recepten</button></a>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/general :: footer}"></footer>
+
+</body>
+</html>

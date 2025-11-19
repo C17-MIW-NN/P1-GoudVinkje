@@ -1,12 +1,10 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.Ingredient;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
+import nl.miwnn.ch17.pixeldae.goudvinkje.model.*;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.ImageService;
+import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,29 +19,36 @@ import java.util.Optional;
  */
 
 @Controller
+@RequestMapping("/recept")
 public class RecipeController {
 
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
+    private final GoudVinkjeUserService goudVinkjeUserService;
     private final ImageService imageService;
 
     public RecipeController(RecipeRepository recipeRepository,
-                            IngredientRepository ingredientRepository, ImageService imageService) {
+                            IngredientRepository ingredientRepository,
+                            GoudVinkjeUserService goudVinkjeUserService,
+                            ImageService imageService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
+        this.goudVinkjeUserService = goudVinkjeUserService;
         this.imageService = imageService;
     }
 
     // showRecipeOverview
-    @GetMapping({"/", "/recept/", "/recept/overzicht"})
+    @GetMapping({ "/", "/overzicht"})
     private String showRecipeOverview(Model datamodel) {
-        datamodel.addAttribute("recipes", recipeRepository.findAll());
+        GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
+        datamodel.addAttribute("publicRecipes", recipeRepository.findAllByAuthorNot(loggedInUser));
+        datamodel.addAttribute("ownRecipes", recipeRepository.findAllByAuthor(loggedInUser));
 
         return "recipeOverview";
     }
 
     // showRecipeDetail
-    @GetMapping("/recept/{recipeID}")
+    @GetMapping("/{recipeID}")
     private String showRecipeDetail(@PathVariable("recipeID") Long recipeID, Model datamodel) {
         Optional<Recipe> recipe = recipeRepository.findById(recipeID);
 
@@ -57,7 +62,7 @@ public class RecipeController {
     }
 
     // recipeForm
-    @GetMapping("/recept/toevoegen")
+    @GetMapping("/toevoegen")
     public String showRecipeForm(Model datamodel) {
         Recipe recipe = new Recipe(LocalDate.now());
         recipe.getSteps().add(new Step(1));
@@ -66,7 +71,7 @@ public class RecipeController {
         return showRecipeForm(datamodel, recipe);
     }
 
-    @GetMapping("/recept/aanpassen/{recipeID}")
+    @GetMapping("/aanpassen/{recipeID}")
     public String showEditRecipeForm(@PathVariable("recipeID") Long recipeID, Model datamodel) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeID);
         if (optionalRecipe.isPresent()) {
@@ -81,7 +86,7 @@ public class RecipeController {
         return "recipeForm";
     }
 
-    @PostMapping("/recept/opslaan")
+    @PostMapping("/opslaan")
     public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
                                  BindingResult result) {
 
@@ -91,6 +96,13 @@ public class RecipeController {
 
         if (!result.hasErrors()) {
             ifRecipeExistsRemoveAllIngredients(recipe);
+
+            GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
+            if (!recipe.getAuthor().getUsername().equals(loggedInUser.getUsername())) {
+                recipe = recipe.newCopiedRecipe(loggedInUser);
+            }
+
+            recipe.setAuthor(loggedInUser);
             recipeRepository.save(recipe);
         }
 
@@ -130,7 +142,7 @@ public class RecipeController {
         recipeFromDB.getRecipeHasIngredients().clear();
     }
 
-    @GetMapping("/recept/verwijderen/{recipeID}")
+    @GetMapping("/verwijderen/{recipeID}")
     public String deleteRecipe(@PathVariable("recipeID") Long recipeID) {
         recipeRepository.deleteById(recipeID);
         return "redirect:/recept/";

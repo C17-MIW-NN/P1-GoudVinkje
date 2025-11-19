@@ -32,7 +32,8 @@ public class InitController {
                           IngredientRepository ingredientRepository,
                           RecipeHasIngredientRepository recipeHasIngredientRepository,
                           StepRepository stepRepository,
-                          GoudVinkjeUserService goudVinkjeUserService, ImageService imageService) {
+                          GoudVinkjeUserService goudVinkjeUserService,
+                          ImageService imageService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.recipeHasIngredientRepository = recipeHasIngredientRepository;
@@ -50,13 +51,14 @@ public class InitController {
 
     private void initializeDB() {
 
-        makeUser("Chad G Pete", "Vinkje123!");
-        makeUser("Simon", "2025");
+        GoudVinkjeUser chadGPete = makeUser("Chad G Pete", "2025");
+        GoudVinkjeUser simon = makeUser("Simon", "2025");
+        GoudVinkjeUser annelies = makeUser("Annelies", "2025");
 
         // --- Recept 1---
         Recipe recipe = makeRecipe(
                 "Veganistische linzencurry",
-                "Chad G Pete",
+                chadGPete,
                 "Een heerlijke, romige curry met rode linzen en kokosmelk — 100% plantaardig.",
                 4,
                 "/image/vegan-rode-linzen-curry.jpg"
@@ -101,7 +103,7 @@ public class InitController {
         // --- Tweede recept --- (Vegan Tofu Stir-Fry)
         Recipe tofuStirFry = makeRecipe(
                 "Vegan Tofu Stir-Fry",
-                "Chad G Pete",
+                chadGPete,
                 "Een snelle, kleurrijke roerbak met tofu, groenten en een sojasaus-dressing.",
                 2,
                 "/image/stir-fry-noodles.jpg"
@@ -146,7 +148,7 @@ public class InitController {
         // --- Derde recept --- (Extreem Lang Recept)
         Recipe langRecept = makeRecipe(
                 "Romige Plant-based Pasta Met Groenten, Kruiden En Een Langzaam Gekookte Saus",
-                "Alexandra van der Laan",
+                annelies,
                 "Een uitgebreide, plantaardige pastamaaltijd met een romige saus op basis van "
                         + "geweekte noten, kruidige groenten en zorgvuldig opgebouwde smaken. De "
                         + "omschrijving is bewust lang zodat de layout getest kan worden.",
@@ -223,7 +225,7 @@ public class InitController {
         // --- Vierde recept --- (Kort recept, pompoensoep)
         Recipe kortRecept = makeRecipe(
                 "Pompoensoep",
-                "Co Piloot",
+                annelies,
                 "Altijd een success.",
                 4,
                 "/image/pompoen-soep.jpg"
@@ -244,7 +246,7 @@ public class InitController {
         recipeRepository.save(kortRecept);
     }
 
-    private Recipe makeRecipe(String name, String author, String description, int nrOfPortions, String filename) {
+    private Recipe makeRecipe(String name, GoudVinkjeUser author, String description, int nrOfPortions, String filename) {
         Recipe recipe = new Recipe();
 
         recipe.setName(name);
@@ -303,13 +305,15 @@ public class InitController {
 
     }
 
-    private void makeUser(String username, String password) {
+    private GoudVinkjeUser makeUser(String username, String password) {
         GoudVinkjeUser goudVinkjeUser = new GoudVinkjeUser();
 
         goudVinkjeUser.setUsername(username);
         goudVinkjeUser.setPassword(password);
 
         goudVinkjeUserService.saveUser(goudVinkjeUser);
+
+        return goudVinkjeUser;
     }
 
     private void saveImage(String filename) throws IOException {
