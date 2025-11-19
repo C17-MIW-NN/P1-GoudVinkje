@@ -8,7 +8,8 @@
 <body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="container-md outline-col my-5">
+<div class="container-md my-5">
+    <div class="outline-col">
     <div class="row g-0 align-items-stretch">
         <div class="d-flex border-col">
             <h1 class="" th:text="${recipe.name}"></h1>
@@ -18,7 +19,13 @@
             </div>
         </div>
     </div>
+    </div>
 
+    <div class="row">
+        <img th:src="${recipe.imageURL}" th:alt="|Image for ${recipe.name}|">
+    </div>
+
+    <div class="outline-col">
     <div class="row g-0 align-items-stretch">
         <div class="col border-col">
             <p class="mb-0" type="text" id="description" th:text="${recipe.description}"></p>
@@ -96,6 +103,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 
