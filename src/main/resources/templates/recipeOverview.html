@@ -8,13 +8,13 @@
 <body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="flex-fill container my-5">
+<div class="flex-fill container my-5 mx-0">
 
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Mijn recepten</h2>
         <a class="btn btn-primary" th:href="@{/recept/toevoegen}" role="button">nieuw recept</a>
     </div>
-    <div class="row row-cols-3 g-3">
+    <div class="row row-cols-3 g-3 d-flex align-items-stretch">
 
         <div th:each="recipe : ${ownRecipes}">
             <div class="outline-col">

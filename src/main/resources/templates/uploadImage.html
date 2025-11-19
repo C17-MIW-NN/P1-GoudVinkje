@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>Afbeelding uploaden</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100 main-width">
+<nav th:replace="~{fragments/general :: navbar}"></nav>
+
+<div class="container-md my-5">
+    <div class="outline-col">
+        <div class="border-col">
+            <label for="title" class="mb-2">Upload een afbeelding voor:</label>
+            <h3 id="title" th:text="${formRecipe.name}"></h3>
+        </div>
+        <div class="row border-col p-0">
+            <img class="p-0" th:src="${formRecipe.imageURL}" th:alt="|Image for ${formRecipe.name}|">
+        </div>
+
+        <div class="border-col">
+        <form th:action="@{/afbeeldingopslaan}" method="post"
+              th:object="${formRecipe}" enctype="multipart/form-data">
+            <label for="imageFile" class="form-label" >Recept afbeelding: </label><br>
+            <input type="file" id="imageFile" name="recipeImage" accept="image/*" class="btn btn-primary">
+            <input type="submit" value="Afbeelding toevoegen" class="btn btn-primary">
+        </form>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="~{fragments/general :: footer}"></footer>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+</body>
+
+</html>
