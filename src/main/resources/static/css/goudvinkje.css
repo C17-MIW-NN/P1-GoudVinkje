@@ -188,6 +188,17 @@ a:hover {
     box-shadow: none;
 }
 
+.custom-table th {
+    background-color: #F29120;
+    color: #F0EBD6;
+    font-size: large;
+}
+.custom-table,
+.custom-table td {
+    background-color: transparent; /* lichte oranje achtergrond */
+    color: #450707; /* tekstkleur */
+}
+
 /*Bootstrap kleuren overschrijven*/
 [class*="primary"] {
     color: #F29120;
