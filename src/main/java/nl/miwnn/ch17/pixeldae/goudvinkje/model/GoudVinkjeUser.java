@@ -33,7 +33,7 @@ public class GoudVinkjeUser implements UserDetails {
     private String role; // bv. "ROLE_USER" of "ROLE_ADMIN"
 
     @OneToMany
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "author_user_id")
     private List<Recipe> recipes;
 
     @Override

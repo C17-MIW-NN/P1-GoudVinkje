@@ -116,6 +116,7 @@ $(document).ready(function () {
                     }
 
                 });
+
             $(this).find("input[name*='sequenceNr']").val(index + 1);
         });
 
