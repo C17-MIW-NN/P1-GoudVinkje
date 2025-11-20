@@ -23,8 +23,11 @@
 body {
     font-family: 'Inria';
     font-weight: 400;
-    /*color: #450707;*/
     background-color: #F0EBD6;
+}
+
+input {
+    border-radius: 0 !important;
 }
 
 /*Navbar*/

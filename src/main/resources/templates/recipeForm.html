@@ -57,7 +57,8 @@
         </div>
         <div class="col border-col px-3">
             <label for="date">Publicatiedatum</label>
-            <input class="mb-2 mx-0 px-1 form-control" type="text" id="date" th:field="*{dateAdded}" disabled>
+            <input class="mb-2 mx-0 px-1 form-control" style="background-color: #F0EBD6"
+                   type="text" id="date" th:field="*{dateAdded}" disabled>
         </div>
         <div class="col border-col px-3">
             <label for="shared" class="d-block">Gedeeld</label>
@@ -98,8 +99,10 @@
                     </table>
                 </div>
             </div>
+            <div class="mt-3 text-center">
+                <button type="button" class="btn btn-primary w-50" id="add-ingredient">Ingrediënt toevoegen</button>
+            </div>
         </div>
-        <button type="button" id="add-ingredient">Ingrediënt toevoegen</button>
     </div>
 
     <div class="row g-0 align-items-stretch">
@@ -113,7 +116,7 @@
                                 <td><i class="bi-grip-vertical"></i>
                                     <input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
                                 <td><input class="form-control" type="text"
-                                           th:field="*{steps[__${order.index}__].sequenceNr}" disabled></td>
+                                           th:field="*{steps[__${order.index}__].sequenceNr}" readonly></td>
                                 <td class="instruction-line"><input class="form-control"
                                            type="text" th:field="*{steps[__${order.index}__].instruction}"
                                                                     placeholder="bijv. bak voor 10 min."></td>
@@ -123,21 +126,20 @@
                     </table>
                 </div>
             </div>
-        </div>
-        <button type="button" id="add-step">Stap toevoegen</button>
-
-    </div>
-
-    <div>
-
-
-    </div>
-
-            <div>
-                <button type="submit" name="action" value="save">Opslaan</button>
-                <button type="submit" name="action" value="cancel">Annuleren</button>
+            <div class="mt-3 text-center">
+                <button type="button" class="btn btn-primary w-50" id="add-step">Stap toevoegen</button>
             </div>
+        </div>
     </div>
+    <div class="row g-0 align-items-stretch">
+        <div class="col border-col px-3 pb-3 d-flex justify-content-evenly">
+            <button type="submit" class="btn btn-primary w-50 mx-2" style="background-color: #556B2F30" name="action" value="save">Opslaan</button>
+            <a th:href="@{/recept/overzicht}" class="w-50 mx-2">
+                <button type="button" class="btn btn-primary w-100" style="background-color: #F2912030">Annuleren</button>
+            </a>
+        </div>
+    </div>
+</div>
 </form>
 
 <footer th:replace="~{fragments/general :: footer}"></footer>
