@@ -246,6 +246,114 @@ public class InitController {
         kortRecept.addStep(makeStep(3, "Pureer na 20 min."));
 
         recipeRepository.save(kortRecept);
+
+        // --- Extra recept 1 (Simon) ---
+        Recipe spitskool = makeRecipe(
+                "Spitskoolkwarten uit de oven",
+                simon,
+                "Malse geroosterde spitskool met knoflook en paprika-olie.",
+                2,
+                "/image/spitskool-kwarten-uit-de-oven.jpg"
+        );
+        Ingredient spitskoolGroente = makeIngredient("Spitskool", 150, "g");
+        addIngredient(spitskool, Map.of(
+                spitskoolGroente, 400,
+                knoflook, 2,
+                olijfolie, 2,
+                zout, 1
+        ));
+        spitskool.addStep(makeStep(1, "Verwarm de oven voor op 200°C."));
+        spitskool.addStep(makeStep(2, "Snijd de spitskool in kwarten en bestrijk met olie en knoflook."));
+        spitskool.addStep(makeStep(3, "Rooster 25 minuten in de oven tot de spitskool goudbruin is."));
+        recipeRepository.save(spitskool);
+
+        // --- Extra recept 2 (Simon) ---
+        Recipe hamburgerRodeKool = makeRecipe(
+                "Hamburger met rode kool en salsa",
+                simon,
+                "Vegan burger met knapperige rode kool en frisse salsa.",
+                2,
+                "/image/hamburger-met-rode-kool-en-salsa.jpg"
+        );
+        Ingredient veganBurger = makeIngredient("Vegan burger", 250, "g");
+        Ingredient rodeKool = makeIngredient("Rode kool", 100, "g");
+        Ingredient tomaten = makeIngredient("Tomaat", 50, "g");
+        Ingredient salsa = makeIngredient("Salsa", 30, "ml");
+        addIngredient(hamburgerRodeKool, Map.of(
+                veganBurger, 200,
+                rodeKool, 100,
+                tomaten, 50,
+                salsa, 30
+        ));
+        hamburgerRodeKool.addStep(makeStep(1, "Bak de vegan burger goudbruin."));
+        hamburgerRodeKool.addStep(makeStep(2, "Snijd de rode kool en tomaat voor de topping."));
+        hamburgerRodeKool.addStep(makeStep(3, "Serveer met salsa op de burger."));
+        recipeRepository.save(hamburgerRodeKool);
+
+        // --- Extra recept 3 (Annelies) ---
+        Recipe crispyRijstvellen = makeRecipe(
+                "Crispy rijstvellen met rodekoolsalade",
+                annelies,
+                "Krokante rijstvellen gevuld met frisse rodekoolsalade.",
+                3,
+                "/image/chrispy-rijstvellen-met-rodekool-salade.jpg"
+        );
+        Ingredient rijstvellen = makeIngredient("Rijstvellen", 50, "g");
+        addIngredient(crispyRijstvellen, Map.of(
+                rijstvellen, 6,
+                rodeKool, 100,
+                wortel, 50,
+                sojasaus, 2
+        ));
+        crispyRijstvellen.addStep(makeStep(1, "Week de rijstvellen volgens de verpakking."));
+        crispyRijstvellen.addStep(makeStep(2, "Snijd rode kool en wortel fijn en meng met sojasaus."));
+        crispyRijstvellen.addStep(makeStep(3, "Vul de rijstvellen met de salade en rol ze op."));
+        recipeRepository.save(crispyRijstvellen);
+
+        // --- Extra recept 4 (Admin) ---
+        Recipe bulgurSalade = makeRecipe(
+                "Bulgursalade met verse kruiden en tuinbonen",
+                admin,
+                "Vullende, kruidige bulgursalade met tuinbonen.",
+                4,
+                "/image/bulgur-salade-met-verse-kruiden-en-tuinbonen.jpg"
+        );
+        Ingredient bulgur = makeIngredient("Bulgur", 120, "g");
+        Ingredient tuinbonen = makeIngredient("Tuinbonen", 100, "g");
+        Ingredient peterselie = makeIngredient("Verse peterselie", 10, "g");
+        Ingredient munt = makeIngredient("Verse munt", 5, "g");
+        addIngredient(bulgurSalade, Map.of(
+                bulgur, 200,
+                tuinbonen, 100,
+                peterselie, 10,
+                munt, 5
+        ));
+        bulgurSalade.addStep(makeStep(1, "Kook de bulgur volgens de verpakking."));
+        bulgurSalade.addStep(makeStep(2, "Meng de bulgur met tuinbonen en fijngehakte kruiden."));
+        bulgurSalade.addStep(makeStep(3, "Breng op smaak met olijfolie, zout en peper."));
+        recipeRepository.save(bulgurSalade);
+
+        // --- Extra recept 5 (Admin) ---
+        Recipe konijnSpaghetti = makeRecipe(
+                "Blij als een konijn spaghetti",
+                admin,
+                "Vegan spaghetti met romige wortelsaus en crunchy toppings.",
+                3,
+                "/image/blij-als-een-konijn-spaghetti.jpg"
+        );
+        Ingredient spaghetti = makeIngredient("Spaghetti", 300, "g");
+        Ingredient cashew = makeIngredient("Cashewnoten", 50, "g");
+        addIngredient(konijnSpaghetti, Map.of(
+                spaghetti, 300,
+                wortel, 100,
+                cashew, 50,
+                ui, 1
+        ));
+        konijnSpaghetti.addStep(makeStep(1, "Kook de spaghetti beetgaar."));
+        konijnSpaghetti.addStep(makeStep(2, "Pureer de wortels met cashewnoten tot een romige saus."));
+        konijnSpaghetti.addStep(makeStep(3, "Bak de ui goudbruin en meng door de saus."));
+        konijnSpaghetti.addStep(makeStep(4, "Serveer de saus over de spaghetti."));
+        recipeRepository.save(konijnSpaghetti);
     }
 
     private Recipe makeRecipe(String name, GoudVinkjeUser author, String description,
