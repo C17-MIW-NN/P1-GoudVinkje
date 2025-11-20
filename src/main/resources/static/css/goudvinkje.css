@@ -23,7 +23,7 @@
 body {
     font-family: 'Inria';
     font-weight: 400;
-    color: #450707;
+    /*color: #450707;*/
     background-color: #F0EBD6;
 }
 
@@ -170,7 +170,7 @@ a:hover {
 }
 
 /* recipeForm */
-.bi-trash-fill .form-text {
+.bi-trash-fill {
     color: #f26947;
 }
 

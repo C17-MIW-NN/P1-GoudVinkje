@@ -12,6 +12,7 @@
 <form th:action="@{/recept/opslaan}" method="post" th:object="${formRecipe}">
     <input type="hidden" th:field="*{recipeID}">
     <input type="hidden" th:field="*{dateAdded}">
+    <input type="hidden" th:field="*{imageURL}">
 
 <div class="container-md border-col p-0 my-5 mx-0">
     <div class="row g-0 align-items-stretch">
@@ -25,7 +26,6 @@
                     </label>
                     <input class="fs-2 mb-2 mx-0 px-1 form-control w-100" type="text" id="name" th:field="*{name}"
                            placeholder="bijv. Vegan Spaghetti Bolognese">
-                    <input type="hidden" th:field="*{imageURL}">
                 </div>
                 <div class="ms-auto flex-end col-1" th:if="${formRecipe.author.username == #authentication.name}
                                                     or ${#authorization.expression('hasRole(''ADMIN'')')}">
@@ -40,7 +40,6 @@
 
     <div class="row g-0 align-items-stretch">
         <div class="col border-col mb-0 px-3">
-            <input type="hidden" th:field="*{imageURL}">
             <label class="mt-2 mx-0 px-0 form-label" for="description">Korte omschrijving</label>
             <input class="mb-2 mx-0 px-1 form-control" type="text" id="description" th:field="*{description}"
                    placeholder="bijv. Rijke bolognese saus op basis van champignons">
