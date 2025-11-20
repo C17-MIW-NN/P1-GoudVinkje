@@ -248,7 +248,8 @@ public class InitController {
         recipeRepository.save(kortRecept);
     }
 
-    private Recipe makeRecipe(String name, GoudVinkjeUser author, String description, int nrOfPortions, String filename) {
+    private Recipe makeRecipe(String name, GoudVinkjeUser author, String description,
+                              int nrOfPortions, String filename) {
         Recipe recipe = new Recipe();
 
         recipe.setName(name);
@@ -256,6 +257,7 @@ public class InitController {
         recipe.setDateAdded(LocalDate.now());
         recipe.setDescription(description);
         recipe.setNrOfPortions(nrOfPortions);
+        recipe.setPubliclyVisible(true);
 
         try {
             saveImage(filename);
