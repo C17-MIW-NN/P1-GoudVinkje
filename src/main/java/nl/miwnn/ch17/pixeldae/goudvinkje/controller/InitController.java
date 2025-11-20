@@ -21,6 +21,7 @@ import java.util.Map;
 @Controller
 public class InitController {
 
+    private static final String STANDARD_PASSWORD = "2025";
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final RecipeHasIngredientRepository recipeHasIngredientRepository;
@@ -51,9 +52,10 @@ public class InitController {
 
     private void initializeDB() {
 
-        GoudVinkjeUser chadGPete = makeUser("Chad G Pete", "2025");
-        GoudVinkjeUser simon = makeUser("Simon", "2025");
-        GoudVinkjeUser annelies = makeUser("Annelies", "2025");
+        GoudVinkjeUser chadGPete = makeUser("Chad G Pete");
+        GoudVinkjeUser simon = makeUser("Simon");
+        GoudVinkjeUser annelies = makeUser("Annelies");
+        GoudVinkjeUser admin = makeUser("admin");
 
         // --- Recept 1---
         Recipe recipe = makeRecipe(
@@ -305,11 +307,16 @@ public class InitController {
 
     }
 
-    private GoudVinkjeUser makeUser(String username, String password) {
+    private GoudVinkjeUser makeUser(String username) {
         GoudVinkjeUser goudVinkjeUser = new GoudVinkjeUser();
 
         goudVinkjeUser.setUsername(username);
-        goudVinkjeUser.setPassword(password);
+        goudVinkjeUser.setPassword(STANDARD_PASSWORD);
+        if (username.equals("admin")) {
+            goudVinkjeUser.setRole("ROLE_ADMIN");
+        } else {
+            goudVinkjeUser.setRole("ROLE_USER");
+        }
 
         goudVinkjeUserService.saveUser(goudVinkjeUser);
 

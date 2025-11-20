@@ -47,6 +47,14 @@
     </div>
 </div>
 
+<div class="row row-cols-3 g-3">
+    <div th:each="rhi : ${ingredient.getRecipeHasIngredient()}">
+        <div class="outline-col">
+            <div th:replace="~{fragments/recipe :: recipeCard(${rhi.recipe})}"></div>
+        </div>
+    </div>
+</div>
+
 <footer th:replace="~{fragments/general :: footer}"></footer>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
 </body>

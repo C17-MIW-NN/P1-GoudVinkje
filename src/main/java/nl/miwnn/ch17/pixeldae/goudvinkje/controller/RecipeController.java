@@ -43,7 +43,7 @@ public class RecipeController {
     @GetMapping({ "/", "/overzicht"})
     private String showRecipeOverview(Model datamodel) {
         GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
-        datamodel.addAttribute("publicRecipes", recipeRepository.findAllByAuthorNot(loggedInUser));
+        datamodel.addAttribute("publicRecipes", recipeRepository.findAllByPubliclyVisibleAndAuthorNot(true, loggedInUser));
         datamodel.addAttribute("ownRecipes", recipeRepository.findAllByAuthor(loggedInUser));
 
         return "recipeOverview";
@@ -71,6 +71,7 @@ public class RecipeController {
         recipe.getRecipeHasIngredients().add(new RecipeHasIngredient(new Ingredient()));
         recipe.setAuthor(goudVinkjeUserService.getLoggedInUser());
         recipe.setPubliclyVisible(true);
+        recipe.setNrOfPortions(2);
 
         return showRecipeForm(datamodel, recipe);
     }
@@ -99,11 +100,12 @@ public class RecipeController {
         preventDuplicateIngredients(recipe);
 
         if (!result.hasErrors()) {
-            ifRecipeExistsRemoveAllIngredients(recipe);
-
+            // If it's someone else's recipe, make a copy.
             GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
             if (!recipe.getAuthor().getUsername().equals(loggedInUser.getUsername())) {
                 recipe = recipe.newCopiedRecipe(loggedInUser);
+            } else {
+                ifRecipeExistsRemoveAllIngredients(recipe);
             }
 
             recipe.setAuthor(loggedInUser);
@@ -149,6 +151,6 @@ public class RecipeController {
     @GetMapping("/verwijderen/{recipeID}")
     public String deleteRecipe(@PathVariable("recipeID") Long recipeID) {
         recipeRepository.deleteById(recipeID);
-        return "redirect:/recept/";
+        return "redirect:/recept/overzicht";
     }
 }

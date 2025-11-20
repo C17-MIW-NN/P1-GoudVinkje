@@ -1,9 +1,6 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,11 +29,19 @@ public class GoudVinkjeUser implements UserDetails {
 
     private String password;
 
+    @Column(nullable = false)
+    private String role; // bv. "ROLE_USER" of "ROLE_ADMIN"
+
+    @OneToMany
+    @JoinColumn(name = "recipe_recipeid")
+    private List<Recipe> recipes;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
+    //methods
     @Override
     public boolean isAccountNonExpired() {
         return true;

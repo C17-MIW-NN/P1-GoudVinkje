@@ -46,6 +46,10 @@
                     <span id="passwordHelpInline" class="form-text" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                 </div>
             </div>
+            <div>
+                <label for="admin">Administrator rechten?</label>
+                <input type="checkbox" id="admin" class="form-check-input custom-checkbox" th:field="*{adminUser}"/>
+            </div>
 
             <div>
                 <button type="submit" name="action" value="save">Opslaan</button>

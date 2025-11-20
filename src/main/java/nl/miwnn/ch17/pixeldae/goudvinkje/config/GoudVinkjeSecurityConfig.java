@@ -21,8 +21,11 @@ public class GoudVinkjeSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests((request) -> request
-                        .requestMatchers("/**").permitAll()
-                        .requestMatchers("/css/**", "/webjars/**").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/css/**", "/webjars/**", "/images/**", "/fonts/**").permitAll()
+                        .requestMatchers("/gebruiker/**").hasRole("ADMIN")
+                        .requestMatchers("/recept/").hasRole("USER")
+                        .requestMatchers("/ingredient/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
