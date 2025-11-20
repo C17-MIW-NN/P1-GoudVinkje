@@ -13,7 +13,7 @@
         <div class="row g-0 align-items-stretch">
             <div class="d-flex border-col">
                 <h1 class="" th:text="${recipe.name}"></h1>
-                <div class="col-1 d-flex flex-end justify-content-center align-items-center ms-auto">
+                <div class="col-1 flex-end align-items-start ms-auto text-end">
                     <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}"><i
                             class="icon-button bi-pencil-fill"></i>
                     </a>
@@ -87,7 +87,7 @@
                 <div class="row g-0 me-4">
                     <div class="col-12 d-flex" th:each="step : *{recipe.getSteps()}">
                         <div class="form-check col-1">
-                            <input class="form-check-input cross-checkbox"
+                            <input class="form-check-input cross-checkbox custom-checkbox"
                                    type="checkbox"
                                    th:data-type="'step'"
                                    th:data-id="${step.stepId}"

@@ -68,24 +68,23 @@ a:hover {
     color: #EFD86F;
 }
 
-.btn-primary {
-    color: #450707;
+.btn-primary,
+.btn-primary:link,
+.btn-primary:visited {
+    color: #450707 !important;
     background-color: #F0EBD6;
     border: 2px solid #450707;
     height: 40px;
     border-radius: 40px;
-    outline: none !important;
-    box-shadow: none !important;
 }
 
-.btn-primary:hover {
-    color: #F29120;
+.btn-primary:hover,
+.btn-primary:hover:link {
+    color: #F29120 !important;
     background-color: #F0EBD6;
     border-color: #F29120;
     height: 40px;
     border-radius: 40px;
-    outline: none !important;
-    box-shadow: none !important;
 }
 
 /*Container styling*/
@@ -137,6 +136,26 @@ a:hover {
     text-decoration: line-through;
 }
 
+.custom-checkbox {
+    border: solid white !important;
+    background-color: white !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.custom-checkbox:checked::after {
+    content: "\2713"; /* ✔ */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #F29120;
+    font-size: 18px;
+}
+
 .card-button {
     color: #450707;
     z-index: 2;
@@ -161,28 +180,6 @@ a:hover {
 
 .instruction-line {
     width: 86%;
-}
-
-.custom-checkbox {
-    /*width: 25px;*/
-    /*height: 25px;*/
-    border: solid white !important;
-    background-color: white !important;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    cursor: pointer;
-    position: relative;
-}
-
-.custom-checkbox:checked::after {
-    content: "\2713"; /* ✔ */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #F29120;
-    font-size: 18px;
 }
 
 /* Hover / focus zonder blauwe outline */

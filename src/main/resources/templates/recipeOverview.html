@@ -8,16 +8,18 @@
 <body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="flex-fill container my-5">
+<div class="flex-fill container my-5 mx-0">
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3>Mijn recepten</h3>
+        <h2>Mijn recepten</h2>
         <a class="btn btn-primary" th:href="@{/recept/toevoegen}" role="button">nieuw recept</a>
     </div>
     <div class="text-center" th:if="${#lists.isEmpty(ownRecipes)}">
-        Op dit moment heb je nog geen eigen recepten.
+        <p>Je hebt nog geen eigen recepten.</p>
+        <a th:href="@{/recept/toevoegen}">Wil je er een toevoegen?</a>
     </div>
     <div class="row row-cols-3 g-3">
+
         <div th:each="recipe : ${ownRecipes}">
             <div class="outline-col">
             <div th:replace="~{fragments/recipe :: recipeCard(${recipe})}"></div>
@@ -26,10 +28,10 @@
     </div>
 
     <div class="mt-5 mb-3">
-        <h3>Recepten van de community</h3>
+        <h2>Recepten van de community</h2>
     </div>
     <div class="text-center" th:if="${#lists.isEmpty(publicRecipes)}">
-        Op dit moment heeft nog niemand zijn of haar recept gedeeld.
+        Op dit moment heeft nog niemand anders een recept gedeeld.
     </div>
     <div class="row row-cols-3 g-3">
         <div th:each="recipe : ${publicRecipes}">
