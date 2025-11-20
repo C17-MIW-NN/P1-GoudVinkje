@@ -23,6 +23,10 @@
                 <input type="password" class="form-control" id="password"
                        name="password" placeholder="type hier je wachtwoord" required>
             </div>
+            <label>
+                <input type="checkbox" class="me-3 custom-checkbox form-check-input" name="remember-me">
+                Blijf ingelogd
+            </label>
             <div th:if="${param.error}" class="text-danger">
                 Ongeldige gebruikersnaam of wachtwoord
             </div>

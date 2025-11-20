@@ -35,6 +35,10 @@ public class GoudVinkjeSecurityConfig {
                         .failureUrl("/?error=true")
                         .permitAll()
                 )
+                .rememberMe(remember -> remember
+                        .key("uniekeSleutelVoorHashing123")
+                        .tokenValiditySeconds(60 * 60 * 24 * 30) // 30 dagen
+                )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")

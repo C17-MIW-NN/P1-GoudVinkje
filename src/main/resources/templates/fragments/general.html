@@ -22,10 +22,18 @@
                     GoudVinkje
                 </a>
             </div>
+            <button class="navbar-toggler" style="border:none" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Navigatie openen/sluiten">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
             <!-- Menu rechts -->
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav text-end">
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/recept/overzicht}">Recepten</a>
                     </li>
@@ -38,7 +46,7 @@
                     <li class="nav-item" sec:authorize="isAnonymous()">
                         <a class="nav-link" th:href="@{/login}">inloggen</a>
                     </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <li class="nav-item ms-auto" sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post" class="d-inline">
                             <button type="submit" class="nav-link btn btn-link m-0 ps-2" style="height: 100%; display: flex; align-items: center;">
                                 uitloggen
@@ -58,7 +66,7 @@
 </footer>
 
 <div th:fragment="bottomScripts">
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/dist/js/bootstrap.bundle.min.js}"></script>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
     <script th:src="@{/js/Sortable.min.js}"></script>
     <script th:src="@{/js/jquery-sortable.js}"></script>
