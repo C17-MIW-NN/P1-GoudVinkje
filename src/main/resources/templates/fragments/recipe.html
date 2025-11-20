@@ -4,7 +4,7 @@
 <body>
 <div th:fragment="recipeCard(recipe)">
     <div>
-        <div class="card-image border-col p-0 d-flex justify-content-end p-2"
+        <div class="card-image border-col p-0 d-flex justify-content-end p-2 hover-parent"
              th:style="'background-image:url(' + ${recipe.imageURL} + ')'">
 
             <a class="stretched-link" th:href="@{/recept/{recipeId}(recipeId = ${recipe.recipeID})}"></a>
