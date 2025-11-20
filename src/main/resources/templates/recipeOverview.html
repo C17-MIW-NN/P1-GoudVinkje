@@ -15,7 +15,8 @@
         <a class="btn btn-primary" th:href="@{/recept/toevoegen}" role="button">nieuw recept</a>
     </div>
     <div class="text-center" th:if="${#lists.isEmpty(ownRecipes)}">
-        Op dit moment heb je nog geen eigen recepten.
+        <p>Je hebt nog geen eigen recepten.</p>
+        <a th:href="@{/recept/toevoegen}">Wil je er een toevoegen?</a>
     </div>
     <div class="row row-cols-3 g-3">
 
@@ -30,7 +31,7 @@
         <h2>Recepten van de community</h2>
     </div>
     <div class="text-center" th:if="${#lists.isEmpty(publicRecipes)}">
-        Op dit moment heeft nog niemand zijn of haar recept gedeeld.
+        Op dit moment heeft nog niemand anders een recept gedeeld.
     </div>
     <div class="row row-cols-3 g-3">
         <div th:each="recipe : ${publicRecipes}">
