@@ -23,7 +23,7 @@
 body {
     font-family: 'Inria';
     font-weight: 400;
-    /*color: #450707;*/
+    color: #450707;
     background-color: #F0EBD6;
 }
 
@@ -114,7 +114,8 @@ a:hover {
     list-style-position: inside;
 }
 
-/*recipeDetail*/
+
+/*recipeCard*/
 .card-image {
     background-size: cover;
     background-position: center;
@@ -128,6 +129,28 @@ a:hover {
     font-size: 1.2em;
 }
 
+.card-button {
+    color: #450707;
+    z-index: 2;
+    position: relative;
+}
+.card-button:hover {
+    color: #F29120;
+}
+
+.hover-parent .card-button {
+    display: none;
+}
+
+.hover-parent:hover .card-button {
+    display: block;
+}
+
+.stretched-link {
+    z-index: 1;
+}
+
+/*recipeDetail*/
 .recipe-detail-label {
     font-weight: 300;
     font-size: .875em;
@@ -154,19 +177,6 @@ a:hover {
     transform: translate(-50%, -50%);
     color: #F29120;
     font-size: 18px;
-}
-
-.card-button {
-    color: #450707;
-    z-index: 2;
-    position: relative;
-}
-.card-button:hover {
-    color: #F29120;
-}
-
-.stretched-link {
-    z-index: 1;
 }
 
 /* recipeForm */
