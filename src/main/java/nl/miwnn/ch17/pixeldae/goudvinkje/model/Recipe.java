@@ -91,8 +91,8 @@ public class Recipe {
         return copiedRecipe;
     }
 
-    public double getCalories() {
-        return (Math.round((countRecipeCalories()/ nrOfPortions) * 100.0) / 100.0) ;
+    public int getCalories() {
+        return (int) Math.round(countRecipeCalories()/ nrOfPortions);
     }
 
 }
