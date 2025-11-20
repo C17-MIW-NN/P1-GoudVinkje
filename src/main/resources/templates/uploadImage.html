@@ -21,6 +21,17 @@
         <div class="border-col">
         <form th:action="@{/afbeeldingopslaan}" method="post"
               th:object="${formRecipe}" enctype="multipart/form-data">
+
+            <input type="hidden" th:field="*{recipeID}">
+            <input type="hidden" th:field="*{name}">
+            <input type="hidden" th:field="*{author}">
+            <input type="hidden" th:field="*{dateAdded}">
+            <input type="hidden" th:field="*{description}">
+            <input type="hidden" th:field="*{nrOfPortions}">
+            <input type="hidden" th:field="*{publiclyVisible}">
+            <input type="hidden" th:field="*{recipeHasIngredients}">
+            <input type="hidden" th:field="*{steps}">
+
             <label for="imageFile" class="form-label" >Recept afbeelding: </label><br>
             <input type="file" id="imageFile" name="recipeImage" accept="image/*" class="btn btn-primary">
             <input type="submit" value="Afbeelding toevoegen" class="btn btn-primary">

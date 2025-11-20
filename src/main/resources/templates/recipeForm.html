@@ -25,6 +25,7 @@
                     </label>
                     <input class="fs-2 mb-2 mx-0 px-1 form-control w-100" type="text" id="name" th:field="*{name}"
                            placeholder="bijv. Vegan Spaghetti Bolognese">
+                    <input type="hidden" th:field="*{imageURL}">
                 </div>
                 <div class="ms-auto flex-end col-1">
                     <a th:href="@{/recept/verwijderen/{recipeID}(recipeID = ${formRecipe.recipeID})}">
@@ -54,7 +55,7 @@
         </div>
         <div class="col border-col px-3">
             <label for="date">Publicatiedatum</label>
-            <input class="mb-2 mx-0 px-1 form-control" type="text" id="date" th:field="*{dateAdded}">
+            <input class="mb-2 mx-0 px-1 form-control" type="text" id="date" th:field="*{dateAdded}" disabled>
         </div>
         <div class="col border-col px-3">
             <label for="shared" class="d-block">Gedeeld</label>
@@ -76,15 +77,18 @@
                         <tr>
                             <td>
                                 <input type="text" class="form-control"
-                                       th:field="*{recipeHasIngredients[__${order.index}__].quantity}">
+                                       th:field="*{recipeHasIngredients[__${order.index}__].quantity}"
+                                       placeholder="hoeveelheid">
                             </td>
                             <td>
                                 <input type="text" class="form-control"
-                                       th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
+                                       th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}"
+                                       placeholder="eenheid">
                             </td>
                             <td class="description-line">
                                 <input type="text" class="form-control"
-                                       th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}">
+                                       th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}"
+                                       placeholder="bijv. rijst">
                             </td>
                             <td>
                             <td><i class="ms-2 bi bi-trash-fill remove-ingredient"></i></td>
@@ -107,9 +111,10 @@
                                 <td><i class="bi-grip-vertical"></i>
                                     <input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
                                 <td><input class="form-control" type="text"
-                                           th:field="*{steps[__${order.index}__].sequenceNr}" readonly></td>
+                                           th:field="*{steps[__${order.index}__].sequenceNr}" disabled></td>
                                 <td class="instruction-line"><input class="form-control"
-                                           type="text" th:field="*{steps[__${order.index}__].instruction}"></td>
+                                           type="text" th:field="*{steps[__${order.index}__].instruction}"
+                                                                    placeholder="bijv. bak voor 10 min."></td>
                                 <td><i class="ms-2 bi bi-trash-fill remove-step"></i></td>
                             </tr>
                         </tbody>
