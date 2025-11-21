@@ -69,7 +69,8 @@
             </div>
             <div class="col border-col py-2">
                 <label for="date">Publicatiedatum</label>
-                <input class="mb-2 mx-0 px-1 form-control" type="text" id="date" th:field="*{dateAdded}" disabled>
+                <input class="mb-2 mx-0 px-1 form-control" style="background-color: #F0EBD6"
+                       type="text" id="date" th:field="*{dateAdded}" disabled>
             </div>
             <div class="col border-col py-2">
                 <label for="shared" class="d-block">Gedeeld</label>
@@ -127,7 +128,7 @@
                                     <input type="hidden" th:field="*{steps[__${order.index}__].stepId}"></td>
                                 <td>
                                     <input class="form-control" type="text"
-                                           th:field="*{steps[__${order.index}__].sequenceNr}" disabled></td>
+                                           th:field="*{steps[__${order.index}__].sequenceNr}" readonly></td>
                                 <td class="instruction-line">
                                     <input class="form-control"
                                            type="text"

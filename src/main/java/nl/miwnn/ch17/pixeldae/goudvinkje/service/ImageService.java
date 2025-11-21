@@ -26,7 +26,7 @@ public class ImageService {
 
     public void saveImage(MultipartFile file) throws IOException {
         if (imageRepository.existsByFileName(file.getOriginalFilename())) {
-            throw new IllegalIdentifierException(file.getOriginalFilename() + "already exists");
+            return;
         }
 
         MediaType contentType = MediaType.IMAGE_JPEG;

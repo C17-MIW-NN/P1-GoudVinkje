@@ -8,24 +8,28 @@
 <body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="container">
-    <table>
+<div class="mt-5 row g-0 align-items-stretch">
+    <h2>Ingrediënten</h2>
+    <table class="table table-sm custom-table">
         <thead>
         <tr>
             <th>Ingrediënt</th>
-            <th>Kcal per 100g/stuk</th>
+            <th>Kcal</th>
             <th>Eenheid</th>
-            <th>Aantal keer gebruikt</th>
+            <th>Gebruik</th>
+            <th class="text-center"><i class="bi bi-pencil-fill light text-center"></i></th>
+            <th class="text-center"><i class="bi bi-trash-fill light"></i></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="ingredient : ${ingredients}">
-            <td><a th:text="${ingredient.description}"
-                   th:href="@{/ingredient/aanpassen/{iDescr}(iDescr = ${ingredient.description})}"></a></td>
+            <td><a th:text="${ingredient.description}"></a></td>
             <td><a th:text="${ingredient.calories}"></a></td>
-            <td><a th:text="${ingredient.quantityUnit}"></a></td>
-            <td><a th:text="${ingredient.countUsesInRecipes()}"></a></td>
-            <td><a th:href="@{/ingredient/verwijderen/{ingredientID}(ingredientID = ${ingredient.ingredientId})}">
+            <td class="text-center"><a th:text="${ingredient.quantityUnit}"></a></td>
+            <td class="text-center"><a th:text="${ingredient.countUsesInRecipes()}"></a></td>
+            <td class="text-center"><a th:href="@{/ingredient/aanpassen/{iDescr}(iDescr = ${ingredient.description})}">
+                <i class="bi bi-pencil-fill"></i></a></td>
+            <td class="text-center"><a th:href="@{/ingredient/verwijderen/{ingredientID}(ingredientID = ${ingredient.ingredientId})}">
                 <i class="bi bi-trash-fill"></i></a></td>
         </tr>
         </tbody>

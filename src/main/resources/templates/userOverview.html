@@ -2,19 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-    <title>Gebruikte ingredienten</title>
+    <title>Gebruikers</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="container">
-    <table>
+<div class="mt-5 row g-0 align-items-stretch">
+    <h2>Gebruikers</h2>
+    <table class="table custom-table">
         <thead>
             <tr>
                 <th>Gebruiker</th>
                 <th>Admin</th>
                 <th>Aantal recepten</th>
+                <th class="text-center"><i class="bi bi-pencil-fill light text-center"></i></th>
+                <th class="text-center"><i class="bi bi-trash-fill light"></i></th>
             </tr>
         </thead>
         <tbody>
@@ -23,10 +26,10 @@
             <td><input type="checkbox" class="form-check-input custom-checkbox"
                        th:checked="${user.role == 'ROLE_ADMIN'}" disabled/></td>
             <td><div th:text="${user.countRecipes()}"></div></td>
-            <td><a th:href="@{/gebruiker/aanpassen/{username}(username = ${user.username})}">
+            <td class="text-center"><a th:href="@{/gebruiker/aanpassen/{username}(username = ${user.username})}">
                 <i class="bi bi-pencil-fill"></i></a>
             </td>
-            <td><a th:href="@{/gebruiker/verwijderen/{userID}(userID = ${user.userID})}"
+            <td class="text-center"><a th:href="@{/gebruiker/verwijderen/{userID}(userID = ${user.userID})}"
                    onclick="return confirm('Weet je zeker dat je dit recept wilt verwijderen?');">
                 <i class="bi bi-trash-fill"></i></a>
             </td>
