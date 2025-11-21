@@ -23,8 +23,9 @@
         <tbody>
         <tr th:each="user : ${users}">
             <td><div th:text="${user.username}"></div></td>
-            <td><input type="checkbox" class="form-check-input custom-checkbox"
-                       th:checked="${user.role == 'ROLE_ADMIN'}" disabled/></td>
+            <td>
+                <i class="bi-check-square-fill primary" th:if="${user.role == 'ROLE_ADMIN'}"></i>
+            </td>
             <td><div th:text="${user.countRecipes()}"></div></td>
             <td class="text-center"><a th:href="@{/gebruiker/aanpassen/{username}(username = ${user.username})}">
                 <i class="bi bi-pencil-fill"></i></a>
