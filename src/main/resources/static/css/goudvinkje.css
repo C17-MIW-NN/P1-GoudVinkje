@@ -78,6 +78,16 @@ a:hover {
     border-radius: 40px;
 }
 
+.btn-primary-sm,
+.btn-primary-sm:link,
+.btn-primary-sm:visited {
+    color: #450707 !important;
+    background-color: #F0EBD6;
+    border: 2px solid #450707;
+    height: 30px;
+    border-radius: 30px;
+}
+
 .btn-primary:hover,
 .btn-primary:hover:link {
     color: #F29120 !important;
@@ -85,6 +95,15 @@ a:hover {
     border-color: #F29120;
     height: 40px;
     border-radius: 40px;
+}
+
+.btn-primary-sm:hover,
+.btn-primary-sm:hover:link {
+    color: #F29120 !important;
+    background-color: #F0EBD6;
+    border-color: #F29120;
+    height: 30px;
+    border-radius: 30px;
 }
 
 /*Container styling*/
@@ -180,8 +199,19 @@ a:hover {
 }
 
 /* recipeForm */
+.text-danger a{
+    color: #f33503;
+}
+.text-danger:hover a{
+    color: #450707;
+}
+
 .bi-trash-fill {
-    color: #f26947;
+    color: #F29120;
+    cursor: pointer;
+}
+.bi-trash-fill:hover {
+    color: #f33503;
 }
 
 .description-line {
