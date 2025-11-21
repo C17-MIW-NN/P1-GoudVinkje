@@ -22,7 +22,7 @@
         </div>
 
 
-        <div class="row border-col p-0">
+        <div th:unless="${#strings.isEmpty(recipe.imageURL)}" class="row border-col p-0">
             <img class="p-0" th:src="${recipe.imageURL}" th:alt="|Image for ${recipe.name}|">
         </div>
 
