@@ -3,7 +3,7 @@
 
 <body>
 <div th:fragment="recipeCard(recipe)">
-    <div>
+    <div class="h-100">
         <div class="card-image border-col p-0 d-flex justify-content-end p-2 hover-parent"
              th:style="'background-image:url(' + ${recipe.imageURL} + ')'">
 
@@ -13,7 +13,7 @@
                 <i class="icon-button bi-pencil-fill card-button"></i></a>
         </div>
         <div class="p-0">
-            <div class="mb-auto">
+            <div class="flex-column ">
                 <p class="border-col card-title p-2" th:text="${recipe.name}"></p>
             </div>
             <div class="row g-0 align-items-stretch">
