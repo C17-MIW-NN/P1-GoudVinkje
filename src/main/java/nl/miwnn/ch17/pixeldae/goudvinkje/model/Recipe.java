@@ -1,6 +1,7 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,6 +22,7 @@ public class Recipe {
     @GeneratedValue
     private Long recipeID;
 
+    @Size(min = 5, max = 100, message = "Titel moet 5-100 karakters lang zijn")
     private String name;
 
     @ManyToOne

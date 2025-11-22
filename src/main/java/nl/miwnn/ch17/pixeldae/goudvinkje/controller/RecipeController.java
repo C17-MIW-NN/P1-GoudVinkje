@@ -1,5 +1,6 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
+import jakarta.validation.Valid;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.*;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
@@ -83,21 +84,21 @@ public class RecipeController {
         return "redirect:/";
     }
 
-    private String showRecipeForm(Model datamodel, Recipe recipe) {
+    private String showRecipeForm(@ModelAttribute Model datamodel, Recipe recipe) {
         datamodel.addAttribute("formRecipe", recipe);
 
         return "recipeForm";
     }
 
     @PostMapping("/opslaan")
-    public String saveRecipeForm(@ModelAttribute("formRecipe") Recipe recipe,
-                                 BindingResult result) {
+    public String saveRecipeForm(@Valid @ModelAttribute("formRecipe") Recipe recipe, BindingResult result) {
 
         for (Step step : recipe.getSteps()) { step.setRecipe(recipe); }
-
         preventDuplicateIngredients(recipe);
 
-        if (!result.hasErrors()) {
+        if (result.hasErrors()) { //show validation error messages in form
+            return "recipeForm";
+        } else {
             // If it's someone else's recipe, make a copy.
             GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
             if (!recipe.getAuthor().getUsername().equals(loggedInUser.getUsername())) {
@@ -105,11 +106,9 @@ public class RecipeController {
             } else {
                 ifRecipeExistsRemoveAllIngredients(recipe);
             }
-
             recipe.setAuthor(loggedInUser);
             recipeRepository.save(recipe);
         }
-
         return "redirect:/recept/" + recipe.getRecipeID();
     }
 

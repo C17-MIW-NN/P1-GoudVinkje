@@ -218,6 +218,10 @@ a:hover {
     color: #f33503;
 }
 
+.danger {
+    color: #f33503;
+}
+
 .description-line {
  width: 70%;
 }

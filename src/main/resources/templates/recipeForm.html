@@ -32,6 +32,7 @@
 
                         <input class="mb-2 mx-0 px-1 form-control w-100" type="text" id="name" th:field="*{name}"
                                placeholder="bijv. Vegan Spaghetti Bolognese">
+                        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="danger">Fout in naam</div>
                     </div>
                 </div>
             </div>
