@@ -35,7 +35,7 @@
     </div>
     <div class="row row-cols-3 g-3">
         <div th:each="recipe : ${publicRecipes}">
-            <div class="outline-col">
+            <div class="outline-col h-100">
                 <div th:replace="~{fragments/recipe :: recipeCard(${recipe})}"></div>
             </div>
         </div>

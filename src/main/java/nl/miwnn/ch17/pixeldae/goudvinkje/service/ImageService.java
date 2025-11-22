@@ -2,7 +2,6 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.service;
 
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Image;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.ImageRepository;
-import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
