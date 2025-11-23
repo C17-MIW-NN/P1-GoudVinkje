@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.*;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
-import nl.miwnn.ch17.pixeldae.goudvinkje.service.ImageService;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,24 +25,24 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final GoudVinkjeUserService goudVinkjeUserService;
-    private final ImageService imageService;
 
     public RecipeController(RecipeRepository recipeRepository,
                             IngredientRepository ingredientRepository,
-                            GoudVinkjeUserService goudVinkjeUserService,
-                            ImageService imageService) {
+                            GoudVinkjeUserService goudVinkjeUserService) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
         this.goudVinkjeUserService = goudVinkjeUserService;
-        this.imageService = imageService;
     }
 
     // showRecipeOverview
     @GetMapping({ "/", "/overzicht"})
     private String showRecipeOverview(Model datamodel) {
+
         GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
-        datamodel.addAttribute("publicRecipes", recipeRepository.findAllByPubliclyVisibleAndAuthorNot(true, loggedInUser));
-        datamodel.addAttribute("ownRecipes", recipeRepository.findAllByAuthor(loggedInUser));
+        datamodel.addAttribute("publicRecipes",
+                recipeRepository.findAllByPubliclyVisibleAndAuthorNot(true, loggedInUser));
+        datamodel.addAttribute("ownRecipes",
+                recipeRepository.findAllByAuthor(loggedInUser));
 
         return "recipeOverview";
     }
@@ -51,12 +50,11 @@ public class RecipeController {
     // showRecipeDetail
     @GetMapping("/{recipeID}")
     private String showRecipeDetail(@PathVariable("recipeID") Long recipeID, Model datamodel) {
-        Optional<Recipe> recipe = recipeRepository.findById(recipeID);
 
+        Optional<Recipe> recipe = recipeRepository.findById(recipeID);
         if (recipe.isEmpty()) {
             return "redirect:/recept/lijst";
         }
-
         datamodel.addAttribute("recipe", recipe.get());
 
         return "recipeDetail";
@@ -65,18 +63,21 @@ public class RecipeController {
     // recipeForm
     @GetMapping("/toevoegen")
     public String showAddRecipeForm(Model datamodel) {
+
         Recipe recipe = new Recipe(LocalDate.now());
         recipe.getSteps().add(new Step(1));
         recipe.getRecipeHasIngredients().add(new RecipeHasIngredient(new Ingredient()));
         recipe.setAuthor(goudVinkjeUserService.getLoggedInUser());
         recipe.setPubliclyVisible(true);
         recipe.setNrOfPortions(2);
+        //TODO default constants maken?
 
         return showRecipeForm(datamodel, recipe);
     }
 
     @GetMapping("/aanpassen/{recipeID}")
     public String showEditRecipeForm(@PathVariable("recipeID") Long recipeID, Model datamodel) {
+
         Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeID);
         if (optionalRecipe.isPresent()) {
             return showRecipeForm(datamodel, optionalRecipe.get());
@@ -85,6 +86,7 @@ public class RecipeController {
     }
 
     private String showRecipeForm(@ModelAttribute Model datamodel, Recipe recipe) {
+
         datamodel.addAttribute("formRecipe", recipe);
 
         return "recipeForm";
@@ -98,8 +100,7 @@ public class RecipeController {
 
         if (result.hasErrors()) { //show validation error messages in form
             return "recipeForm";
-        } else {
-            // If it's someone else's recipe, make a copy.
+        } else { // If it's someone else's recipe, make a copy.
             GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
             if (!recipe.getAuthor().getUsername().equals(loggedInUser.getUsername())) {
                 recipe = recipe.newCopiedRecipe(loggedInUser);
@@ -114,7 +115,9 @@ public class RecipeController {
 
     // if an ingredient already exists, use the prior existing ingrediënt
     private void preventDuplicateIngredients(Recipe recipe) {
+
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
+
             Ingredient ingredientFromForm = recipeHasIngredient.getIngredient();
             String description = ingredientFromForm.getDescription();
             Long ingredientID = ingredientFromForm.getIngredientId();
@@ -124,29 +127,32 @@ public class RecipeController {
 
             if (sameIngredientAlreadyPresent.isPresent() &&
                     !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientID)) {
+
                 recipeHasIngredient.setIngredient(sameIngredientAlreadyPresent.get());
+
                 if (ingredientID != null) {
                     ingredientRepository.deleteById(ingredientID);
                 }
             }
-
             ingredientRepository.save(recipeHasIngredient.getIngredient());
             recipeHasIngredient.setRecipe(recipe);
         }
-
     }
 
     // if the recipe already exists, remove all references to the ingredients;
     // otherwise references to deleted ingredients would remain in the RecipeHasIngredients table.
     private void ifRecipeExistsRemoveAllIngredients(Recipe recipe) {
-        if (recipe.getRecipeID() == null) { return; }
 
+        if (recipe.getRecipeID() == null) {
+            return;
+        }
         Recipe recipeFromDB = recipeRepository.findById(recipe.getRecipeID()).orElseThrow();
         recipeFromDB.getRecipeHasIngredients().clear();
     }
 
     @GetMapping("/verwijderen/{recipeID}")
     public String deleteRecipe(@PathVariable("recipeID") Long recipeID) {
+
         recipeRepository.deleteById(recipeID);
         return "redirect:/recept/overzicht";
     }

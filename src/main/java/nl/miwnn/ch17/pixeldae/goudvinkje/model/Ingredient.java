@@ -1,6 +1,5 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,7 +29,7 @@ public class Ingredient {
     @Column(unique = true)
     private String description;
 
-    private double calories;
+    private int calories;
 
     private String quantityUnit;
 
@@ -54,8 +53,7 @@ public class Ingredient {
         return recipeHasIngredient.size();
     }
 
-    public double getCorrectedCalories() {
-        return Math.round((calories / checkCaloryUnitFactor()) * 100.0) / 100.0;
+    public int getCorrectedCalories() {
+        return calories / checkCaloryUnitFactor();
     }
-
 }
