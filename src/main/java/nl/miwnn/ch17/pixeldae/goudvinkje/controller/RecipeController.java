@@ -85,9 +85,10 @@ public class RecipeController {
         return "redirect:/";
     }
 
-    private String showRecipeForm(@ModelAttribute Model datamodel, Recipe recipe) {
+    private String showRecipeForm(Model datamodel, Recipe recipe) {
 
         datamodel.addAttribute("formRecipe", recipe);
+        datamodel.addAttribute("quantityUnits", Ingredient.QuantityUnit.values());
 
         return "recipeForm";
     }

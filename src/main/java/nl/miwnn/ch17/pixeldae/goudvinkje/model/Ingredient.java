@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.Collection;
 
 /**
- * @author Simon van der Kooij
+ * @author Simon van der Kooij & Annelies Hofman
  * this model handles all the ingredients
  */
 
@@ -32,14 +32,16 @@ public class Ingredient {
 
     @Enumerated(EnumType.STRING)
     private QuantityUnit quantityUnit;
+    @Getter
     public enum QuantityUnit {
         G ("g", 100.0),
         KG ("kg", 0.1),
         ML ("ml", 100.0),
         L ("l", 0.1),
-        TL ("tl", 33.3),
-        EL ("el", 7.3),
-        ST ("stk", 1.0);
+        TL ("tl", 30.0),
+        EL ("el", 10.0),
+        ST ("stuks", 1.0),
+        SNUF ("snufje", 1000.0);
 
         private final String displayName;
         private final double caloryFactor;
@@ -47,14 +49,6 @@ public class Ingredient {
         QuantityUnit(String displayName, double caloryFactor) {
             this.displayName = displayName;
             this.caloryFactor = caloryFactor;
-        }
-
-        public String getDisplayName() {
-            return displayName;
-        }
-
-        public double getCaloryFactor() {
-            return caloryFactor;
         }
     }
 

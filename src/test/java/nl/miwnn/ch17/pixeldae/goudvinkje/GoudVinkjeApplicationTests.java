@@ -45,10 +45,10 @@ class GoudVinkjeApplicationTests {
         // Arrange
         Ingredient ingredient1 = new Ingredient();
         ingredient1.setCalories(500);
-        ingredient1.setQuantityUnit("g");
+        ingredient1.setQuantityUnit(Ingredient.QuantityUnit.G);
         Ingredient ingredient2 = new Ingredient();
         ingredient2.setCalories(150);
-        ingredient2.setQuantityUnit("g");
+        ingredient2.setQuantityUnit(Ingredient.QuantityUnit.G);
 
         List<RecipeHasIngredient> ingredientList = new ArrayList<>();
         ingredientList.add( new RecipeHasIngredient(ingredient1, 1));

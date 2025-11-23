@@ -39,13 +39,16 @@
         </div>
 
         <div th:unless="${formRecipe.recipeID == null}">
-            <div th:unless="${#strings.isEmpty(formRecipe.imageURL)}" class="row border-col p-0 d-flex justify-content-end card-image py-2"
+            <div th:unless="${#strings.isEmpty(formRecipe.imageURL)}"
+                 class="row border-col p-0 d-flex justify-content-end card-image py-2"
                  th:style="'background-image:url(' + ${formRecipe.imageURL} + ')'">
                 <a th:href="@{/recept/afbeelding/{formRecipeID}(formRecipeID=${formRecipe.recipeID})}">
                     <i class="icon-button bi-pencil-fill card-button"></i></a>
             </div>
-            <div th:if="${#strings.isEmpty(formRecipe.imageURL)}" class="d-flex align-items-center justify-content-center border-col">
-                <a class="btn btn-primary" th:href="@{/recept/afbeelding/{formRecipeID}(formRecipeID=${formRecipe.recipeID})}">
+            <div th:if="${#strings.isEmpty(formRecipe.imageURL)}"
+                 class="d-flex align-items-center justify-content-center border-col">
+                <a class="btn btn-primary"
+                   th:href="@{/recept/afbeelding/{formRecipeID}(formRecipeID=${formRecipe.recipeID})}">
                     + afbeelding toevoegen</a>
             </div>
         </div>
@@ -95,17 +98,24 @@
                             <tr>
                                 <td>
                                     <input type="text" class="form-control"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].quantity}"
+                                           th:field="*{recipeHasIngredients[__${order.index}__]
+                                           .quantity}"
                                            placeholder="hoeveelheid">
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}"
-                                           placeholder="eenheid">
+                                    <select class="form-control"
+                                            th:field="*{recipeHasIngredients[__${order.index}__]
+                                            .ingredient.quantityUnit}">
+                                        <option th:each="quantityUnit : ${quantityUnits}"
+                                                th:value="${quantityUnit}"
+                                                th:text="${quantityUnit.displayName}">
+                                        </option>
+                                    </select>
                                 </td>
                                 <td class="description-line">
                                     <input type="text" class="form-control"
-                                           th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}"
+                                           th:field="*{recipeHasIngredients[__${order.index}__]
+                                           .ingredient.description}"
                                            placeholder="bijv. rijst">
                                 </td>
                                 <td><i class="ms-2 bi bi-trash-fill remove-ingredient"></i></td>
@@ -113,7 +123,8 @@
                         </table>
                     </div>
                 </div>
-                <button type="button" id="add-ingredient" class="btn-primary-sm mt-3 px-2">+ ingrediënt toevoegen</button>
+                <button type="button" id="add-ingredient"
+                        class="btn-primary-sm mt-3 px-2">+ ingrediënt toevoegen</button>
             </div>
         </div>
 
