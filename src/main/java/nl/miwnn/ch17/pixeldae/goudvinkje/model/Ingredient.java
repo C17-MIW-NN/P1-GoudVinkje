@@ -29,31 +29,83 @@ public class Ingredient {
     @Column(unique = true)
     private String description;
 
-    private int calories;
+//    private QuantityUnit quantityUnit;
+//    public enum QuantityUnit {
+//        g,
+//        kg,
+//        ml,
+//        l,
+//        tl,
+//        el,
+//        st;
+//    }
 
-    private String quantityUnit;
+    private int calories;
 
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<RecipeHasIngredient> recipeHasIngredient;
 
-    // methods
-    public int checkCaloryUnitFactor() {
-        int factor = 1;
-        if (this.quantityUnit.equals("g") || this.quantityUnit.equals("ml")) {
-            factor = AMOUNT_OF_GRAMS_IN_100_GRAM;
-        } else if (this.quantityUnit.equals("el")) {
-            factor = AMOUNT_OF_TBSP_IN_100_GRAM;
-        } else if (this.quantityUnit.equals("tl")) {
-            factor = AMOUNT_OF_TSP_IN_100_GRAM;
-        }
-        return factor;
+    private QuantityUnit quantityUnit;
+    public enum QuantityUnit {
+        g {
+            @Override
+            protected double caloryFactor() {
+                return 100.0;
+            }
+        },
+        kg {
+            @Override
+            protected double caloryFactor() {
+                return 0.1;
+            }
+        },
+        ml {
+            @Override
+            protected double caloryFactor() {
+                return 100.0;
+            }
+        },
+        l {
+            @Override
+            protected double caloryFactor() {
+                return 0.1;
+            }
+        },
+        tl {
+            @Override
+            protected double caloryFactor() {
+                return 33.3;
+            }
+        },
+        el {
+            @Override
+            protected double caloryFactor() {
+                return 7.0;
+            }
+        },
+        st;
+
+        protected double caloryFactor() {return 1.0;};
+    }
+
+        public int getCorrectedCalories() {
+        return (int) (calories / quantityUnit.caloryFactor());
     }
 
     public int countUsesInRecipes() {
         return recipeHasIngredient.size();
     }
 
-    public int getCorrectedCalories() {
-        return calories / checkCaloryUnitFactor();
-    }
+    // methods
+//    public int checkCaloryUnitFactor() {
+//        int factor = 1;
+//        if (this.quantityUnit.equals("g") || this.quantityUnit.equals("ml")) {
+//            factor = AMOUNT_OF_GRAMS_IN_100_GRAM;
+//        } else if (this.quantityUnit.equals("el")) {
+//            factor = AMOUNT_OF_TBSP_IN_100_GRAM;
+//        } else if (this.quantityUnit.equals("tl")) {
+//            factor = AMOUNT_OF_TSP_IN_100_GRAM;
+//        }
+//        return factor;
+//    }
 }
