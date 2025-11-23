@@ -90,22 +90,22 @@
                 <h2 class="mb-3">Ingrediënten</h2>
                 <div id="ingredients-section">
                     <div class="ingredient-row" th:each="ingredient, order : *{recipeHasIngredients}">
-                        <input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].ingredient}">
+                        <input type="hidden"
+                               th:field="*{recipeHasIngredients[__${order.index}__].ingredient}">
                         <input type="hidden"
                                th:field="*{recipeHasIngredients[__${order.index}__].recipeHasIngredientID}">
-                        <input type="hidden" th:field="*{recipeHasIngredients[__${order.index}__].recipe}">
+                        <input type="hidden"
+                               th:field="*{recipeHasIngredients[__${order.index}__].recipe}">
                         <table>
                             <tr>
                                 <td>
-                                    <input type="text" class="form-control"
-                                           th:field="*{recipeHasIngredients[__${order.index}__]
-                                           .quantity}"
+                                    <input type="text" class="form-control" th:field=
+                                            "*{recipeHasIngredients[__${order.index}__].quantity}"
                                            placeholder="hoeveelheid">
                                 </td>
                                 <td>
-                                    <select class="form-control"
-                                            th:field="*{recipeHasIngredients[__${order.index}__]
-                                            .ingredient.quantityUnit}">
+                                    <select class="form-select" th:field=
+                                            "*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
                                         <option th:each="quantityUnit : ${quantityUnits}"
                                                 th:value="${quantityUnit}"
                                                 th:text="${quantityUnit.displayName}">
@@ -113,9 +113,8 @@
                                     </select>
                                 </td>
                                 <td class="description-line">
-                                    <input type="text" class="form-control"
-                                           th:field="*{recipeHasIngredients[__${order.index}__]
-                                           .ingredient.description}"
+                                    <input type="text" class="form-control" th:field=
+                                            "*{recipeHasIngredients[__${order.index}__].ingredient.description}"
                                            placeholder="bijv. rijst">
                                 </td>
                                 <td><i class="ms-2 bi bi-trash-fill remove-ingredient"></i></td>
@@ -126,6 +125,14 @@
                 <button type="button" id="add-ingredient"
                         class="btn-primary-sm mt-3 px-2">+ ingrediënt toevoegen</button>
             </div>
+
+            <!-- dropdown template for new rows -->
+            <select id="quantityUnitDropdown" style="display:none">
+                <option th:each="quantityUnit : ${quantityUnits}"
+                        th:value="${quantityUnit}"
+                        th:text="${quantityUnit.displayName}">
+                </option>
+            </select>
         </div>
 
         <div class="row g-0 align-items-stretch">

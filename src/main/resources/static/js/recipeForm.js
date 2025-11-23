@@ -42,6 +42,13 @@ $(document).ready(function () {
 
     $("#add-ingredient").click(function () {
 
+        //clone quantityUnitDropdown from html
+        let quantityUnitSelect = $("#quantityUnitDropdown").clone();
+        quantityUnitSelect.removeAttr("id");
+        quantityUnitSelect.show();
+        quantityUnitSelect.attr("name",
+            `recipeHasIngredients[${numberOfIngredients}].ingredient.quantityUnit`)
+
         const newIngredient =
             `<div class="ingredient-row">
             <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].ingredient">
@@ -54,8 +61,7 @@ $(document).ready(function () {
                                name="recipeHasIngredients[${numberOfIngredients}].quantity">
                     </td>
                     <td>
-                        <input type="text" class="form-control"
-                               name="recipeHasIngredients[${numberOfIngredients}].ingredient.quantityUnit">
+                        <div class="quantityUnitCell"></div>
                     </td>
                     <td class="description-line">
                         <input type="text" class="form-control"
@@ -66,8 +72,12 @@ $(document).ready(function () {
                     </td>
                 </tr>
             </table>
-            </div>`
-        $("#ingredients-section").append(newIngredient);
+            </div>`;
+
+        $row = $(newIngredient);
+        $row.find(".quantityUnitCell").append(quantityUnitSelect);
+        $("#ingredients-section").append($row);
+
         numberOfIngredients ++;
     });
 
