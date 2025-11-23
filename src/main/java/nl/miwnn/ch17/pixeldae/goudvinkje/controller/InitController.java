@@ -67,16 +67,16 @@ public class InitController {
         );
 
         //  Ingrediënten aanmaken
-        Ingredient linzen = makeIngredient("Rode linzen", 350, "g");
-        Ingredient kokosmelk = makeIngredient("Kokosmelk", 190, "ml");
-        Ingredient ui = makeIngredient("Ui", 40, "st");
-        Ingredient knoflook = makeIngredient("Knoflook (teen)", 130, "stk");
-        Ingredient gember = makeIngredient("Verse gember", 80, "el");
-        Ingredient currypoeder = makeIngredient("Currypoeder", 320, "el");
-        Ingredient tomatenblokjes = makeIngredient("Tomatenblokjes", 25, "g");
-        Ingredient spinazie = makeIngredient("Verse spinazie", 30, "g");
-        Ingredient olie = makeIngredient("Plantaardige olie", 900, "el");
-        Ingredient zout = makeIngredient("Zout", 0, "tl");
+        Ingredient linzen = makeIngredient("Rode linzen", 350, Ingredient.QuantityUnit.G);
+        Ingredient kokosmelk = makeIngredient("Kokosmelk", 190, Ingredient.QuantityUnit.ML);
+        Ingredient ui = makeIngredient("Ui", 40, Ingredient.QuantityUnit.ST);
+        Ingredient knoflook = makeIngredient("Knoflook (teen)", 130, Ingredient.QuantityUnit.ST);
+        Ingredient gember = makeIngredient("Verse gember", 80, Ingredient.QuantityUnit.EL);
+        Ingredient currypoeder = makeIngredient("Currypoeder", 320, Ingredient.QuantityUnit.EL);
+        Ingredient tomatenblokjes = makeIngredient("Tomatenblokjes", 25, Ingredient.QuantityUnit.G);
+        Ingredient spinazie = makeIngredient("Verse spinazie", 30, Ingredient.QuantityUnit.G);
+        Ingredient olie = makeIngredient("Plantaardige olie", 900, Ingredient.QuantityUnit.EL);
+        Ingredient zout = makeIngredient("Zout", 0, Ingredient.QuantityUnit.TL);
 
         // Ingrediënten toevoegen via Map
         addIngredient(recipe, Map.of(
@@ -111,13 +111,13 @@ public class InitController {
                 "/image/stir-fry-noodles.jpg"
         );
 
-        Ingredient tofu = makeIngredient("Tofu", 150, "g");
-        Ingredient broccoli = makeIngredient("Broccoli", 35, "g");
-        Ingredient paprika = makeIngredient("Paprika", 30, "g");
-        Ingredient wortel = makeIngredient("Wortel", 41, "g");
-        Ingredient sojasaus = makeIngredient("Sojasaus", 53, "el");
-        Ingredient sesamolie = makeIngredient("Sesamolie", 900, "el");
-        Ingredient peper = makeIngredient("Zwarte peper", 0, "tl");
+        Ingredient tofu = makeIngredient("Tofu", 150, Ingredient.QuantityUnit.G);
+        Ingredient broccoli = makeIngredient("Broccoli", 35, Ingredient.QuantityUnit.G);
+        Ingredient paprika = makeIngredient("Paprika", 30, Ingredient.QuantityUnit.G);
+        Ingredient wortel = makeIngredient("Wortel", 41, Ingredient.QuantityUnit.G);
+        Ingredient sojasaus = makeIngredient("Sojasaus", 53, Ingredient.QuantityUnit.EL);
+        Ingredient sesamolie = makeIngredient("Sesamolie", 900, Ingredient.QuantityUnit.EL);
+        Ingredient peper = makeIngredient("Zwarte peper", 0, Ingredient.QuantityUnit.TL);
 
         addIngredient(tofuStirFry, Map.of(
                 tofu, 200,
@@ -159,23 +159,23 @@ public class InitController {
         );
 
         Ingredient plantaardigeMelk = makeIngredient(
-                "Plantaardige melk, bijvoorbeeld havermelk", 300, "ml");
+                "Plantaardige melk, bijvoorbeeld havermelk", 300, Ingredient.QuantityUnit.ML);
 
         Ingredient cashewPasta = makeIngredient(
-                "Gebrande cashewnoten, geweekt en gepureerd", 120, "g");
+                "Gebrande cashewnoten, geweekt en gepureerd", 120, Ingredient.QuantityUnit.G);
 
         Ingredient groentebouillon = makeIngredient(
-                "Groentebouillon van goede kwaliteit voor extra diepgang", 200, "ml");
+                "Groentebouillon van goede kwaliteit voor extra diepgang", 200, Ingredient.QuantityUnit.ML);
 
         Ingredient citroensap = makeIngredient(
-                "Vers citroensap voor een frisse, lichte zurige toets", 2, "el");
+                "Vers citroensap voor een frisse, lichte zurige toets", 2, Ingredient.QuantityUnit.EL);
 
         Ingredient edelgist = makeIngredient(
-                "Edelgist vlokken (voedingsgist) voor een subtiele kaasachtige smaak", 3, "el");
+                "Edelgist vlokken (voedingsgist) voor een subtiele kaasachtige smaak", 3, Ingredient.QuantityUnit.EL);
 
-        Ingredient cherryTomaten = makeIngredient("Cherry tomaten", 200, "g");
-        Ingredient pasta = makeIngredient("Volkoren pasta", 300, "g");
-        Ingredient olijfolie = makeIngredient("Olijfolie extra vierge", 2, "el");
+        Ingredient cherryTomaten = makeIngredient("Cherry tomaten", 200, Ingredient.QuantityUnit.G);
+        Ingredient pasta = makeIngredient("Volkoren pasta", 300, Ingredient.QuantityUnit.G);
+        Ingredient olijfolie = makeIngredient("Olijfolie extra vierge", 2, Ingredient.QuantityUnit.EL);
 
         addIngredient(langRecept, Map.of(
                 plantaardigeMelk, 300,
@@ -233,8 +233,8 @@ public class InitController {
                 "/image/pompoen-soep.jpg"
         );
 
-        Ingredient pompoen = makeIngredient("Pompoen", 180, "st");
-        Ingredient water = makeIngredient("Water", 0, "ml");
+        Ingredient pompoen = makeIngredient("Pompoen", 180, Ingredient.QuantityUnit.ST);
+        Ingredient water = makeIngredient("Water", 0, Ingredient.QuantityUnit.ML);
 
         addIngredient(kortRecept, Map.of(
                 pompoen, 1,
@@ -255,7 +255,7 @@ public class InitController {
                 2,
                 "/image/spitskool-kwarten-uit-de-oven.jpg"
         );
-        Ingredient spitskoolGroente = makeIngredient("Spitskool", 150, "g");
+        Ingredient spitskoolGroente = makeIngredient("Spitskool", 150, Ingredient.QuantityUnit.G);
         addIngredient(spitskool, Map.of(
                 spitskoolGroente, 400,
                 knoflook, 2,
@@ -275,10 +275,10 @@ public class InitController {
                 2,
                 "/image/hamburger-met-rode-kool-en-salsa.jpg"
         );
-        Ingredient veganBurger = makeIngredient("Vegan burger", 250, "g");
-        Ingredient rodeKool = makeIngredient("Rode kool", 100, "g");
-        Ingredient tomaten = makeIngredient("Tomaat", 50, "g");
-        Ingredient salsa = makeIngredient("Salsa", 30, "ml");
+        Ingredient veganBurger = makeIngredient("Vegan burger", 250, Ingredient.QuantityUnit.G);
+        Ingredient rodeKool = makeIngredient("Rode kool", 100, Ingredient.QuantityUnit.G);
+        Ingredient tomaten = makeIngredient("Tomaat", 50, Ingredient.QuantityUnit.G);
+        Ingredient salsa = makeIngredient("Salsa", 30, Ingredient.QuantityUnit.ML);
         addIngredient(hamburgerRodeKool, Map.of(
                 veganBurger, 200,
                 rodeKool, 100,
@@ -298,7 +298,7 @@ public class InitController {
                 3,
                 "/image/chrispy-rijstvellen-met-rodekool-salade.jpg"
         );
-        Ingredient rijstvellen = makeIngredient("Rijstvellen", 50, "g");
+        Ingredient rijstvellen = makeIngredient("Rijstvellen", 50, Ingredient.QuantityUnit.G);
         addIngredient(crispyRijstvellen, Map.of(
                 rijstvellen, 6,
                 rodeKool, 100,
@@ -318,10 +318,10 @@ public class InitController {
                 4,
                 "/image/bulgur-salade-met-verse-kruiden-en-tuinbonen.jpg"
         );
-        Ingredient bulgur = makeIngredient("Bulgur", 120, "g");
-        Ingredient tuinbonen = makeIngredient("Tuinbonen", 100, "g");
-        Ingredient peterselie = makeIngredient("Verse peterselie", 10, "g");
-        Ingredient munt = makeIngredient("Verse munt", 5, "g");
+        Ingredient bulgur = makeIngredient("Bulgur", 120, Ingredient.QuantityUnit.G);
+        Ingredient tuinbonen = makeIngredient("Tuinbonen", 100, Ingredient.QuantityUnit.G);
+        Ingredient peterselie = makeIngredient("Verse peterselie", 10, Ingredient.QuantityUnit.G);
+        Ingredient munt = makeIngredient("Verse munt", 5, Ingredient.QuantityUnit.G);
         addIngredient(bulgurSalade, Map.of(
                 bulgur, 200,
                 tuinbonen, 100,
@@ -341,8 +341,8 @@ public class InitController {
                 3,
                 "/image/blij-als-een-konijn-spaghetti.jpg"
         );
-        Ingredient spaghetti = makeIngredient("Spaghetti", 300, "g");
-        Ingredient cashew = makeIngredient("Cashewnoten", 50, "g");
+        Ingredient spaghetti = makeIngredient("Spaghetti", 300, Ingredient.QuantityUnit.G);
+        Ingredient cashew = makeIngredient("Cashewnoten", 50, Ingredient.QuantityUnit.G);
         addIngredient(konijnSpaghetti, Map.of(
                 spaghetti, 300,
                 wortel, 100,
@@ -379,7 +379,7 @@ public class InitController {
         return recipe;
     }
 
-    private Ingredient makeIngredient(String description, int calories, String quantityUnit) {
+    private Ingredient makeIngredient(String description, int calories, Ingredient.QuantityUnit quantityUnit) {
 
         Ingredient ingredient = new Ingredient();
 

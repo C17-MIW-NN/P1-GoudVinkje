@@ -18,10 +18,6 @@ import java.util.Collection;
 @NoArgsConstructor
 public class Ingredient {
 
-    protected static final int AMOUNT_OF_GRAMS_IN_100_GRAM = 100;
-    protected static final int AMOUNT_OF_TBSP_IN_100_GRAM = 7;
-    protected static final int AMOUNT_OF_TSP_IN_100_GRAM = 33;
-
     @Id
     @GeneratedValue
     private Long ingredientId;
@@ -29,83 +25,48 @@ public class Ingredient {
     @Column(unique = true)
     private String description;
 
-//    private QuantityUnit quantityUnit;
-//    public enum QuantityUnit {
-//        g,
-//        kg,
-//        ml,
-//        l,
-//        tl,
-//        el,
-//        st;
-//    }
-
     private int calories;
 
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<RecipeHasIngredient> recipeHasIngredient;
 
+    @Enumerated(EnumType.STRING)
     private QuantityUnit quantityUnit;
     public enum QuantityUnit {
-        g {
-            @Override
-            protected double caloryFactor() {
-                return 100.0;
-            }
-        },
-        kg {
-            @Override
-            protected double caloryFactor() {
-                return 0.1;
-            }
-        },
-        ml {
-            @Override
-            protected double caloryFactor() {
-                return 100.0;
-            }
-        },
-        l {
-            @Override
-            protected double caloryFactor() {
-                return 0.1;
-            }
-        },
-        tl {
-            @Override
-            protected double caloryFactor() {
-                return 33.3;
-            }
-        },
-        el {
-            @Override
-            protected double caloryFactor() {
-                return 7.0;
-            }
-        },
-        st;
+        G ("g", 100.0),
+        KG ("kg", 0.1),
+        ML ("ml", 100.0),
+        L ("l", 0.1),
+        TL ("tl", 33.3),
+        EL ("el", 7.3),
+        ST ("stk", 1.0);
 
-        protected double caloryFactor() {return 1.0;};
+        private final String displayName;
+        private final double caloryFactor;
+
+        QuantityUnit(String displayName, double caloryFactor) {
+            this.displayName = displayName;
+            this.caloryFactor = caloryFactor;
+        }
+
+        public String getDisplayName() {
+            return displayName;
+        }
+
+        public double getCaloryFactor() {
+            return caloryFactor;
+        }
     }
 
-        public int getCorrectedCalories() {
-        return (int) (calories / quantityUnit.caloryFactor());
+    public String getUnitDisplayName() {
+        return quantityUnit.getDisplayName();
+    }
+
+    public int getCorrectedCalories() {
+        return (int) (calories / quantityUnit.getCaloryFactor());
     }
 
     public int countUsesInRecipes() {
         return recipeHasIngredient.size();
     }
-
-    // methods
-//    public int checkCaloryUnitFactor() {
-//        int factor = 1;
-//        if (this.quantityUnit.equals("g") || this.quantityUnit.equals("ml")) {
-//            factor = AMOUNT_OF_GRAMS_IN_100_GRAM;
-//        } else if (this.quantityUnit.equals("el")) {
-//            factor = AMOUNT_OF_TBSP_IN_100_GRAM;
-//        } else if (this.quantityUnit.equals("tl")) {
-//            factor = AMOUNT_OF_TSP_IN_100_GRAM;
-//        }
-//        return factor;
-//    }
 }
