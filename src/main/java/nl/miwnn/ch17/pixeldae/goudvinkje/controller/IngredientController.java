@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -80,21 +82,18 @@ public class IngredientController {
     public String showAddCaloriesForm(@PathVariable("recipeID") Long recipeId, Model datamodel) {
 
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow();
+        Recipe dummyRecipe = new Recipe();
+        List<RecipeHasIngredient> dummyRecipeHasIngredients = new ArrayList<>();
 
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
             if (recipeHasIngredient.getIngredient().getCalories() == null) {
-
-                recipe.getRecipeHasIngredients().remove(recipeHasIngredient);
+                dummyRecipeHasIngredients.add(recipeHasIngredient);
             }
         }
-        datamodel.addAttribute("formRecipe", recipe);
 
-        return showAddCaloriesForm(datamodel, recipe);
-    }
+        dummyRecipe.setRecipeHasIngredients(dummyRecipeHasIngredients);
 
-    private String showAddCaloriesForm(Model datamodel, Recipe recipe) {
-
-        datamodel.addAttribute("formRecipe", recipe);
+        datamodel.addAttribute("formRecipe", dummyRecipe);
 
         return "addCaloriesForm";
     }

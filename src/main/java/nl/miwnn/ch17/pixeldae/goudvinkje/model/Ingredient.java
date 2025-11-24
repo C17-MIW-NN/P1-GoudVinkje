@@ -60,9 +60,9 @@ public class Ingredient {
         return quantityUnit.getDisplayName();
     }
 
-    public int getCorrectedCalories() {
+    public Integer getCorrectedCalories() {
         if (calories == null) {
-            return 0;
+            return null;
         }
         return (int) (calories / quantityUnit.getCaloryFactor());
     }

@@ -15,18 +15,22 @@
             <label for="title" class="mb-2">Voer hier de ontbrekende informatie in:</label>
         </div>
 
-        <form th:action="@{/ingredient/cal-opslaan}" method="post" th:object="${ingredients}">
+        <form th:action="@{/ingredient/cal-opslaan}" method="post" th:object="${formRecipe}">
 
             <div class="row g-0 align-items-stretch">
                 <div class="col border-col px-3 pb-3">
-                    <div class="ingredient-row" th:each="ingredient, order : ${ingredients}">
-                        <div>100 gram of milliliter <span th:text="${ingredient.description}"></span></div>
+                    <div class="ingredient-row" th:each="ingredient, order : *{recipeHasIngredients}">
+                        <div>100 gram
+                            <span th:text="*{recipeHasIngredients[__${order.index}__].ingredient.description}"></span>
+                        </div>
                         <input type="text"
-                               th:field="${ingredients[__${order.index}__].description}">
-<!--                        <input type="hidden"-->
-<!--                               th:field="*{ingredients[__${order.index}__].calories}">-->
-<!--                        <input type="hidden"-->
-<!--                               th:field="*{ingredients[__${order.index}__].ingredientId}">-->
+                               th:field="*{recipeHasIngredients[__${order.index}__].ingredient.calories}">
+                        <input type="hidden"
+                               th:field="*{recipeHasIngredients[__${order.index}__].ingredient.ingredientId}">
+                        <input type="hidden"
+                               th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
+                        <input type="hidden"
+                               th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}">
                     </div>
                 </div>
             </div>
