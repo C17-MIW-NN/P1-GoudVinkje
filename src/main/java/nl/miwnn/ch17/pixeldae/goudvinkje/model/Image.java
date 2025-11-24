@@ -35,5 +35,4 @@ public class Image {
     public void setContentType(MediaType contentType) {
         this.contentType = contentType.toString();
     }
-
 }

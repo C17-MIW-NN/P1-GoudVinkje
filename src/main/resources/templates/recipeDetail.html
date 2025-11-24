@@ -69,7 +69,8 @@
                                    th:id="'checker' + ${ingredient.getIngredient().ingredientId}">
                             <label class="mb-0 form-check-label"
                                    th:for="'checker' + ${ingredient.getIngredient().ingredientId}"
-                                   th:text="|${ingredient.quantity} ${ingredient.getIngredient().quantityUnit}|"></label>
+                                   th:text="|${ingredient.quantity}
+                                   ${ingredient.getIngredient().quantityUnit.getDisplayName()}|"></label>
                         </div>
                         <div class="pe-3 pb-2">
                             <p class="mb-0 checkable"

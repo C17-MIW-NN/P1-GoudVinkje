@@ -94,7 +94,6 @@ public class Recipe {
     }
 
     public int getCalories() {
-        return (int) Math.round(countRecipeCalories()/ nrOfPortions);
+        return (int) countRecipeCalories() / nrOfPortions;
     }
-
 }

@@ -30,6 +30,4 @@ public class Step {
     public Step(Integer sequenceNr) {
         this.sequenceNr = sequenceNr;
     }
-
-
 }

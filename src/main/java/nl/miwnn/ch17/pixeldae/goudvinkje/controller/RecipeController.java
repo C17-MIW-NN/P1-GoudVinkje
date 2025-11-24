@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.*;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
-import nl.miwnn.ch17.pixeldae.goudvinkje.service.ImageService;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.IngredientService;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.RecipeService;
@@ -33,7 +32,7 @@ public class RecipeController {
     public RecipeController(RecipeRepository recipeRepository,
                             IngredientRepository ingredientRepository,
                             GoudVinkjeUserService goudVinkjeUserService,
-                            ImageService imageService, RecipeService recipeService, IngredientService ingredientService) {
+                            RecipeService recipeService, IngredientService ingredientService) {
         this.recipeRepository = recipeRepository;
         this.goudVinkjeUserService = goudVinkjeUserService;
         this.recipeService = recipeService;
@@ -43,9 +42,12 @@ public class RecipeController {
     // showRecipeOverview
     @GetMapping({ "/", "/overzicht"})
     private String showRecipeOverview(Model datamodel) {
+
         GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
-        datamodel.addAttribute("publicRecipes", recipeRepository.findAllByPubliclyVisibleAndAuthorNot(true, loggedInUser));
-        datamodel.addAttribute("ownRecipes", recipeRepository.findAllByAuthor(loggedInUser));
+        datamodel.addAttribute("publicRecipes",
+                recipeRepository.findAllByPubliclyVisibleAndAuthorNot(true, loggedInUser));
+        datamodel.addAttribute("ownRecipes",
+                recipeRepository.findAllByAuthor(loggedInUser));
 
         return "recipeOverview";
     }
@@ -53,12 +55,11 @@ public class RecipeController {
     // showRecipeDetail
     @GetMapping("/{recipeID}")
     private String showRecipeDetail(@PathVariable("recipeID") Long recipeID, Model datamodel) {
-        Optional<Recipe> recipe = recipeRepository.findById(recipeID);
 
+        Optional<Recipe> recipe = recipeRepository.findById(recipeID);
         if (recipe.isEmpty()) {
             return "redirect:/recept/lijst";
         }
-
         datamodel.addAttribute("recipe", recipe.get());
 
         return "recipeDetail";
@@ -67,18 +68,21 @@ public class RecipeController {
     // recipeForm
     @GetMapping("/toevoegen")
     public String showAddRecipeForm(Model datamodel) {
+
         Recipe recipe = new Recipe(LocalDate.now());
         recipe.getSteps().add(new Step(1));
         recipe.getRecipeHasIngredients().add(new RecipeHasIngredient(new Ingredient()));
         recipe.setAuthor(goudVinkjeUserService.getLoggedInUser());
         recipe.setPubliclyVisible(true);
         recipe.setNrOfPortions(2);
+        //TODO default constants maken?
 
         return showRecipeForm(datamodel, recipe);
     }
 
     @GetMapping("/aanpassen/{recipeID}")
     public String showEditRecipeForm(@PathVariable("recipeID") Long recipeID, Model datamodel) {
+
         Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeID);
         if (optionalRecipe.isPresent()) {
             return showRecipeForm(datamodel, optionalRecipe.get());
@@ -86,8 +90,10 @@ public class RecipeController {
         return "redirect:/";
     }
 
-    private String showRecipeForm(@ModelAttribute Model datamodel, Recipe recipe) {
+    private String showRecipeForm(Model datamodel, Recipe recipe) {
+
         datamodel.addAttribute("formRecipe", recipe);
+        datamodel.addAttribute("quantityUnits", Ingredient.QuantityUnit.values());
 
         return "recipeForm";
     }
@@ -100,8 +106,7 @@ public class RecipeController {
 
         if (result.hasErrors()) { //show validation error messages in form
             return "recipeForm";
-        } else {
-            // If it's someone else's recipe, make a copy.
+        } else { // If it's someone else's recipe, make a copy.
             GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
             if (!recipe.getAuthor().getUsername().equals(loggedInUser.getUsername())) {
                 recipe = recipe.newCopiedRecipe(loggedInUser);
@@ -116,6 +121,7 @@ public class RecipeController {
 
     @GetMapping("/verwijderen/{recipeID}")
     public String deleteRecipe(@PathVariable("recipeID") Long recipeID) {
+
         recipeRepository.deleteById(recipeID);
         return "redirect:/recept/overzicht";
     }

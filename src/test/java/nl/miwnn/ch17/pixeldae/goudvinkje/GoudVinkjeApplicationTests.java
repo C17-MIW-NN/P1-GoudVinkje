@@ -1,7 +1,5 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje;
 
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Ingredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
@@ -13,9 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
@@ -24,17 +20,10 @@ class GoudVinkjeApplicationTests {
 
     @Autowired
     private Validator validator;
-//    private final Validator validator;
-//
-//    GoudVinkjeApplicationTests(Validator validator) {
-//        this.validator = validator;
-//    }
-//    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void contextLoads() {
     }
-
 
     // calory related tests
     @Test
@@ -56,10 +45,10 @@ class GoudVinkjeApplicationTests {
         // Arrange
         Ingredient ingredient1 = new Ingredient();
         ingredient1.setCalories(500);
-        ingredient1.setQuantityUnit("g");
+        ingredient1.setQuantityUnit(Ingredient.QuantityUnit.G);
         Ingredient ingredient2 = new Ingredient();
         ingredient2.setCalories(150);
-        ingredient2.setQuantityUnit("g");
+        ingredient2.setQuantityUnit(Ingredient.QuantityUnit.G);
 
         List<RecipeHasIngredient> ingredientList = new ArrayList<>();
         ingredientList.add( new RecipeHasIngredient(ingredient1, 1));
