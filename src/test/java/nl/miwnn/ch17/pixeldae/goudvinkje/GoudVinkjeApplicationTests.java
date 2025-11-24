@@ -26,18 +26,18 @@ class GoudVinkjeApplicationTests {
     }
 
     // calory related tests
-    @Test
-    void countCaloriesPerIngredient() {
-        Ingredient ingredient = new Ingredient();
-        ingredient.setCalories(100);
-        RecipeHasIngredient recipeHasIngredient = new RecipeHasIngredient();
-        recipeHasIngredient.setQuantity(1);
-        recipeHasIngredient.setIngredient(ingredient);
-
-        double result = recipeHasIngredient.countCaloriesPerIngredient();
-
-        assertEquals(100.0, result);
-    }
+//    @Test
+//    void countCaloriesPerIngredient() {
+//        Ingredient ingredient = new Ingredient();
+//        ingredient.setCalories(100);
+//        RecipeHasIngredient recipeHasIngredient = new RecipeHasIngredient();
+//        recipeHasIngredient.setQuantity(1);
+//        recipeHasIngredient.setIngredient(ingredient);
+//
+//        double result = recipeHasIngredient.countCaloriesPerIngredient();
+//
+//        assertEquals(100.0, result);
+//    }
 
     @Test
     @DisplayName("test if calories are counted correctly for each recipe")

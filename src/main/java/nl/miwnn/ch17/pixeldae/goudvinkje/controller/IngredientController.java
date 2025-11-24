@@ -100,9 +100,17 @@ public class IngredientController {
 
 
     @PostMapping("/cal-opslaan")
-    public String saveAddCaloriesForm(@ModelAttribute("formRecipe") Recipe recipe) {
-        //TODO ingredienten uit lijst opslaan
-//        ingredientRepository.save(ingredient);
+    public String saveAddCaloriesForm(@ModelAttribute("formRecipe") Recipe recipe, BindingResult result) {
+
+        if (!result.hasErrors()) {
+
+            List<Ingredient> ingredients = new ArrayList<>();
+            for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients() ) {
+                ingredientRepository.save(recipeHasIngredient.getIngredient());
+            }
+
+        }
+
         return "redirect:/recept/" + recipe.getRecipeID();
     }
 }

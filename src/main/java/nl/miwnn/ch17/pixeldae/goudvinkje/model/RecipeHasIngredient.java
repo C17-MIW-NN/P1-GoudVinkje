@@ -38,9 +38,4 @@ public class RecipeHasIngredient {
         this.ingredient = ingredient;
         this.quantity = quantity;
     }
-
-    // methods
-    public double countCaloriesPerIngredient() {
-        return (double) this.quantity * ingredient.getCalories();
-    }
 }

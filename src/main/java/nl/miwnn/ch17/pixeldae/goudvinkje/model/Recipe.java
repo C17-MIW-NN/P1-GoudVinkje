@@ -79,13 +79,22 @@ public class Recipe {
         this.steps.add(step);
     }
 
-    public double countRecipeCalories() {
-        double totalCalories = 0;
+    public Integer countRecipeCalories() {
+        int totalCalories = 0;
         for (RecipeHasIngredient recipeIngredient : recipeHasIngredients) {
-            double calories = (recipeIngredient.getQuantity() * recipeIngredient.getIngredient().getCorrectedCalories());
+            Integer correctedCalories = recipeIngredient.getIngredient().getCorrectedCalories();
+            if (correctedCalories == null) { return null; }
+            int calories = (recipeIngredient.getQuantity() * correctedCalories);
             totalCalories += calories;
         }
+
+        totalCalories = getTotalCaloriesPerPortion(totalCalories);
+
         return totalCalories;
+    }
+
+    private int getTotalCaloriesPerPortion(int totalCalories) {
+        return totalCalories / nrOfPortions;
     }
 
     public Recipe newCopiedRecipe(GoudVinkjeUser newAuthor) {
@@ -112,7 +121,17 @@ public class Recipe {
         return copiedRecipe;
     }
 
-    public int getCalories() {
-        return (int) countRecipeCalories() / nrOfPortions;
+    public Integer getCalories() {
+        int totalCalories = 0;
+        for (RecipeHasIngredient recipeIngredient : recipeHasIngredients) {
+            Integer correctedCalories = recipeIngredient.getIngredient().getCorrectedCalories();
+            if (correctedCalories == null) { return null; }
+            int calories = (recipeIngredient.getQuantity() * correctedCalories);
+            totalCalories += calories;
+        }
+        totalCalories = getTotalCaloriesPerPortion(totalCalories);
+
+        return totalCalories;
+
     }
 }
