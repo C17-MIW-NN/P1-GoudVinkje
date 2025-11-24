@@ -6,6 +6,8 @@ import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.ImageService;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
+import nl.miwnn.ch17.pixeldae.goudvinkje.service.IngredientService;
+import nl.miwnn.ch17.pixeldae.goudvinkje.service.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,18 +26,18 @@ import java.util.Optional;
 public class RecipeController {
 
     private final RecipeRepository recipeRepository;
-    private final IngredientRepository ingredientRepository;
     private final GoudVinkjeUserService goudVinkjeUserService;
-    private final ImageService imageService;
+    private final RecipeService recipeService;
+    private final IngredientService ingredientService;
 
     public RecipeController(RecipeRepository recipeRepository,
                             IngredientRepository ingredientRepository,
                             GoudVinkjeUserService goudVinkjeUserService,
-                            ImageService imageService) {
+                            ImageService imageService, RecipeService recipeService, IngredientService ingredientService) {
         this.recipeRepository = recipeRepository;
-        this.ingredientRepository = ingredientRepository;
         this.goudVinkjeUserService = goudVinkjeUserService;
-        this.imageService = imageService;
+        this.recipeService = recipeService;
+        this.ingredientService = ingredientService;
     }
 
     // showRecipeOverview
@@ -94,7 +96,7 @@ public class RecipeController {
     public String saveRecipeForm(@Valid @ModelAttribute("formRecipe") Recipe recipe, BindingResult result) {
 
         for (Step step : recipe.getSteps()) { step.setRecipe(recipe); }
-        preventDuplicateIngredients(recipe);
+        ingredientService.preventDuplicateIngredients(recipe);
 
         if (result.hasErrors()) { //show validation error messages in form
             return "recipeForm";
@@ -104,45 +106,12 @@ public class RecipeController {
             if (!recipe.getAuthor().getUsername().equals(loggedInUser.getUsername())) {
                 recipe = recipe.newCopiedRecipe(loggedInUser);
             } else {
-                ifRecipeExistsRemoveAllIngredients(recipe);
+                recipeService.ifRecipeExistsRemoveAllIngredients(recipe);
             }
             recipe.setAuthor(loggedInUser);
             recipeRepository.save(recipe);
         }
         return "redirect:/recept/" + recipe.getRecipeID();
-    }
-
-    // if an ingredient already exists, use the prior existing ingrediënt
-    private void preventDuplicateIngredients(Recipe recipe) {
-        for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
-            Ingredient ingredientFromForm = recipeHasIngredient.getIngredient();
-            String description = ingredientFromForm.getDescription();
-            Long ingredientID = ingredientFromForm.getIngredientId();
-
-            Optional<Ingredient> sameIngredientAlreadyPresent =
-                    ingredientRepository.findByDescription(description);
-
-            if (sameIngredientAlreadyPresent.isPresent() &&
-                    !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientID)) {
-                recipeHasIngredient.setIngredient(sameIngredientAlreadyPresent.get());
-                if (ingredientID != null) {
-                    ingredientRepository.deleteById(ingredientID);
-                }
-            }
-
-            ingredientRepository.save(recipeHasIngredient.getIngredient());
-            recipeHasIngredient.setRecipe(recipe);
-        }
-
-    }
-
-    // if the recipe already exists, remove all references to the ingredients;
-    // otherwise references to deleted ingredients would remain in the RecipeHasIngredients table.
-    private void ifRecipeExistsRemoveAllIngredients(Recipe recipe) {
-        if (recipe.getRecipeID() == null) { return; }
-
-        Recipe recipeFromDB = recipeRepository.findById(recipe.getRecipeID()).orElseThrow();
-        recipeFromDB.getRecipeHasIngredients().clear();
     }
 
     @GetMapping("/verwijderen/{recipeID}")

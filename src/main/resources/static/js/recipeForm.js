@@ -27,7 +27,7 @@ $(document).ready(function () {
                 </td>
                 <td class="instruction-line">
                     <input type="text" class="form-control" 
-                    name="steps[${numberOfSteps}].instruction" placeholder="Bijv. Snipper de ui"/>
+                    name="steps[${numberOfSteps}].instruction"/>
                 </td>
                 <td>
                     <i class="ms-2 bi bi-trash-fill remove-step"></i></button>
