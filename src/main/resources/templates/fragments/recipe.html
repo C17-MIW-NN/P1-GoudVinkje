@@ -23,10 +23,17 @@
                 <i class="bi bi-people-fill"></i>
                 <span class="mb-0" type="text" id="portions" th:text="${recipe.nrOfPortions}"></span>
             </div>
-            <div class="col border-col p-2 text-center">
+            <div th:if="${recipe.calories == null}" class="col border-col p-2 text-center">
                 <i class="bi bi-fire"></i>
-                <span class="mb-0" type="text" id="kcal" th:text="${recipe.calories}"></span>
+                <span><a id="noKcal" th:href="@{/ingredient/aanvullen/{recipeID}(recipeID = ${recipe.recipeID})}">
+                    vul aan
+                </a></span>
             </div>
+            <div th:unless="${recipe.calories == null}" class="col border-col p-2 text-center">
+                <i class="bi bi-fire"></i>
+                <span class="mb-0" type="text" th:text="${recipe.calories}"></span>
+            </div>
+
         </div>
 
     </div>

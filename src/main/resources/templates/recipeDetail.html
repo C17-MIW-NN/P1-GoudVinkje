@@ -39,11 +39,20 @@
                 <label class="recipe-detail-label" for="portions">Aantal porties</label>
                 <p class="mb-0 text-center" type="text" id="portions" th:text="${recipe.nrOfPortions}"></p>
             </div>
-            <div class="col border-col py-2">
-                <i class="bi bi-fire"></i>
-                <label class="recipe-detail-label" for="kcal">Kcal per portie</label>
-                <p class="mb-0 text-center" type="text" id="kcal" th:text="${recipe.calories}"></p>
-            </div>
+
+                <div th:if="${recipe.calories == null}" class="col border-col py-2">
+                    <i class="bi bi-fire"></i>
+                    <label class="recipe-detail-label" for="noKcal">Kcal per portie</label>
+                    <a id="noKcal" th:href="@{/ingredient/aanvullen/{recipeID}(recipeID = ${recipe.recipeID})}">
+                        onvoldoende data
+                    </a>
+                </div>
+                <div th:unless="${recipe.calories == null}" class="col border-col py-2">
+                    <i class="bi bi-fire"></i>
+                    <label class="recipe-detail-label" for="kcal">Kcal per portie</label>
+                    <p class="mb-0 text-center" type="text" id="kcal" th:text="${recipe.calories}"></p>
+                </div>
+
             <div class="col border-col py-2">
                 <i class="bi bi-person-circle"></i>
                 <label class="recipe-detail-label" for="author">Auteur</label>
