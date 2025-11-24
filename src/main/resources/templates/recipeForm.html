@@ -106,15 +106,9 @@
                                 <td>
                                     <select class="form-select" th:field=
                                             "*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
-                                        <option th:if="${quantityUnit == null}"
-                                                th:each="quantityUnit : ${quantityUnits}"
+                                        <option th:each="quantityUnit : ${quantityUnits}"
                                                 th:value="${quantityUnit}"
                                                 th:text="${quantityUnit.displayName}">
-                                        </option>
-                                        <option th:else="${quantityUnit == null}"
-                                                th:each="quantityUnit : ${quantityUnits}"
-                                                th:value="${quantityUnit}"
-                                                th:text="${quantityUnit.displayName}" disabled>
                                         </option>
                                     </select>
                                 </td>

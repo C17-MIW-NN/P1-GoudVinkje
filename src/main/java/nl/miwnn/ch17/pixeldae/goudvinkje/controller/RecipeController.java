@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 /**
@@ -64,13 +63,8 @@ public class RecipeController {
     @GetMapping("/toevoegen")
     public String showAddRecipeForm(Model datamodel) {
 
-        Recipe recipe = new Recipe(LocalDate.now());
-        recipe.getSteps().add(new Step(1));
-        recipe.getRecipeHasIngredients().add(new RecipeHasIngredient(new Ingredient()));
+        Recipe recipe = new Recipe();
         recipe.setAuthor(goudVinkjeUserService.getLoggedInUser());
-        recipe.setPubliclyVisible(true);
-        recipe.setNrOfPortions(2);
-        //TODO default constants maken?
 
         return showRecipeForm(datamodel, recipe);
     }

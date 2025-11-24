@@ -15,8 +15,14 @@ import java.util.List;
  */
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @With
+@Getter @Setter @AllArgsConstructor @With
 public class Recipe {
+
+    protected static final int DEFAULT_NR_OF_PORTIONS = 2;
+    protected static final boolean DEFAULT_PUBLICLY_VISIBLE = true;
+    protected static final LocalDate DEFAULT_DATE_ADDED_NOW = LocalDate.now();
+    protected static final int DEFAULT_SEQUENCE_NR = 1;
+
 
     @Id
     @GeneratedValue
@@ -51,6 +57,14 @@ public class Recipe {
     // constructors
     public Recipe(LocalDate dateAdded) {
         this.dateAdded = dateAdded;
+    }
+
+    public Recipe() {
+        this.nrOfPortions = DEFAULT_NR_OF_PORTIONS;
+        this.dateAdded = DEFAULT_DATE_ADDED_NOW;
+        this.publiclyVisible = DEFAULT_PUBLICLY_VISIBLE;
+        this.recipeHasIngredients.add(new RecipeHasIngredient(new Ingredient()));
+        this.steps.add(new Step(DEFAULT_SEQUENCE_NR));
     }
 
     // methods
