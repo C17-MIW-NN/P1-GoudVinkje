@@ -15,7 +15,11 @@ import java.util.List;
  */
 
 @Entity
-@Getter @Setter @AllArgsConstructor @With
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@With
 public class Recipe {
 
     protected static final int DEFAULT_NR_OF_PORTIONS = 2;
@@ -59,12 +63,13 @@ public class Recipe {
         this.dateAdded = dateAdded;
     }
 
-    public Recipe() {
+    public Recipe(GoudVinkjeUser author) {
         this.nrOfPortions = DEFAULT_NR_OF_PORTIONS;
         this.dateAdded = DEFAULT_DATE_ADDED_NOW;
         this.publiclyVisible = DEFAULT_PUBLICLY_VISIBLE;
         this.recipeHasIngredients.add(new RecipeHasIngredient(new Ingredient()));
         this.steps.add(new Step(DEFAULT_SEQUENCE_NR));
+        this.author = author;
     }
 
     // methods

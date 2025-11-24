@@ -21,7 +21,7 @@ import java.util.Map;
 @Controller
 public class InitController {
 
-    private static final String STANDARD_PASSWORD = "2025";
+    private static final String DEFAULT_PASSWORD = "2025";
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final RecipeHasIngredientRepository recipeHasIngredientRepository;
@@ -421,7 +421,7 @@ public class InitController {
         GoudVinkjeUser goudVinkjeUser = new GoudVinkjeUser();
 
         goudVinkjeUser.setUsername(username);
-        goudVinkjeUser.setPassword(STANDARD_PASSWORD);
+        goudVinkjeUser.setPassword(DEFAULT_PASSWORD);
         if (username.equals("admin")) {
             goudVinkjeUser.setRole("ROLE_ADMIN");
         } else {

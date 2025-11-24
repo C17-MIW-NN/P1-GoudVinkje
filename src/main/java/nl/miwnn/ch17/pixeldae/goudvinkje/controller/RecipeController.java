@@ -68,8 +68,7 @@ public class RecipeController {
     @GetMapping("/toevoegen")
     public String showAddRecipeForm(Model datamodel) {
 
-        Recipe recipe = new Recipe();
-        recipe.setAuthor(goudVinkjeUserService.getLoggedInUser());
+        Recipe recipe = new Recipe(goudVinkjeUserService.getLoggedInUser());
 
         return showRecipeForm(datamodel, recipe);
     }
