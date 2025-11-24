@@ -84,13 +84,14 @@ public class IngredientController {
 
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow();
 
-        List<Ingredient> ingredients = new ArrayList<>();
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
             if (recipeHasIngredient.getIngredient().getCalories() == null) {
-                ingredients.add(recipeHasIngredient.getIngredient());
+
+                recipe.getRecipeHasIngredients().remove(recipeHasIngredient);
             }
         }
-        datamodel.addAttribute("ingredients", ingredients);
+        datamodel.addAttribute(recipe);
+
         return showAddCaloriesForm(datamodel, recipe);
     }
 
