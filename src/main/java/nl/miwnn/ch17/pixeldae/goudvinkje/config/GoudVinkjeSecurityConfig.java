@@ -25,7 +25,7 @@ public class GoudVinkjeSecurityConfig {
                         .requestMatchers("/css/**", "/webjars/**", "/images/**", "/fonts/**").permitAll()
                         .requestMatchers("/gebruiker/**").hasRole("ADMIN")
                         .requestMatchers("/recept/").hasRole("USER")
-                        .requestMatchers("/ingredient/aanvullen/**").hasRole("USER")
+                        .requestMatchers("/ingredient/aanvullen/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/ingredient/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

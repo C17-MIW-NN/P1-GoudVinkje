@@ -2,6 +2,8 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +29,9 @@ public class RecipeHasIngredient {
     @JoinColumn(name = "ingredient_ingredient_id")
     private Ingredient ingredient;
 
-    private int quantity;
+    @NotNull(message = "Hoeveelheid is verplicht.")
+    @Positive(message = "Hoeveelheid moet een positief getal zijn.")
+    private Integer quantity;
 
     // constructors
     public RecipeHasIngredient(Ingredient ingredient) {

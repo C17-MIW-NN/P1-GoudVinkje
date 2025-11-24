@@ -2,7 +2,6 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
 import jakarta.validation.Valid;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.*;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.GoudVinkjeUserService;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.IngredientService;
@@ -27,17 +26,14 @@ public class RecipeController {
     private final GoudVinkjeUserService goudVinkjeUserService;
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
-    private final IngredientController ingredientController;
 
     public RecipeController(RecipeRepository recipeRepository,
-                            IngredientRepository ingredientRepository,
                             GoudVinkjeUserService goudVinkjeUserService,
-                            RecipeService recipeService, IngredientService ingredientService, IngredientController ingredientController) {
+                            RecipeService recipeService, IngredientService ingredientService) {
         this.recipeRepository = recipeRepository;
         this.goudVinkjeUserService = goudVinkjeUserService;
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;
-        this.ingredientController = ingredientController;
     }
 
     // showRecipeOverview
@@ -96,12 +92,14 @@ public class RecipeController {
     @PostMapping("/opslaan")
     public String saveRecipeForm(@Valid @ModelAttribute("formRecipe") Recipe recipe, BindingResult result) {
 
-        for (Step step : recipe.getSteps()) { step.setRecipe(recipe); }
-        ingredientService.preventDuplicateIngredients(recipe);
 
-        if (result.hasErrors()) { //show validation error messages in form
+        if (result.hasErrors()) {
             return "recipeForm";
-        } else { // If it's someone else's recipe, make a copy.
+        } else {
+            for (Step step : recipe.getSteps()) { step.setRecipe(recipe); }
+            ingredientService.preventDuplicateIngredients(recipe);
+
+            // If it's someone else's recipe, make a copy.
             GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
             if (!recipe.getAuthor().getUsername().equals(loggedInUser.getUsername())) {
                 recipe = recipe.newCopiedRecipe(loggedInUser);
@@ -111,9 +109,9 @@ public class RecipeController {
             recipe.setAuthor(loggedInUser);
             recipeRepository.save(recipe);
 
-            if (ingredientService.isIngredientWithoutCaloriesPresent(recipe.getRecipeHasIngredients())) {
-                return "redirect:/ingredient/aanvullen/" + recipe.getRecipeID();
-            }
+//            if (ingredientService.isIngredientWithoutCaloriesPresent(recipe.getRecipeHasIngredients())) {
+//                return "redirect:/ingredient/aanvullen/" + recipe.getRecipeID();
+//            }
         }
 
         return "redirect:/recept/" + recipe.getRecipeID();

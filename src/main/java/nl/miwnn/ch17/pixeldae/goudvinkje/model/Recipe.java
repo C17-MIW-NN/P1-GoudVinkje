@@ -1,6 +1,7 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,7 +21,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @With
-@ToString
 public class Recipe {
 
     protected static final int DEFAULT_NR_OF_PORTIONS = 2;
@@ -52,9 +52,11 @@ public class Recipe {
 
     private String imageURL;
 
+    @Valid
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeHasIngredient> recipeHasIngredients = new ArrayList<>();
 
+    @Valid
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("sequenceNr ASC")
     private List<Step> steps = new ArrayList<>();

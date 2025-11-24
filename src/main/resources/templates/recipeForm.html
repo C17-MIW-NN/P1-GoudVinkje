@@ -19,6 +19,7 @@
             <div class="border-col">
                 <h2 th:if="${formRecipe.recipeID == null}">Schrijf een nieuw recept</h2>
                 <h2 th:unless="${formRecipe.recipeID == null}">Pas je recept aan</h2>
+                <div class="text-center text-danger" th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
             </div>
             <div class="col d-flex flex-column justify-content-start align-items-start border-col p-0">
                 <div class="d-flex align-items-center w-100 px-3 py-2">
@@ -129,7 +130,7 @@
             </div>
 
             <!-- dropdown template for new rows -->
-            <select id="quantityUnitDropdown" style="display:none">
+            <select id="quantityUnitDropdown" style="display:none" class="form-select">
                 <option th:each="quantityUnit : ${quantityUnits}"
                         th:value="${quantityUnit}"
                         th:text="${quantityUnit.displayName}">

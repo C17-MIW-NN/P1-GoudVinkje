@@ -56,10 +56,6 @@ public class Ingredient {
         }
     }
 
-    public String getUnitDisplayName() {
-        return quantityUnit.getDisplayName();
-    }
-
     public Integer getCorrectedCalories() {
         if (calories == null) {
             return null;
