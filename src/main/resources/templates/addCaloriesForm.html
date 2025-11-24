@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-    <title>Afbeelding uploaden</title>
+    <title>Caloriewaarden aanvullen</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100 main-width">
@@ -11,17 +11,29 @@
 <div class="container-md my-5">
     <div class="outline-col">
         <div class="border-col">
-            <label for="title" class="mb-2">Ingrediënten zonder calorie-waarde:</label>
-            <h3 id="title" th:text="Ingrediënten voor ${formRecipe.name}"></h3>
+            <h3 id="title">Ingrediënten met onbekende calorie-waarde</h3>
+            <label for="title" class="mb-2">Voer hier de ontbrekende informatie in:</label>
         </div>
 
-        <div class="border-col">
-            <form class="w-100">
+        <form th:action="@{/ingredient/cal-opslaan}" method="post" th:object="${ingredients}">
 
-            </form>
-        </div>
+            <div class="row g-0 align-items-stretch">
+                <div class="col border-col px-3 pb-3">
+                    <div class="ingredient-row" th:each="ingredient, order : ${ingredients}">
+                        <div>100 gram of milliliter <span th:text="${ingredient.description}"></span></div>
+                        <input type="text"
+                               th:field="${ingredients[__${order.index}__].description}">
+<!--                        <input type="hidden"-->
+<!--                               th:field="*{ingredients[__${order.index}__].calories}">-->
+<!--                        <input type="hidden"-->
+<!--                               th:field="*{ingredients[__${order.index}__].ingredientId}">-->
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
+
 
 
 <footer th:replace="~{fragments/general :: footer}"></footer>
