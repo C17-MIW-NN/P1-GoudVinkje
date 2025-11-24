@@ -87,7 +87,7 @@ public class IngredientController {
                 recipe.getRecipeHasIngredients().remove(recipeHasIngredient);
             }
         }
-        datamodel.addAttribute(recipe);
+        datamodel.addAttribute("formRecipe", recipe);
 
         return showAddCaloriesForm(datamodel, recipe);
     }
