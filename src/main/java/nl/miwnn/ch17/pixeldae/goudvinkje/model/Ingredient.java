@@ -13,6 +13,11 @@ import java.util.Collection;
  */
 
 @Entity
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"description", "quantityUnit"})
+        }
+)
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,10 +27,9 @@ public class Ingredient {
     @GeneratedValue
     private Long ingredientId;
 
-    @Column(unique = true)
     private String description;
 
-    private int calories;
+    private Integer calories;
 
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private Collection<RecipeHasIngredient> recipeHasIngredient;
@@ -57,6 +61,9 @@ public class Ingredient {
     }
 
     public int getCorrectedCalories() {
+        if (calories == null) {
+            return 0;
+        }
         return (int) (calories / quantityUnit.getCaloryFactor());
     }
 

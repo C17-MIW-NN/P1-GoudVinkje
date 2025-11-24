@@ -5,6 +5,7 @@ import nl.miwnn.ch17.pixeldae.goudvinkje.model.Ingredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
  * @author Simon van der Kooij
  */
 
+@Service
 public class IngredientService {
 
     public final IngredientRepository ingredientRepository;
@@ -25,10 +27,11 @@ public class IngredientService {
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
             Ingredient ingredientFromForm = recipeHasIngredient.getIngredient();
             String description = ingredientFromForm.getDescription();
+            Ingredient.QuantityUnit quantityUnit = ingredientFromForm.getQuantityUnit();
             Long ingredientID = ingredientFromForm.getIngredientId();
 
             Optional<Ingredient> sameIngredientAlreadyPresent =
-                    ingredientRepository.findByDescription(description);
+                    ingredientRepository.findByQuantityUnitAndDescription(quantityUnit, description);
 
             if (sameIngredientAlreadyPresent.isPresent() &&
                     !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientID)) {

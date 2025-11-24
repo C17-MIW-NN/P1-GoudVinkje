@@ -2,11 +2,13 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.service;
 
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Simon van der Kooij
  */
 
+@Service
 public class RecipeService {
 
     public final RecipeRepository recipeRepository;
