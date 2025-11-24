@@ -87,7 +87,7 @@ public class IngredientController {
         List<Ingredient> ingredients = new ArrayList<>();
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
             if (recipeHasIngredient.getIngredient().getCalories() == null) {
-                ingredients.add(recipeHasIngredient);
+                ingredients.add(recipeHasIngredient.getIngredient());
             }
         }
         datamodel.addAttribute("ingredients", ingredients);

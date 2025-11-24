@@ -379,7 +379,7 @@ public class InitController {
         return recipe;
     }
 
-    private Ingredient makeIngredient(String description, int calories, Ingredient.QuantityUnit quantityUnit) {
+    private Ingredient makeIngredient(String description, Integer calories, Ingredient.QuantityUnit quantityUnit) {
 
         Ingredient ingredient = new Ingredient();
 
