@@ -20,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @With
+@ToString
 public class Recipe {
 
     protected static final int DEFAULT_NR_OF_PORTIONS = 2;

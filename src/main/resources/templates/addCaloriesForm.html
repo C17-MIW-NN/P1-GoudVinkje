@@ -16,6 +16,7 @@
         </div>
 
         <form th:action="@{/ingredient/cal-opslaan}" method="post" th:object="${formRecipe}">
+            <input type="hidden" th:field="*{recipeID}">
 
             <div class="row g-0 align-items-stretch">
                 <div class="col border-col px-3 pb-3">
@@ -34,9 +35,15 @@
                     </div>
                 </div>
             </div>
+            <div class="p-3 border-col d-flex justify-content-center">
+                <button type="submit" name="action" value="save" class="btn-primary px-3 mx-2">Opslaan</button>
+                <button type="submit" name="action" value="cancel" class="btn-primary px-3 mx-2">Annuleren</button>
+            </div>
         </form>
     </div>
 </div>
+
+
 
 
 

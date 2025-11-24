@@ -7,6 +7,7 @@ import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -44,6 +45,14 @@ public class IngredientService {
             ingredientRepository.save(recipeHasIngredient.getIngredient());
             recipeHasIngredient.setRecipe(recipe);
         }
+    }
 
+    public boolean isIngredientWithoutCaloriesPresent(List<RecipeHasIngredient> recipeHasIngredients) {
+        for (RecipeHasIngredient recipeHasIngredient : recipeHasIngredients) {
+            if (recipeHasIngredient.getIngredient().getCalories() == null) {
+                return true;
+            }
+        }
+        return false;
     }
 }

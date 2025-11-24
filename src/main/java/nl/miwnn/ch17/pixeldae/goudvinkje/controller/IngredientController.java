@@ -83,6 +83,7 @@ public class IngredientController {
 
         Recipe recipe = recipeRepository.findById(recipeId).orElseThrow();
         Recipe dummyRecipe = new Recipe();
+        dummyRecipe.setRecipeID(recipe.getRecipeID());
         List<RecipeHasIngredient> dummyRecipeHasIngredients = new ArrayList<>();
 
         for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
@@ -106,8 +107,9 @@ public class IngredientController {
 
             List<Ingredient> ingredients = new ArrayList<>();
             for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients() ) {
-                ingredientRepository.save(recipeHasIngredient.getIngredient());
+                ingredients.add(recipeHasIngredient.getIngredient());
             }
+            ingredientRepository.saveAll(ingredients);
 
         }
 

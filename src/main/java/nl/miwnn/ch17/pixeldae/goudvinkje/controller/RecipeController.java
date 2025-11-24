@@ -27,15 +27,17 @@ public class RecipeController {
     private final GoudVinkjeUserService goudVinkjeUserService;
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
+    private final IngredientController ingredientController;
 
     public RecipeController(RecipeRepository recipeRepository,
                             IngredientRepository ingredientRepository,
                             GoudVinkjeUserService goudVinkjeUserService,
-                            RecipeService recipeService, IngredientService ingredientService) {
+                            RecipeService recipeService, IngredientService ingredientService, IngredientController ingredientController) {
         this.recipeRepository = recipeRepository;
         this.goudVinkjeUserService = goudVinkjeUserService;
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;
+        this.ingredientController = ingredientController;
     }
 
     // showRecipeOverview
@@ -108,7 +110,12 @@ public class RecipeController {
             }
             recipe.setAuthor(loggedInUser);
             recipeRepository.save(recipe);
+
+            if (ingredientService.isIngredientWithoutCaloriesPresent(recipe.getRecipeHasIngredients())) {
+                return "redirect:/ingredient/aanvullen/" + recipe.getRecipeID();
+            }
         }
+
         return "redirect:/recept/" + recipe.getRecipeID();
     }
 
