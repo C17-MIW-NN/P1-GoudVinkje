@@ -2,6 +2,9 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
@@ -25,12 +28,14 @@ public class RecipeHasIngredient {
     @JoinColumn(name = "recipe_recipe_id")
     private Recipe recipe;
 
+    @Valid
     @ManyToOne
     @JoinColumn(name = "ingredient_ingredient_id")
     private Ingredient ingredient;
 
-    @NotNull(message = "Je hebt een lege ingrediëntrij toegevoegd.")
-    @Positive(message = "Hoeveelheid moet een positief getal zijn.")
+    @NotNull(message = "Vul deze in a.u.b.")
+    @Min(value = 1, message = "Minimaal 1 a.u.b.")
+    @Max(value = 1, message = "Dit is te veel")
     private Integer quantity;
 
     // constructors

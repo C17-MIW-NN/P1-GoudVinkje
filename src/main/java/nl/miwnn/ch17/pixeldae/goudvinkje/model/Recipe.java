@@ -2,6 +2,8 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,6 +29,8 @@ public class Recipe {
     protected static final boolean DEFAULT_PUBLICLY_VISIBLE = true;
     protected static final LocalDate DEFAULT_DATE_ADDED_NOW = LocalDate.now();
     protected static final int DEFAULT_SEQUENCE_NR = 1;
+    private static final int MINIMUM_VALUE_PORTIONS = 1;
+    private static final int MAXIMUM_VALUE_PORTIONS = 24;
 
 
     @Id
@@ -46,6 +50,8 @@ public class Recipe {
     @Column(columnDefinition = "text")
     private String description;
 
+    @Min(value = MINIMUM_VALUE_PORTIONS, message = "Dit is te weinig")
+    @Max(value = MAXIMUM_VALUE_PORTIONS, message ="Dit is te veel")
     private int nrOfPortions;
 
     private boolean publiclyVisible;

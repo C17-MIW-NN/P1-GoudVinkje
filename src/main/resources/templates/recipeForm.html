@@ -19,7 +19,6 @@
             <div class="border-col">
                 <h2 th:if="${formRecipe.recipeID == null}">Schrijf een nieuw recept</h2>
                 <h2 th:unless="${formRecipe.recipeID == null}">Pas je recept aan</h2>
-                <div class="text-center text-danger" th:each="err : ${#fields.errors('*')}" th:text="${err}"></div>
             </div>
             <div class="col d-flex flex-column justify-content-start align-items-start border-col p-0">
                 <div class="d-flex align-items-center w-100 px-3 py-2">
@@ -66,6 +65,7 @@
             <div class="col border-col py-2">
                 <label for="portions">Aantal porties</label>
                 <input class="mb-2 mx-0 px-1 form-control" type="number" id="portions" th:field="*{nrOfPortions}">
+                <div th:if="${#fields.hasErrors('nrOfPortions')}" th:errors="*{nrOfPortions}" class="danger"></div>
             </div>
             <div class="col border-col py-2">
                 <label for="author">Auteur</label>
@@ -74,8 +74,7 @@
             </div>
             <div class="col border-col py-2">
                 <label for="date">Publicatiedatum</label>
-                <input class="mb-2 mx-0 px-1 form-control" style="background-color: #F0EBD6"
-                       type="text" id="date" th:field="*{dateAdded}" disabled>
+                <input class="mb-2 mx-0 px-1 form-control" type="text" id="date" th:field="*{dateAdded}" readonly>
             </div>
             <div class="col border-col py-2">
                 <label for="shared" class="d-block">Gedeeld</label>
@@ -105,6 +104,10 @@
                                     <input type="text" class="form-control" th:field=
                                             "*{recipeHasIngredients[__${order.index}__].quantity}"
                                            placeholder="hoeveelheid">
+                                    <div th:if="${#fields.hasErrors
+                                            ('recipeHasIngredients[__${order.index}__].quantity')}"
+                                         th:errors="*{recipeHasIngredients[__${order.index}__].quantity}"
+                                         class="danger"></div>
                                 </td>
                                 <td>
                                     <select class="form-select" th:field=
@@ -119,6 +122,10 @@
                                     <input type="text" class="form-control" th:field=
                                             "*{recipeHasIngredients[__${order.index}__].ingredient.description}"
                                            placeholder="bijv. rijst">
+                                    <div th:if="${#fields.hasErrors
+                                            ('recipeHasIngredients[__${order.index}__].ingredient.description')}"
+                                         th:errors="*{recipeHasIngredients[__${order.index}__].ingredient.description}"
+                                         class="danger"></div>
                                 </td>
                                 <td><i class="ms-2 bi bi-trash-fill remove-ingredient"></i></td>
                             </tr>
