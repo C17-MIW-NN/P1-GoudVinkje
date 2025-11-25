@@ -90,11 +90,11 @@ public class RecipeController {
     }
 
     @PostMapping("/opslaan")
-    public String saveRecipeForm(@Valid @ModelAttribute("formRecipe") Recipe recipe, BindingResult result) {
-
+    public String saveRecipeForm(@Valid @ModelAttribute("formRecipe") Recipe recipe,
+                                 BindingResult result, Model datamodel) {
 
         if (result.hasErrors()) {
-            return "recipeForm";
+            return showRecipeForm(datamodel, recipe);
         } else {
             for (Step step : recipe.getSteps()) { step.setRecipe(recipe); }
             ingredientService.preventDuplicateIngredients(recipe);

@@ -13,11 +13,7 @@ import java.util.Collection;
  */
 
 @Entity
-@Table(
-        uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"description", "quantityUnit"})
-        }
-)
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"description", "quantityUnit"})})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -66,4 +62,5 @@ public class Ingredient {
     public int countUsesInRecipes() {
         return recipeHasIngredient.size();
     }
+
 }

@@ -29,7 +29,7 @@ public class RecipeHasIngredient {
     @JoinColumn(name = "ingredient_ingredient_id")
     private Ingredient ingredient;
 
-    @NotNull(message = "Hoeveelheid is verplicht.")
+    @NotNull(message = "Je hebt een lege ingrediëntrij toegevoegd.")
     @Positive(message = "Hoeveelheid moet een positief getal zijn.")
     private Integer quantity;
 
