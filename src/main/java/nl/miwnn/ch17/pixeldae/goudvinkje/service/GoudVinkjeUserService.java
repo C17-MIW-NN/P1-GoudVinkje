@@ -29,6 +29,10 @@ public class GoudVinkjeUserService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public List<GoudVinkjeUser> findAll() {
+        return goudVinkjeUserRepository.findAll();
+    }
+
     public void deleteUserByID(Long userID) {
         goudVinkjeUserRepository.deleteById(userID);
     }
@@ -40,10 +44,6 @@ public class GoudVinkjeUserService implements UserDetailsService {
             return GoudVinkjeUserMapper.toDTO(optionalGoudVinkjeUser.get());
         }
         return null;
-    }
-
-    public List<GoudVinkjeUser> findAll() {
-        return goudVinkjeUserRepository.findAll();
     }
 
     public GoudVinkjeUser getLoggedInUser() {
@@ -59,6 +59,10 @@ public class GoudVinkjeUserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " was not found."));
     }
 
+    public boolean usernameInUse(String username) {
+        return goudVinkjeUserRepository.existsByUsername(username);
+    }
+
     public void saveUser(GoudVinkjeUser goudVinkjeUser) {
         goudVinkjeUser.setPassword(passwordEncoder.encode(goudVinkjeUser.getPassword()));
         goudVinkjeUserRepository.save(goudVinkjeUser);
@@ -66,10 +70,6 @@ public class GoudVinkjeUserService implements UserDetailsService {
 
     public void save(GoudVinkjeUserDTO goudVinkjeUserDTO) {
         saveUser(GoudVinkjeUserMapper.fromDTO(goudVinkjeUserDTO));
-    }
-
-    public boolean usernameInUse(String username) {
-        return goudVinkjeUserRepository.existsByUsername(username);
     }
 
 }

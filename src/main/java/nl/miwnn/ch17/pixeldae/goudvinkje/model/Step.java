@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 
 /**
- * @author Annelies Hofman
+ * @author Annelies Hofman & Simon van der Kooij
  * Steps are the different actions, in a specific order, that need to be followed to complete a recipe while cooking
  */
 

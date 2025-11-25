@@ -30,7 +30,7 @@ public class GoudVinkjeUser implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    private String role; // bv. "ROLE_USER" of "ROLE_ADMIN"
+    private String role;
 
     @OneToMany
     @JoinColumn(name = "author_user_id")

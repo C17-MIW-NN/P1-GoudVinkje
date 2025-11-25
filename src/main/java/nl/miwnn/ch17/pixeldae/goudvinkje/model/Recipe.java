@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Simon van der Kooij
- * This model handles every recipe
+ * @author Simon van der Kooij & Annelies Hofman
+ * This model handles all the data of every recipe
  */
 
 @Entity
@@ -31,13 +31,15 @@ public class Recipe {
     protected static final int DEFAULT_SEQUENCE_NR = 1;
     private static final int MINIMUM_VALUE_PORTIONS = 1;
     private static final int MAXIMUM_VALUE_PORTIONS = 24;
-
+    private static final int MIN_LENGTH_NAME = 5;
+    private static final int MAX_LENGTH_NAME = 100;
 
     @Id
     @GeneratedValue
     private Long recipeID;
 
-    @Size(min = 5, max = 100, message = "Titel moet 5-100 karakters lang zijn")
+    @Size(min = MIN_LENGTH_NAME, max = MAX_LENGTH_NAME,
+            message = "Titel moet " + MIN_LENGTH_NAME + "-" + MAX_LENGTH_NAME + " karakters lang zijn")
     private String name;
 
     @ManyToOne
@@ -83,7 +85,7 @@ public class Recipe {
 
     // methods
     public void addStep(Step step) {
-        if (steps == null) steps = new ArrayList<>();
+        if (steps == null) { steps = new ArrayList<>(); }
         step.setRecipe(this);
         this.steps.add(step);
     }
@@ -128,19 +130,5 @@ public class Recipe {
         copiedRecipe.setSteps(copiedSteplist);
 
         return copiedRecipe;
-    }
-
-    public Integer getCalories() {
-        int totalCalories = 0;
-        for (RecipeHasIngredient recipeIngredient : recipeHasIngredients) {
-            Integer correctedCalories = recipeIngredient.getIngredient().getCorrectedCalories();
-            if (correctedCalories == null) { return null; }
-            int calories = (recipeIngredient.getQuantity() * correctedCalories);
-            totalCalories += calories;
-        }
-        totalCalories = getTotalCaloriesPerPortion(totalCalories);
-
-        return totalCalories;
-
     }
 }

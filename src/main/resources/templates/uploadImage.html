@@ -20,7 +20,7 @@
 
         <div class="border-col">
         <form class="w-100"
-              th:action="@{/afbeeldingopslaan}" method="post"
+              th:action="@{/afbeelding/opslaan}" method="post"
               th:object="${formRecipe}" enctype="multipart/form-data">
 
             <input type="hidden" th:field="*{recipeID}">

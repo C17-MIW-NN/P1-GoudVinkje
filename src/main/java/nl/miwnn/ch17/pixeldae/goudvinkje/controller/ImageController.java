@@ -2,8 +2,8 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.controller;
 
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Image;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.service.ImageService;
+import nl.miwnn.ch17.pixeldae.goudvinkje.service.RecipeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,18 +16,18 @@ import java.util.Optional;
 
 /**
  * @author Annelies Hofman
- * handle all requests regadring images
+ * handle all requests regarding images
  */
 
 @Controller
 public class ImageController {
 
     private final ImageService imageService;
-    private final RecipeRepository recipeRepository;
+    private final RecipeService recipeService;
 
-    public ImageController(ImageService imageService, RecipeRepository recipeRepository) {
+    public ImageController(ImageService imageService, RecipeService recipeService) {
         this.imageService = imageService;
-        this.recipeRepository = recipeRepository;
+        this.recipeService = recipeService;
     }
 
     @GetMapping("/image/{imageName}")
@@ -44,7 +44,7 @@ public class ImageController {
 
     @GetMapping("/recept/afbeelding/{recipeID}")
     public String showUploadImageForm(@PathVariable("recipeID") Long recipeId, Model datamodel) {
-        Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeId);
+        Optional<Recipe> optionalRecipe = recipeService.getOptionalRecipe(recipeId);
 
         if (optionalRecipe.isPresent()) {
             return showRecipeImageForm(datamodel, optionalRecipe.get());
@@ -58,11 +58,9 @@ public class ImageController {
         return "uploadImage";
     }
 
-
-    @PostMapping("/afbeeldingopslaan")
+    @PostMapping("/afbeelding/opslaan")
     public String addImage(@ModelAttribute("formRecipe") Recipe recipe,
-                           BindingResult result,
-                           @RequestParam MultipartFile recipeImage) {
+                           BindingResult result, @RequestParam MultipartFile recipeImage) {
         try {
             imageService.saveImage(recipeImage);
             recipe.setImageURL("/image/" + recipeImage.getOriginalFilename());
@@ -74,8 +72,7 @@ public class ImageController {
             return "redirect:/";
         }
 
-        recipeRepository.save(recipe);
-        return "redirect:/recept/" + recipe.getRecipeID();
+        return recipeService.saveRecipe(recipe);
     }
 
 }

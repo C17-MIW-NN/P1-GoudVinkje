@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Simon van der Kooij
+ * controls everything regarding the users of GoudVinkje
  */
 
 @Controller

@@ -4,8 +4,8 @@ import nl.miwnn.ch17.pixeldae.goudvinkje.model.Ingredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.IngredientRepository;
-import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeHasIngredientRepository;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
+import nl.miwnn.ch17.pixeldae.goudvinkje.service.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author Simon van der Kooij
+ * @author Annelies Hofman & Simon van der Kooij
  * handles all data concerning ingredients.
  */
 
@@ -25,13 +25,13 @@ import java.util.Optional;
 public class IngredientController {
 
     public final IngredientRepository ingredientRepository;
-    public final RecipeHasIngredientRepository recipeHasIngredientRepository;
     public final RecipeRepository recipeRepository;
+    private final RecipeService recipeService;
 
-    public IngredientController(IngredientRepository ingredientRepository, RecipeHasIngredientRepository recipeHasIngredientRepository, RecipeRepository recipeRepository) {
+    public IngredientController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository, RecipeService recipeService) {
         this.ingredientRepository = ingredientRepository;
-        this.recipeHasIngredientRepository = recipeHasIngredientRepository;
         this.recipeRepository = recipeRepository;
+        this.recipeService = recipeService;
     }
 
     @GetMapping({"/", "/overzicht"})
@@ -48,7 +48,8 @@ public class IngredientController {
     }
 
     @GetMapping("/aanpassen/{ingredientDescription}")
-    public String showEditIngredientForm(@PathVariable("ingredientDescription") String ingredientDescription, Model datamodel) {
+    public String showEditIngredientForm(@PathVariable("ingredientDescription") String ingredientDescription,
+                                         Model datamodel) {
         Optional<Ingredient> optionalIngredient = ingredientRepository.findByDescription(ingredientDescription);
 
         if (optionalIngredient.isPresent()) {
@@ -75,24 +76,18 @@ public class IngredientController {
 
     private String showIngredientForm(Model datamodel, Ingredient ingredient) {
         datamodel.addAttribute("ingredient", ingredient);
+
         return "ingredientForm";
     }
 
     @GetMapping("/aanvullen/{recipeID}")
     public String showAddCaloriesForm(@PathVariable("recipeID") Long recipeId, Model datamodel) {
 
-        Recipe recipe = recipeRepository.findById(recipeId).orElseThrow();
-        Recipe dummyRecipe = new Recipe();
-        dummyRecipe.setRecipeID(recipe.getRecipeID());
-        List<RecipeHasIngredient> dummyRecipeHasIngredients = new ArrayList<>();
+        Recipe dummyRecipe = recipeService.makeDummyRecipeWithIngredients(recipeId);
 
-        for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients()) {
-            if (recipeHasIngredient.getIngredient().getCalories() == null) {
-                dummyRecipeHasIngredients.add(recipeHasIngredient);
-            }
+        if (dummyRecipe == null) {
+            return "redirect:/recept/" + recipeId;
         }
-
-        dummyRecipe.setRecipeHasIngredients(dummyRecipeHasIngredients);
 
         datamodel.addAttribute("formRecipe", dummyRecipe);
 
@@ -110,7 +105,6 @@ public class IngredientController {
                 ingredients.add(recipeHasIngredient.getIngredient());
             }
             ingredientRepository.saveAll(ingredients);
-
         }
 
         return "redirect:/recept/" + recipe.getRecipeID();

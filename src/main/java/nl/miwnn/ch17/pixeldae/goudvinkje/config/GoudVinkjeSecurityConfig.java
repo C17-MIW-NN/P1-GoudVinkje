@@ -1,6 +1,5 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,9 +12,12 @@ import org.springframework.security.web.SecurityFilterChain;
  * @author Simon van der Kooij
  * configure the security for the GoudVinkje application
  */
+
 @Configuration
 @EnableWebSecurity
 public class GoudVinkjeSecurityConfig {
+
+    private static final int TOKEN_VALIDITY_SECONDS_DEFAULT = 60 * 60 * 24 * 30;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -38,7 +40,7 @@ public class GoudVinkjeSecurityConfig {
                 )
                 .rememberMe(remember -> remember
                         .key("uniekeSleutelVoorHashing123")
-                        .tokenValiditySeconds(60 * 60 * 24 * 30) // 30 dagen
+                        .tokenValiditySeconds(TOKEN_VALIDITY_SECONDS_DEFAULT)
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")

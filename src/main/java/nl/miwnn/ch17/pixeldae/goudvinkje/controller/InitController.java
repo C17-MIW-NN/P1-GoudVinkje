@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 /**
- * @author Simon van der Kooij
+ * @author Simon van der Kooij & Annelies Hofman (& Chad G. Pete & Co Piloot)
  * fills the application with useful data intended for development.
  */
 

@@ -51,9 +51,9 @@ public class RecipeController {
 
     // showRecipeDetail
     @GetMapping("/{recipeID}")
-    private String showRecipeDetail(@PathVariable("recipeID") Long recipeID, Model datamodel) {
+    private String showRecipeDetail(@PathVariable("recipeID") Long recipeId, Model datamodel) {
 
-        Optional<Recipe> recipe = recipeRepository.findById(recipeID);
+        Optional<Recipe> recipe = recipeService.getOptionalRecipe(recipeId);
         if (recipe.isEmpty()) {
             return "redirect:/recept/lijst";
         }
@@ -72,9 +72,9 @@ public class RecipeController {
     }
 
     @GetMapping("/aanpassen/{recipeID}")
-    public String showEditRecipeForm(@PathVariable("recipeID") Long recipeID, Model datamodel) {
+    public String showEditRecipeForm(@PathVariable("recipeID") Long recipeId, Model datamodel) {
 
-        Optional<Recipe> optionalRecipe = recipeRepository.findById(recipeID);
+        Optional<Recipe> optionalRecipe = recipeService.getOptionalRecipe(recipeId);
         if (optionalRecipe.isPresent()) {
             return showRecipeForm(datamodel, optionalRecipe.get());
         }
@@ -95,24 +95,15 @@ public class RecipeController {
 
         if (result.hasErrors()) {
             return showRecipeForm(datamodel, recipe);
-        } else {
-            for (Step step : recipe.getSteps()) { step.setRecipe(recipe); }
-            ingredientService.preventDuplicateIngredients(recipe);
-
-            // If it's someone else's recipe, make a copy.
-            GoudVinkjeUser loggedInUser = goudVinkjeUserService.getLoggedInUser();
-            if (!recipe.getAuthor().getUsername().equals(loggedInUser.getUsername())) {
-                recipe = recipe.newCopiedRecipe(loggedInUser);
-            } else {
-                recipeService.ifRecipeExistsRemoveAllIngredients(recipe);
-            }
-            recipe.setAuthor(loggedInUser);
-            recipeRepository.save(recipe);
-
-//            if (ingredientService.isIngredientWithoutCaloriesPresent(recipe.getRecipeHasIngredients())) {
-//                return "redirect:/ingredient/aanvullen/" + recipe.getRecipeID();
-//            }
         }
+
+        ingredientService.preventDuplicateIngredients(recipe);
+
+        recipeService.connectStepsToRecipe(recipe);
+
+        recipe = recipeService.ifSomeoneElsesRecipeMakeCopy(recipe);
+
+        recipeService.saveRecipe(recipe);
 
         return "redirect:/recept/" + recipe.getRecipeID();
     }

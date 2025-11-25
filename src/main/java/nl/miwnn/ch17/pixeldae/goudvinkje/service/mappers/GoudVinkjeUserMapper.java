@@ -1,12 +1,11 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.service.mappers;
 
-
 import nl.miwnn.ch17.pixeldae.goudvinkje.dto.GoudVinkjeUserDTO;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.GoudVinkjeUser;
 
 /**
  * @author Simon van der Kooij
- *
+ * maps the persistant user information with the DTO user information
  */
 
 public class GoudVinkjeUserMapper {

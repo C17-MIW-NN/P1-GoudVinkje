@@ -27,7 +27,6 @@ public class Image {
     @Lob
     private byte[] data;
 
-    // Getters & Setters
     public MediaType getContentType() {
         return MediaType.parseMediaType(contentType);
     }

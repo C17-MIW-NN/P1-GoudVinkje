@@ -1,7 +1,6 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,8 +24,7 @@ public class Ingredient {
     @GeneratedValue
     private Long ingredientId;
 
-    @NotNull(message = "Omschrijving moet 5-100 karakters lang zijn")
-    @Size(min = 2, max = 100, message = "Omschrijving moet 5-100 karakters lang zijn")
+    @Size(min = 2, max = 100, message = "Omschrijving moet 2-100 karakters lang zijn")
     private String description;
 
     private Integer calories;
@@ -45,7 +43,7 @@ public class Ingredient {
         TL ("tl", 30.0),
         EL ("el", 10.0),
         ST ("stuks", 1.0),
-        SNUF ("snufje", 1000.0);
+        SNUF ("snufje", 200.0);
 
         private final String displayName;
         private final double caloryFactor;

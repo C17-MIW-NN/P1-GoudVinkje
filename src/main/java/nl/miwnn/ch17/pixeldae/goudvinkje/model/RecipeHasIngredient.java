@@ -1,18 +1,16 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
-
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * @author Simon van der Kooij
+ * @author Simon van der Kooij & Annelies Hofman
  * This model brings ingredients and recipes together.
  */
 
@@ -20,6 +18,8 @@ import lombok.Setter;
 @Getter @Setter @NoArgsConstructor
 public class RecipeHasIngredient {
 
+    private static final int MIN_QUANTITY = 1;
+    private static final int MAX_QUANTITY = 1000;
     @Id
     @GeneratedValue
     private Long recipeHasIngredientID;
@@ -34,8 +34,8 @@ public class RecipeHasIngredient {
     private Ingredient ingredient;
 
     @NotNull(message = "Vul deze in a.u.b.")
-    @Min(value = 1, message = "Minimaal 1 a.u.b.")
-    @Max(value = 10000, message = "Dit is te veel")
+    @Min(value = MIN_QUANTITY, message = "Dit is te weinig")
+    @Max(value = MAX_QUANTITY, message = "Dit is te veel")
     private Integer quantity;
 
     // constructors

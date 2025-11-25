@@ -23,6 +23,10 @@ public class ImageService {
         this.imageRepository = imageRepository;
     }
 
+    public Image getImage(String fileName) {
+        return imageRepository.findByFileName(fileName).orElseThrow(() -> new NoSuchElementException(fileName));
+    }
+
     public void saveImage(MultipartFile file) throws IOException {
         if (imageRepository.existsByFileName(file.getOriginalFilename())) {
             return;
@@ -49,7 +53,4 @@ public class ImageService {
         imageRepository.save(image);
     }
 
-    public Image getImage(String fileName) {
-        return imageRepository.findByFileName(fileName).orElseThrow(() -> new NoSuchElementException(fileName));
-    }
 }
