@@ -35,7 +35,7 @@ public class RecipeHasIngredient {
 
     @NotNull(message = "Vul deze in a.u.b.")
     @Min(value = 1, message = "Minimaal 1 a.u.b.")
-    @Max(value = 1, message = "Dit is te veel")
+    @Max(value = 10000, message = "Dit is te veel")
     private Integer quantity;
 
     // constructors
