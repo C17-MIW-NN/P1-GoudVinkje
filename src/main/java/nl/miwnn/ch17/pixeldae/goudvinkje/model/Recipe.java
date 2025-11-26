@@ -30,7 +30,7 @@ public class Recipe {
     protected static final LocalDate DEFAULT_DATE_ADDED_NOW = LocalDate.now();
     protected static final int DEFAULT_SEQUENCE_NR = 1;
     private static final int MINIMUM_VALUE_PORTIONS = 1;
-    private static final int MAXIMUM_VALUE_PORTIONS = 24;
+    private static final int MAXIMUM_VALUE_PORTIONS = 10;
     private static final int MIN_LENGTH_NAME = 5;
     private static final int MAX_LENGTH_NAME = 100;
 
