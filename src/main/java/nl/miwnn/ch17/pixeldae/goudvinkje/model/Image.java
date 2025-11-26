@@ -18,7 +18,7 @@ import org.springframework.http.MediaType;
 public class Image {
 
     @Id @GeneratedValue
-    private Long id;
+    private Long imageId;
 
     @Column(unique = true)
     private String fileName;
