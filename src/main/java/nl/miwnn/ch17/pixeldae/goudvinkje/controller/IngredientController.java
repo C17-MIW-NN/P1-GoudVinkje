@@ -84,13 +84,13 @@ public class IngredientController {
     @GetMapping("/aanvullen/{recipeID}")
     public String showAddCaloriesForm(@PathVariable("recipeID") Long recipeId, Model datamodel) {
 
-        Recipe dummyRecipe = recipeService.makeDummyRecipeWithIngredients(recipeId);
+        Optional<Recipe> recipe = recipeService.getOptionalRecipe(recipeId);
 
-        if (dummyRecipe == null) {
+        if (recipe.isEmpty()) {
             return "redirect:/recept/" + recipeId;
         }
 
-        datamodel.addAttribute("formRecipe", dummyRecipe);
+        datamodel.addAttribute("formRecipe", recipe.get());
 
         return "addCaloriesForm";
     }
@@ -100,12 +100,7 @@ public class IngredientController {
     public String saveAddCaloriesForm(@ModelAttribute("formRecipe") Recipe recipe, BindingResult result) {
 
         if (!result.hasErrors()) {
-
-            List<Ingredient> ingredients = new ArrayList<>();
-            for (RecipeHasIngredient recipeHasIngredient : recipe.getRecipeHasIngredients() ) {
-                ingredients.add(recipeHasIngredient.getIngredient());
-            }
-            ingredientRepository.saveAll(ingredients);
+            recipeService.saveRecipe(recipe);
         }
 
         return "redirect:/recept/" + recipe.getRecipeID();
