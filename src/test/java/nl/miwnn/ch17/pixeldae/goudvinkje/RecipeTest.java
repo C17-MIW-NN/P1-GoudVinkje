@@ -58,7 +58,6 @@ public class RecipeTest {
 
         // Assert
         assertTrue("any error message", violations.isEmpty());
-        assertEquals(0, violations.size());
     }
 
     @Test
@@ -74,7 +73,7 @@ public class RecipeTest {
         var violations = validator.validate(recipe);
 
         // Assert
-        assertTrue("Titel moet 5-100 karakters lang zijn", violations.isEmpty());
+        assertTrue("any error message", violations.isEmpty());
     }
 
     @Test
@@ -91,7 +90,6 @@ public class RecipeTest {
 
         // Assert
         assertTrue("any error message", violations.isEmpty());
-        assertEquals(0, violations.size());
     }
 
     @Test
