@@ -1,8 +1,6 @@
 $(document).ready(function () {
-    let stepsSectionRows = $("#steps-section .step-row")
-    let numberOfSteps = stepsSectionRows.length;
-    let ingredientSectionRows = $("#ingredients-section .ingredient-row")
-    let numberOfIngredients = ingredientSectionRows.length;
+    let numberOfSteps = $("#steps-section .step-row").length;
+    let numberOfIngredients = $("#ingredients-section .ingredient-row").length;
 
     $('#steps-section').sortable({
         items: '.step-row',
@@ -42,7 +40,6 @@ $(document).ready(function () {
 
     $("#add-ingredient").click(function () {
 
-        //clone quantityUnitDropdown from html
         let quantityUnitSelect = $("#quantityUnitDropdown").clone();
         quantityUnitSelect.removeAttr("id");
         quantityUnitSelect.show();
@@ -54,7 +51,7 @@ $(document).ready(function () {
             <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].ingredient">
             <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].recipeHasIngredientID">
             <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].recipe">
-            <table>
+            <table class="js-row">
                 <tr>
                     <td>
                         <input type="text" class="form-control"
@@ -79,6 +76,7 @@ $(document).ready(function () {
         $("#ingredients-section").append($row);
 
         numberOfIngredients ++;
+        addAddCalorieButton()
     });
 
     $("#steps-section").on("click",".remove-step", function (){
@@ -86,18 +84,22 @@ $(document).ready(function () {
 
         renumberStepRows();
 
-        numberOfSteps = stepsSectionRows.length;
+        numberOfSteps = $("#steps-section .step-row").length;
     });
 
     $("#ingredients-section").on("click",".remove-ingredient", function (){
 
         $(this).closest(".ingredient-row").remove();
 
-        numberOfIngredients = ingredientSectionRows.length;
+        numberOfIngredients = $("#ingredients-section .ingredient-row").length;
 
-        ingredientSectionRows.each(function (index) {
+        if ($('.js-row').length === 0) {
+            removeAddCalorieButton();
+        }
+
+        $("#ingredients-section .ingredient-row").each(function (index) {
             $(this)
-                .find("input")
+                .find("input, select")
                 .each(function () {
                     const name = $(this).attr("name");
                     if (name) {
@@ -105,11 +107,12 @@ $(document).ready(function () {
                     }
                 });
         });
+
     });
 
     function renumberStepRows() {
 
-        stepsSectionRows.each(function (index) {
+        $("#steps-section .step-row").each(function (index) {
 
             $(this).find("input[name*='sequenceNr']").val(index + 1);
 
@@ -130,5 +133,16 @@ $(document).ready(function () {
             $(this).find("input[name*='sequenceNr']").val(index + 1);
         });
 
+    }
+
+    function addAddCalorieButton() {
+        if (!$('button[value="saveAddCalories"]').length) {
+            $("#buttonRow").prepend('<button type="submit" name="action" value="saveAddCalories"\' + ' +
+                'class="btn-primary px-3 mx-2">\nOpslaan & Calorieën invoeren</button>')
+        }
+    }
+
+    function removeAddCalorieButton() {
+        $('button[value="saveAddCalories"]').remove()
     }
 });

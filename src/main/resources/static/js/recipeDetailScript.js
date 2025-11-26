@@ -1,3 +1,10 @@
+$(document).ready(function () {
+
+    const noSleep = new NoSleep();
+
+    noSleep.enable();
+});
+
 document.querySelectorAll('.cross-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
         const id = this.dataset.id;
