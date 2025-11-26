@@ -145,4 +145,6 @@ $(document).ready(function () {
     function removeAddCalorieButton() {
         $('button[value="saveAddCalories"]').remove()
     }
+
+    renumberStepRows();
 });
