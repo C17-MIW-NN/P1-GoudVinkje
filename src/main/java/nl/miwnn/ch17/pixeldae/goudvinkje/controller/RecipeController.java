@@ -94,9 +94,13 @@ public class RecipeController {
                                  BindingResult result, Model datamodel,
                                  @RequestParam("action") String action ) {
 
+        System.err.println(recipe);
+
         if (result.hasErrors()) {
             return showRecipeForm(datamodel, recipe);
         }
+
+        System.err.println("TOT HIER 2");
 
         ingredientService.preventDuplicateIngredients(recipe);
 

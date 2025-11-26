@@ -24,7 +24,7 @@
                         <div>100 gram
                             <span th:text="*{recipeHasIngredients[__${order.index}__].ingredient.description}"></span>
                         </div>
-                        <input type="text"
+                        <input type="text" required
                                th:field="*{recipeHasIngredients[__${order.index}__].ingredient.calories}">
                         <input type="hidden"
                                th:field="*{recipeHasIngredients[__${order.index}__].ingredient.ingredientId}">
