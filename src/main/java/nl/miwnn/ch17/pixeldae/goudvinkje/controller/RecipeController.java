@@ -91,7 +91,8 @@ public class RecipeController {
 
     @PostMapping("/opslaan")
     public String saveRecipeForm(@Valid @ModelAttribute("formRecipe") Recipe recipe,
-                                 BindingResult result, Model datamodel) {
+                                 BindingResult result, Model datamodel,
+                                 @RequestParam("action") String action ) {
 
         if (result.hasErrors()) {
             return showRecipeForm(datamodel, recipe);
@@ -105,7 +106,15 @@ public class RecipeController {
 
         recipeService.saveRecipe(recipe);
 
+        if ("saveAndCalories".equals(action)) {
+            if (ingredientService.isIngredientWithoutCaloriesPresent(recipe.getRecipeHasIngredients())) {
+                return "redirect:/ingredient/aanvullen/" + recipe.getRecipeID();
+            }
+        }
+
         return "redirect:/recept/" + recipe.getRecipeID();
+
+
     }
 
     @GetMapping("/verwijderen/{recipeID}")
