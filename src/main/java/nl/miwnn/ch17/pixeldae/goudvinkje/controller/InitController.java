@@ -53,8 +53,8 @@ public class InitController {
     private void initializeDB() {
 
         GoudVinkjeUser chadGPete = makeUser("Chad G Pete");
-        GoudVinkjeUser copiloot = makeUser("Co Piloot");
-        GoudVinkjeUser annelies = makeUser("Annelies");
+        GoudVinkjeUser coPiloot = makeUser("Co Piloot");
+        GoudVinkjeUser janeDoe = makeUser("Jane Doe");
         GoudVinkjeUser admin = makeUser("admin");
 
         // --- Recept 1---
@@ -150,7 +150,7 @@ public class InitController {
         // --- Derde recept --- (Extreem Lang Recept)
         Recipe langRecept = makeRecipe(
                 "Romige Plant-based Pasta Met Groenten, Kruiden En Een Langzaam Gekookte Saus",
-                annelies,
+                janeDoe,
                 "Een uitgebreide, plantaardige pastamaaltijd met een romige saus op basis van "
                         + "geweekte noten, kruidige groenten en zorgvuldig opgebouwde smaken. De "
                         + "omschrijving is bewust lang zodat de layout getest kan worden.",
@@ -227,7 +227,7 @@ public class InitController {
         // --- Vierde recept --- (Kort recept, pompoensoep)
         Recipe kortRecept = makeRecipe(
                 "Pompoensoep",
-                annelies,
+                janeDoe,
                 "Altijd een success.",
                 4,
                 "/image/pompoen-soep.jpg"
@@ -250,7 +250,7 @@ public class InitController {
         // --- Extra recept 1 (Simon) ---
         Recipe spitskool = makeRecipe(
                 "Spitskoolkwarten uit de oven",
-                copiloot,
+                coPiloot,
                 "Malse geroosterde spitskool met knoflook en paprika-olie.",
                 2,
                 "/image/spitskool-kwarten-uit-de-oven.jpg"
@@ -267,10 +267,10 @@ public class InitController {
         spitskool.addStep(makeStep(3, "Rooster 25 minuten in de oven tot de spitskool goudbruin is."));
         recipeRepository.save(spitskool);
 
-        // --- Extra recept 2 (Simon) ---
+        // --- Extra recept 2 (Co Piloot) ---
         Recipe hamburgerRodeKool = makeRecipe(
                 "Hamburger met rode kool en salsa",
-                copiloot,
+                coPiloot,
                 "Vegan burger met knapperige rode kool en frisse salsa.",
                 2,
                 "/image/hamburger-met-rode-kool-en-salsa.jpg"
@@ -293,7 +293,7 @@ public class InitController {
         // --- Extra recept 3 (Annelies) ---
         Recipe crispyRijstvellen = makeRecipe(
                 "Crispy rijstvellen met rodekoolsalade",
-                annelies,
+                janeDoe,
                 "Krokante rijstvellen gevuld met frisse rodekoolsalade.",
                 3,
                 "/image/chrispy-rijstvellen-met-rodekool-salade.jpg"
