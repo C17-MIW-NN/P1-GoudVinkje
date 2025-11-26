@@ -44,6 +44,15 @@ public class RecipeService {
         return recipeRepository.findById(recipeId);
     }
 
+    public void addOriginalAuthorNameToTitle(Recipe recipe) {
+        if (!recipe.getAuthor().equals(goudVinkjeUserService.getLoggedInUser())) {
+            if (!recipe.getName().contains("à la")) {
+                recipe.setName(recipe.getName() + " à la " + recipe.getAuthor().getUsername());
+            }
+            recipe.setPubliclyVisible(false);
+        }
+    }
+
     public Recipe makeDummyRecipeWithIngredients(Long recipeId) {
         Optional<Recipe> optionalRecipe = getOptionalRecipe(recipeId);
         if (optionalRecipe.isEmpty()) {

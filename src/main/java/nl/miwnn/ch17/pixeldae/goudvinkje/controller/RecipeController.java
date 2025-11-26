@@ -76,10 +76,13 @@ public class RecipeController {
 
         Optional<Recipe> optionalRecipe = recipeService.getOptionalRecipe(recipeId);
         if (optionalRecipe.isPresent()) {
+            Recipe recipe = optionalRecipe.get();
+            recipeService.addOriginalAuthorNameToTitle(recipe);
             return showRecipeForm(datamodel, optionalRecipe.get());
         }
         return "redirect:/";
     }
+
 
     private String showRecipeForm(Model datamodel, Recipe recipe) {
 
