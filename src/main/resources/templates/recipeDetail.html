@@ -14,9 +14,7 @@
             <div class="d-flex border-col">
                 <h1 class="" th:text="${formRecipe.name}"></h1>
                 <div class="col-1 flex-end align-items-start ms-auto text-end">
-                    <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${formRecipe.recipeID})}"><i
-                            class="icon-button bi-pencil-fill"></i>
-                    </a>
+                    <div th:replace="~{fragments/recipe :: editRecipeButton(${formRecipe})}"></div>
                 </div>
             </div>
         </div>
@@ -25,14 +23,16 @@
         <div th:unless="${#strings.isEmpty(formRecipe.imageURL)}" class="row border-col p-0">
             <img class="p-0" th:src="${formRecipe.imageURL}" th:alt="|Image for ${formRecipe.name}|">
         </div>
-        <div th:if="${#strings.isEmpty(formRecipe.imageURL)}" class="row border-col p-0">
+        <div th:if="${#strings.isEmpty(formRecipe.imageURL) && formRecipe.author.username == #authentication.name}"
+             class="row border-col p-0">
             <div th:replace="~{fragments/recipe :: addImageButton}"></div>
         </div>
 
-
-        <div class="row g-0 align-items-stretch">
-            <div class="col border-col">
-                <p class="mb-0" type="text" id="description" th:text="${formRecipe.description}"></p>
+        <div th:if="${formRecipe.description != ''}">
+            <div class="row g-0 align-items-stretch">
+                <div class="col border-col">
+                    <p class="mb-0" type="text" id="description" th:text="${formRecipe.description}"></p>
+                </div>
             </div>
         </div>
 
@@ -98,6 +98,10 @@
             <div class="border-col">
                 <h2 class="mb-4">Instructies</h2>
                 <div class="row g-0 me-4">
+                    <div th:if="${formRecipe.getSteps().isEmpty()}">
+                        <p>Dit recept heeft geen instructies</p>
+                    </div>
+                    <div th:else="${formRecipe.getSteps().isEmpty()}">
                     <div class="col-12 d-flex" th:each="step : *{formRecipe.getSteps()}">
                         <div class="form-check col-1">
                             <input class="form-check-input cross-checkbox custom-checkbox"
@@ -114,6 +118,7 @@
                                th:id="'step' + ${step.stepId}"
                                th:text="${step.instruction}"></p>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
