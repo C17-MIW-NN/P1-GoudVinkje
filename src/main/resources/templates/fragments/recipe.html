@@ -6,12 +6,21 @@
     <div class="h-100 d-flex flex-column">
 
         <!-- Afbeelding -->
-        <div class="card-image border-col p-0 hover-parent"
+        <div class="card-image border-col hover-parent d-flex justify-content-end p-2"
              th:style="'background-image:url(' + ${recipe.imageURL} + ')'">
             <a class="stretched-link" th:href="@{/recept/{recipeId}(recipeId=${recipe.recipeID})}"></a>
-            <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">
-                <i class="icon-button bi-pencil-fill card-button"></i>
-            </a>
+
+            <div th:replace="~{:: editRecipeButton(${recipe})}"
+                 class="icon-button card-button"></div>
+
+<!--            <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">-->
+<!--                <i class="icon-button bi-pencil-fill card-button"></i>-->
+<!--            </a>-->
+
+<!--            <div th:if="${recipe.author.username == #authentication.name}">-->
+<!--                <div th:replace="~{::addImageButton}"></div>-->
+<!--            </div>-->
+
         </div>
 
         <!-- Titel -->
@@ -46,6 +55,13 @@
            th:href="@{/recept/afbeelding/{formRecipeID}(formRecipeID=${formRecipe.recipeID})}">
             + afbeelding toevoegen</a>
     </div>
+</div>
+
+<div th:fragment="editRecipeButton(recipe)">
+    <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">
+        <i th:if="${recipe.author.username == #authentication.name}" class="icon-button bi-pencil-fill"></i>
+        <i th:unless="${recipe.author.username == #authentication.name}" class="bi bi-copy"></i>
+    </a>
 </div>
 
 </body>
