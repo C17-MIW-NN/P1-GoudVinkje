@@ -73,6 +73,7 @@ public class RecipeService {
     }
 
     public void connectStepsToRecipe(Recipe recipe) {
+        if (recipe.getSteps().get(0).getInstruction().isEmpty()) { return; }
         for (Step step : recipe.getSteps()) { step.setRecipe(recipe); }
     }
 
