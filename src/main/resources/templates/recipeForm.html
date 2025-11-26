@@ -40,7 +40,7 @@
 
         <div th:unless="${formRecipe.recipeID == null}" class="row border-col p-0">
             <div th:unless="${#strings.isEmpty(formRecipe.imageURL)}"
-                 class="row border-col p-0 d-flex justify-content-end card-image py-2"
+                 class="d-flex justify-content-end card-image py-2"
                  th:style="'background-image:url(' + ${formRecipe.imageURL} + ')'">
                 <a th:href="@{/recept/afbeelding/{formRecipeID}(formRecipeID=${formRecipe.recipeID})}">
                     <i class="icon-button bi-pencil-fill card-button"></i></a>
