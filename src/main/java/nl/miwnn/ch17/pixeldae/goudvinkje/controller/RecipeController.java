@@ -106,7 +106,7 @@ public class RecipeController {
 
         recipeService.saveRecipe(recipe);
 
-        if ("saveAndCalories".equals(action)) {
+        if ("saveAddCalories".equals(action)) {
             if (ingredientService.isIngredientWithoutCaloriesPresent(recipe.getRecipeHasIngredients())) {
                 return "redirect:/ingredient/aanvullen/" + recipe.getRecipeID();
             }

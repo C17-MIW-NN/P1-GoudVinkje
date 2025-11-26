@@ -42,7 +42,6 @@ $(document).ready(function () {
 
     $("#add-ingredient").click(function () {
 
-        //clone quantityUnitDropdown from html
         let quantityUnitSelect = $("#quantityUnitDropdown").clone();
         quantityUnitSelect.removeAttr("id");
         quantityUnitSelect.show();
@@ -50,7 +49,7 @@ $(document).ready(function () {
             `recipeHasIngredients[${numberOfIngredients}].ingredient.quantityUnit`)
 
         const newIngredient =
-            `<div class="ingredient-row">
+            `<div class="ingredient-row js-row">
             <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].ingredient">
             <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].recipeHasIngredientID">
             <input type="hidden" name="recipeHasIngredients[${numberOfIngredients}].recipe">
@@ -79,6 +78,7 @@ $(document).ready(function () {
         $("#ingredients-section").append($row);
 
         numberOfIngredients ++;
+        addAddCalorieButton()
     });
 
     $("#steps-section").on("click",".remove-step", function (){
@@ -95,6 +95,10 @@ $(document).ready(function () {
 
         numberOfIngredients = ingredientSectionRows.length;
 
+        if ($('.js-row').length === 0) {
+            removeAddCalorieButton()
+        }
+
         ingredientSectionRows.each(function (index) {
             $(this)
                 .find("input")
@@ -105,6 +109,7 @@ $(document).ready(function () {
                     }
                 });
         });
+
     });
 
     function renumberStepRows() {
@@ -130,5 +135,16 @@ $(document).ready(function () {
             $(this).find("input[name*='sequenceNr']").val(index + 1);
         });
 
+    }
+
+    function addAddCalorieButton() {
+        if (!$('button[value="saveAddCalories"]').length) {
+            $("#buttonRow").prepend('<button type="submit" name="action" value="saveAddCalories"\' + ' +
+                'class="btn-primary px-3 mx-2">\nOpslaan & evt. Calorieën invoeren</button>')
+        }
+    }
+
+    function removeAddCalorieButton() {
+        $('button[value="saveAddCalories"]').remove()
     }
 });
