@@ -73,8 +73,11 @@ public class RecipeService {
     }
 
     public void connectStepsToRecipe(Recipe recipe) {
-        if (recipe.getSteps().get(0).getInstruction().isEmpty()) { return; }
-        for (Step step : recipe.getSteps()) { step.setRecipe(recipe); }
+        for (Step checkStep : recipe.getSteps()) {
+            if (!checkStep.getInstruction().isEmpty()) {
+                for (Step saveStep : recipe.getSteps()) { saveStep.setRecipe(recipe); }
+            }
+        }
     }
 
     public Recipe ifSomeoneElsesRecipeMakeCopy(Recipe recipe) {
