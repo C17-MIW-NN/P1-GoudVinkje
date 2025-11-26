@@ -46,6 +46,7 @@ input {
 .nav-link {
     color: #450707;
 }
+
 .nav-link:hover {
     color: #F29120;
 }
@@ -157,6 +158,7 @@ a:hover {
     z-index: 2;
     position: relative;
 }
+
 .card-button:hover {
     color: #F29120;
 }
@@ -193,7 +195,7 @@ a:hover {
 }
 
 .custom-checkbox:checked::after {
-    content: "\2713"; /* ✔ */
+    content: "\2713";
     position: absolute;
     top: 50%;
     left: 50%;
@@ -230,7 +232,6 @@ a:hover {
     width: 86%;
 }
 
-/* Hover / focus zonder blauwe outline */
 .custom-checkbox:focus {
     outline: none;
     box-shadow: none;
@@ -243,8 +244,8 @@ a:hover {
 }
 .custom-table,
 .custom-table td {
-    background-color: transparent; /* lichte oranje achtergrond */
-    color: #450707; /* tekstkleur */
+    background-color: transparent;
+    color: #450707;
 }
 
 /*Bootstrap kleuren overschrijven*/

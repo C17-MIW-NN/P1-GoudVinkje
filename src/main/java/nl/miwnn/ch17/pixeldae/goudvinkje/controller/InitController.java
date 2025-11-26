@@ -53,7 +53,7 @@ public class InitController {
     private void initializeDB() {
 
         GoudVinkjeUser chadGPete = makeUser("Chad G Pete");
-        GoudVinkjeUser simon = makeUser("Simon");
+        GoudVinkjeUser copiloot = makeUser("Co Piloot");
         GoudVinkjeUser annelies = makeUser("Annelies");
         GoudVinkjeUser admin = makeUser("admin");
 
@@ -250,7 +250,7 @@ public class InitController {
         // --- Extra recept 1 (Simon) ---
         Recipe spitskool = makeRecipe(
                 "Spitskoolkwarten uit de oven",
-                simon,
+                copiloot,
                 "Malse geroosterde spitskool met knoflook en paprika-olie.",
                 2,
                 "/image/spitskool-kwarten-uit-de-oven.jpg"
@@ -270,7 +270,7 @@ public class InitController {
         // --- Extra recept 2 (Simon) ---
         Recipe hamburgerRodeKool = makeRecipe(
                 "Hamburger met rode kool en salsa",
-                simon,
+                copiloot,
                 "Vegan burger met knapperige rode kool en frisse salsa.",
                 2,
                 "/image/hamburger-met-rode-kool-en-salsa.jpg"

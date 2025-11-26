@@ -28,7 +28,8 @@ public class IngredientController {
     public final RecipeRepository recipeRepository;
     private final RecipeService recipeService;
 
-    public IngredientController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository, RecipeService recipeService) {
+    public IngredientController(IngredientRepository ingredientRepository, RecipeRepository recipeRepository,
+                                RecipeService recipeService) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.recipeService = recipeService;

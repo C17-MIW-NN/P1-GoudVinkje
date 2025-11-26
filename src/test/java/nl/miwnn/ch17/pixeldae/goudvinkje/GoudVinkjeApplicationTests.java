@@ -73,7 +73,7 @@ class GoudVinkjeApplicationTests {
         recipe.setNrOfPortions(1);
 
         // Act
-        double result = recipe.countRecipeCalories();
+        double result = recipe.getCalories();
 
         // Assert
         assertEquals(6.5, result);

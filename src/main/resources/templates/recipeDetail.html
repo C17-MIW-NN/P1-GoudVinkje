@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head th:replace="~{fragments/general :: baseheader(~{:: title})}">
-    <title th:text="${recipe.name}"></title>
+    <title th:text="${formRecipe.name}"></title>
 </head>
 
 <body class="d-flex flex-column min-vh-100 main-width">
@@ -12,9 +12,9 @@
     <div class="outline-col">
         <div class="row g-0 align-items-stretch">
             <div class="d-flex border-col">
-                <h1 class="" th:text="${recipe.name}"></h1>
+                <h1 class="" th:text="${formRecipe.name}"></h1>
                 <div class="col-1 flex-end align-items-start ms-auto text-end">
-                    <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}"><i
+                    <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${formRecipe.recipeID})}"><i
                             class="icon-button bi-pencil-fill"></i>
                     </a>
                 </div>
@@ -22,14 +22,17 @@
         </div>
 
 
-        <div th:unless="${#strings.isEmpty(recipe.imageURL)}" class="row border-col p-0">
-            <img class="p-0" th:src="${recipe.imageURL}" th:alt="|Image for ${recipe.name}|">
+        <div th:unless="${#strings.isEmpty(formRecipe.imageURL)}" class="row border-col p-0">
+            <img class="p-0" th:src="${formRecipe.imageURL}" th:alt="|Image for ${formRecipe.name}|">
+        </div>
+        <div th:if="${#strings.isEmpty(formRecipe.imageURL)}" class="row border-col p-0">
+            <div th:replace="~{fragments/recipe :: addImageButton}"></div>
         </div>
 
 
         <div class="row g-0 align-items-stretch">
             <div class="col border-col">
-                <p class="mb-0" type="text" id="description" th:text="${recipe.description}"></p>
+                <p class="mb-0" type="text" id="description" th:text="${formRecipe.description}"></p>
             </div>
         </div>
 
@@ -37,31 +40,31 @@
             <div class="col border-col py-2">
                 <i class="bi bi-people-fill"></i>
                 <label class="recipe-detail-label" for="portions">Aantal porties</label>
-                <p class="mb-0 text-center" type="text" id="portions" th:text="${recipe.nrOfPortions}"></p>
+                <p class="mb-0 text-center" type="text" id="portions" th:text="${formRecipe.nrOfPortions}"></p>
             </div>
 
-                <div th:if="${recipe.calories == null}" class="col border-col py-2">
+                <div th:if="${formRecipe.calories == null}" class="col border-col py-2">
                     <i class="bi bi-fire"></i>
                     <label class="recipe-detail-label" for="noKcal">Kcal per portie</label>
-                    <a id="noKcal" th:href="@{/ingredient/aanvullen/{recipeID}(recipeID = ${recipe.recipeID})}">
+                    <a id="noKcal" th:href="@{/ingredient/aanvullen/{recipeID}(recipeID = ${formRecipe.recipeID})}">
                         onvoldoende data
                     </a>
                 </div>
-                <div th:unless="${recipe.calories == null}" class="col border-col py-2">
+                <div th:unless="${formRecipe.calories == null}" class="col border-col py-2">
                     <i class="bi bi-fire"></i>
                     <label class="recipe-detail-label" for="kcal">Kcal per portie</label>
-                    <p class="mb-0 text-center" type="text" id="kcal" th:text="${recipe.calories}"></p>
+                    <p class="mb-0 text-center" type="text" id="kcal" th:text="${formRecipe.calories}"></p>
                 </div>
 
             <div class="col border-col py-2">
                 <i class="bi bi-person-circle"></i>
                 <label class="recipe-detail-label" for="author">Auteur</label>
-                <p class="mb-0 text-center" type="text" id="author" th:text="${recipe.author.username}"></p>
+                <p class="mb-0 text-center" type="text" id="author" th:text="${formRecipe.author.username}"></p>
             </div>
             <div class="col border-col py-2">
                 <i class="bi bi-calendar-fill"></i>
                 <label class="recipe-detail-label" for="date">Publicatiedatum</label>
-                <p class="mb-0 text-center" type="text" id="date" th:text="${recipe.dateAdded}"></p>
+                <p class="mb-0 text-center" type="text" id="date" th:text="${formRecipe.dateAdded}"></p>
             </div>
         </div>
 
@@ -69,7 +72,7 @@
             <div class="col border-col">
                 <h2 class="mb-4">Ingrediënten</h2>
                 <div class="row g-0">
-                    <div class="col-12 col-lg-6 d-flex" th:each="ingredient : *{recipe.getRecipeHasIngredients()}">
+                    <div class="col-12 col-lg-6 d-flex" th:each="ingredient : *{formRecipe.getRecipeHasIngredients()}">
                         <div class="form-check col-3">
                             <input class="form-check-input cross-checkbox custom-checkbox"
                                    type="checkbox"
@@ -95,7 +98,7 @@
             <div class="border-col">
                 <h2 class="mb-4">Instructies</h2>
                 <div class="row g-0 me-4">
-                    <div class="col-12 d-flex" th:each="step : *{recipe.getSteps()}">
+                    <div class="col-12 d-flex" th:each="step : *{formRecipe.getSteps()}">
                         <div class="form-check col-1">
                             <input class="form-check-input cross-checkbox custom-checkbox"
                                    type="checkbox"

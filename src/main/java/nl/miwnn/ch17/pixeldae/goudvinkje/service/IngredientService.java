@@ -36,9 +36,7 @@ public class IngredientService {
             if (sameIngredientAlreadyPresent.isPresent() &&
                     !sameIngredientAlreadyPresent.get().getIngredientId().equals(ingredientID)) {
                 recipeHasIngredient.setIngredient(sameIngredientAlreadyPresent.get());
-                if (ingredientID != null) {
-                    ingredientRepository.deleteById(ingredientID);
-                }
+                if (ingredientID != null) { ingredientRepository.deleteById(ingredientID); }
             }
 
             ingredientRepository.save(recipeHasIngredient.getIngredient());

@@ -39,5 +39,14 @@
     </div>
 </div>
 
+<div th:fragment="addImageButton">
+    <div th:if="${#strings.isEmpty(formRecipe.imageURL)}"
+         class="d-flex align-items-center justify-content-center p-4">
+        <a class="btn btn-primary"
+           th:href="@{/recept/afbeelding/{formRecipeID}(formRecipeID=${formRecipe.recipeID})}">
+            + afbeelding toevoegen</a>
+    </div>
+</div>
+
 </body>
 </html>

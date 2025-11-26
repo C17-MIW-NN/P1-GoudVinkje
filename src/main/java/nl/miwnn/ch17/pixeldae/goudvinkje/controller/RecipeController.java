@@ -57,7 +57,7 @@ public class RecipeController {
         if (recipe.isEmpty()) {
             return "redirect:/recept/lijst";
         }
-        datamodel.addAttribute("recipe", recipe.get());
+        datamodel.addAttribute("formRecipe", recipe.get());
 
         return "recipeDetail";
     }

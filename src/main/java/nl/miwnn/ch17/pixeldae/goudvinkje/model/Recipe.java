@@ -90,7 +90,7 @@ public class Recipe {
         this.steps.add(step);
     }
 
-    public Integer countRecipeCalories() {
+    public Integer getCalories() {
         int totalCalories = 0;
         for (RecipeHasIngredient recipeIngredient : recipeHasIngredients) {
             Integer correctedCalories = recipeIngredient.getIngredient().getCorrectedCalories();
