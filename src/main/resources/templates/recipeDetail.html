@@ -24,8 +24,8 @@
             <img class="p-0" th:src="${formRecipe.imageURL}" th:alt="|Image for ${formRecipe.name}|">
         </div>
         <div th:if="${#strings.isEmpty(formRecipe.imageURL) && formRecipe.author.username == #authentication.name}"
-             class="row border-col p-0">
-            <div th:replace="~{fragments/recipe :: addImageButton}"></div>
+             class="border-col d-flex align-items-center justify-content-center p-4">
+            <div th:replace="~{fragments/recipe :: addImageButton(${formRecipe})}"></div>
         </div>
 
         <div th:if="${formRecipe.description != ''}">

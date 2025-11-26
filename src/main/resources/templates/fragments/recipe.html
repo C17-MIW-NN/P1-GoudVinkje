@@ -10,16 +10,22 @@
              th:style="'background-image:url(' + ${recipe.imageURL} + ')'">
             <a class="stretched-link" th:href="@{/recept/{recipeId}(recipeId=${recipe.recipeID})}"></a>
 
-            <div th:replace="~{:: editRecipeButton(${recipe})}"
-                 class="icon-button card-button"></div>
+            <div class="card-button">
+                <div th:replace="~{:: editRecipeButton(${recipe})}"></div>
+            </div>
+
 
 <!--            <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">-->
 <!--                <i class="icon-button bi-pencil-fill card-button"></i>-->
 <!--            </a>-->
-
-<!--            <div th:if="${recipe.author.username == #authentication.name}">-->
-<!--                <div th:replace="~{::addImageButton}"></div>-->
-<!--            </div>-->
+            <div th:if="${#strings.isEmpty(recipe.imageURL)}">
+                <div th:if="${recipe.author.username == #authentication.name}"
+                     class="row">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <div th:replace="~{::addImageButton(${recipe})}"></div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
@@ -48,18 +54,16 @@
     </div>
 </div>
 
-<div th:fragment="addImageButton">
-    <div th:if="${#strings.isEmpty(formRecipe.imageURL)}"
-         class="d-flex align-items-center justify-content-center p-4">
+<div th:fragment="addImageButton(recipe)">
         <a class="btn btn-primary"
-           th:href="@{/recept/afbeelding/{formRecipeID}(formRecipeID=${formRecipe.recipeID})}">
-            + afbeelding toevoegen</a>
+           th:href="@{/recept/afbeelding/{recipeID}(recipeID=${recipe.recipeID})}">
+            + afbeelding</a>
     </div>
 </div>
 
 <div th:fragment="editRecipeButton(recipe)">
     <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">
-        <i th:if="${recipe.author.username == #authentication.name}" class="icon-button bi-pencil-fill"></i>
+        <i th:if="${recipe.author.username == #authentication.name}" class="bi-pencil-fill"></i>
         <i th:unless="${recipe.author.username == #authentication.name}" class="bi bi-copy"></i>
     </a>
 </div>
