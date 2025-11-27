@@ -17,27 +17,37 @@
 
         <form th:action="@{/ingredient/cal-opslaan}" method="post" th:object="${formRecipe}">
             <input type="hidden" th:field="*{recipeID}">
+            <input type="hidden" th:field="*{recipeHasIngredients}">
+            <input type="hidden" th:field="*{author}">
+            <input type="hidden" th:field="*{imageURL}">
+            <input type="hidden" th:field="*{dateAdded}">
+            <input type="hidden" th:field="*{name}">
+            <input type="hidden" th:field="*{publiclyVisible}">
+            <input type="hidden" th:field="*{description}">
+            <input type="hidden" th:field="*{nrOfPortions}">
 
             <div class="row g-0 align-items-stretch">
                 <div class="col border-col px-3 pb-3">
                     <div class="ingredient-row" th:each="ingredient, order : *{recipeHasIngredients}">
-                        <div>100 gram
-                            <span th:text="*{recipeHasIngredients[__${order.index}__].ingredient.description}"></span>
+                        <div th:if="*{recipeHasIngredients[__${order.index}__].ingredient.calories} == null">
+                            <div class="mt-2 mx-0 px-0 form-label">100 gram
+                                <span th:text="*{recipeHasIngredients[__${order.index}__].ingredient.description}"></span>
+                            </div>
+                            <input class="mb-2 mx-0 px-1 form-control w-100" type="text" required
+                                   th:field="*{recipeHasIngredients[__${order.index}__].ingredient.calories}">
+                            <input type="hidden"
+                                   th:field="*{recipeHasIngredients[__${order.index}__].ingredient.ingredientId}">
+                            <input type="hidden"
+                                   th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
+                            <input type="hidden"
+                                   th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}">
                         </div>
-                        <input type="text" required
-                               th:field="*{recipeHasIngredients[__${order.index}__].ingredient.calories}">
-                        <input type="hidden"
-                               th:field="*{recipeHasIngredients[__${order.index}__].ingredient.ingredientId}">
-                        <input type="hidden"
-                               th:field="*{recipeHasIngredients[__${order.index}__].ingredient.quantityUnit}">
-                        <input type="hidden"
-                               th:field="*{recipeHasIngredients[__${order.index}__].ingredient.description}">
                     </div>
                 </div>
             </div>
             <div class="p-3 border-col d-flex justify-content-center">
                 <button type="submit" name="action" value="save" class="btn-primary px-3 mx-2">Opslaan</button>
-                <button type="submit" name="action" value="cancel" class="btn-primary px-3 mx-2">Annuleren</button>
+                <button th:href="@{/recept/toevoegen}" role="button" class="btn-primary px-3 mx-2">Annuleren</button>
             </div>
         </form>
     </div>

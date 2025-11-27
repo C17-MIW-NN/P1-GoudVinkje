@@ -28,6 +28,7 @@ public class GoudVinkjeSecurityConfig {
                         .requestMatchers("/gebruiker/**").hasRole("ADMIN")
                         .requestMatchers("/recept/").hasRole("USER")
                         .requestMatchers("/ingredient/aanvullen/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/ingredient/cal-opslaan/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/ingredient/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

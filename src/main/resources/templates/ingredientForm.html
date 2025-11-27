@@ -9,51 +9,71 @@
 <body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
-<div class="container">
-    <h1 th:if="${ingredient.description == null}">Voeg een nieuw ingrediënt toe</h1>
-    <h1 th:unless="${ingredient.description == null}">Pas een ingrediënt aan</h1>
+<form th:action="@{/ingredient/opslaan}" method="post" th:object="${ingredient}">
+    <input type="hidden" th:field="*{ingredientId}">
 
-    <div>
-        <form th:action="@{/ingredient/opslaan}" method="post" th:object="${ingredient}">
+    <div class="container-md border-col p-0 my-5 mx-0">
+        <div class="row g-0 align-items-stretch">
+            <div class="border-col">
+                <h1 th:if="${ingredient.description == null}">Voeg een nieuw ingrediënt toe</h1>
+                <h1 th:unless="${ingredient.description == null}">Pas een ingrediënt aan</h1>
+            </div>
+        </div>
 
-            <input type="hidden" th:field="*{ingredientId}">
+        <div class="col d-flex flex-column justify-content-start align-items-start border-col p-0">
+            <div class="d-flex align-items-center w-100 px-3 py-2">
+                <div class="flex-grow-1 d-flex flex-column">
 
-            <div>
-                <label for="beschrijving">Ingrediënt beschrijving</label>
-                <div>
-                    <input type="text" id="beschrijving" th:field="*{description}">
+                    <div>
+                        <label class="mt-2 mx-0 px-0 form-label" for="beschrijving">Ingrediënt beschrijving</label>
+                        <div>
+                            <input class="mb-2 mx-0 px-1 form-control w-100" type="text"
+                                   id="beschrijving" th:field="*{description}">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="mt-2 mx-0 px-0 form-label"
+                               for="calories">Calorieën per 100g/stuk<span id="unitDisplay"></span></label>
+                        <div>
+                            <input class="mb-2 mx-0 px-1 form-control w-100"
+                                   type="number" id="calories" th:field="*{calories}">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="mt-2 mx-0 px-0 form-label" for="quantityUnit">Gemeten in</label>
+                        <div>
+                            <input class="mb-2 mx-0 px-1 form-control w-100"
+                                   type="text" id="quantityUnit" th:field="*{quantityUnit}">
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="p-3 border-col d-flex justify-content-center">
+            <button class="btn-primary px-3 mx-2" type="submit" name="action" value="save">Opslaan</button>
+            <button class="btn-primary px-3 mx-2" type="submit" name="action" value="cancel">Annuleren</button>
+        </div>
+    </div>
+</form>
 
-            <div>
-                <label for="calories">Calorieën per 100g/stuk<span id="unitDisplay"></span></label>
-                <div>
-                    <input type="number" id="calories" th:field="*{calories}">
-                </div>
-            </div>
-
-            <div>
-                <label for="quantityUnit">Gemeten in</label>
-                <div>
-                    <input type="text" id="quantityUnit" th:field="*{quantityUnit}">
-                </div>
-            </div>
-
-            <div>
-                <button type="submit" name="action" value="save">Opslaan</button>
-                <button type="submit" name="action" value="cancel">Annuleren</button>
-            </div>
-        </form>
+<div th:unless="${ingredient.recipeHasIngredient == null}" class="container-md border-col p-0 mt-0 mb-3 mx-0">
+    <div class="row g-0 align-items-stretch">
+        <div class="border-col">
+            <h2>Aanwezig in onderstaande recepten:</h2>
+        </div>
     </div>
 </div>
 
 <div class="row row-cols-3 g-3">
-    <div th:each="rhi : ${ingredient.getRecipeHasIngredient()}">
-        <div class="outline-col">
+    <div  th:each="rhi : ${ingredient.getRecipeHasIngredient()}">
+        <div class="outline-col h-100">
             <div th:replace="~{fragments/recipe :: recipeCard(${rhi.recipe})}"></div>
         </div>
     </div>
 </div>
+
 
 <footer th:replace="~{fragments/general :: footer}"></footer>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>

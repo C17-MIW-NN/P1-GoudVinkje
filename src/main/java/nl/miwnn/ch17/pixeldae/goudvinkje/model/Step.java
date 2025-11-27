@@ -1,6 +1,8 @@
 package nl.miwnn.ch17.pixeldae.goudvinkje.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class Step {
 
     private Integer sequenceNr;
 
+    @NotBlank(message = "De omschrijving mag niet weggelaten worden.")
     @Column(columnDefinition = "text")
     private String instruction;
 

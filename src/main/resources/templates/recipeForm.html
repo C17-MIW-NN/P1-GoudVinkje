@@ -160,7 +160,12 @@
                                     <input class="form-control"
                                            type="text"
                                            th:field="*{steps[__${order.index}__].instruction}"
-                                           placeholder="bijv. bak voor 10 min."></td>
+                                           placeholder="bijv. bak voor 10 min.">
+                                    <div th:if="${#fields.hasErrors
+                                            ('steps[__${order.index}__].instruction')}"
+                                         th:errors="*{steps[__${order.index}__].instruction}"
+                                         class="danger"></div>
+                                </td>
                                 <td><i class="ms-2 bi bi-trash-fill remove-step"></i></td>
                             </tr>
                             </tbody>

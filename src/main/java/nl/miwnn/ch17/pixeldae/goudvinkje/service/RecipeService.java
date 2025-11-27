@@ -2,13 +2,9 @@ package nl.miwnn.ch17.pixeldae.goudvinkje.service;
 
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.GoudVinkjeUser;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Recipe;
-import nl.miwnn.ch17.pixeldae.goudvinkje.model.RecipeHasIngredient;
 import nl.miwnn.ch17.pixeldae.goudvinkje.model.Step;
 import nl.miwnn.ch17.pixeldae.goudvinkje.repositories.RecipeRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -44,32 +40,13 @@ public class RecipeService {
         return recipeRepository.findById(recipeId);
     }
 
-    public Recipe makeDummyRecipeWithIngredients(Long recipeId) {
-        Optional<Recipe> optionalRecipe = getOptionalRecipe(recipeId);
-        if (optionalRecipe.isEmpty()) {
-            return null;
-        }
-
-        return transferIngredientsBetweenRecipes(optionalRecipe.get(), makeDummyRecipe(optionalRecipe.get()));
-    }
-
-    private Recipe makeDummyRecipe(Recipe recipe) {
-        Recipe dummyRecipe = new Recipe();
-        dummyRecipe.setRecipeID(recipe.getRecipeID());
-        return dummyRecipe;
-    }
-
-    private Recipe transferIngredientsBetweenRecipes(Recipe fromRecipe, Recipe toRecipe) {
-        List<RecipeHasIngredient> dummyRecipeHasIngredients = new ArrayList<>();
-        for (RecipeHasIngredient recipeHasIngredient : fromRecipe.getRecipeHasIngredients()) {
-            if (recipeHasIngredient.getIngredient().getCalories() == null) {
-                dummyRecipeHasIngredients.add(recipeHasIngredient);
+    public void addOriginalAuthorNameToTitle(Recipe recipe) {
+        if (!recipe.getAuthor().equals(goudVinkjeUserService.getLoggedInUser())) {
+            if (!recipe.getName().contains("à la")) {
+                recipe.setName(recipe.getName() + " à la " + recipe.getAuthor().getUsername());
             }
+            recipe.setPubliclyVisible(false);
         }
-
-        toRecipe.setRecipeHasIngredients(dummyRecipeHasIngredients);
-
-        return toRecipe;
     }
 
     public void connectStepsToRecipe(Recipe recipe) {
