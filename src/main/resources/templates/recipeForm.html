@@ -19,19 +19,17 @@
         <div class="outline-col">
         <div class="row g-0 align-items-stretch">
             <div class="border-col">
-                <h2 th:if="${formRecipe.recipeID == null}">Schrijf een nieuw recept</h2>
-                <h2 th:unless="${formRecipe.recipeID == null}">Pas je recept aan</h2>
+                <h2 th:if="${formRecipe.recipeID == null}">
+                    Schrijf een nieuw recept</h2>
+                <h2 th:if="${formRecipe.recipeID != null && formRecipe.author.username == #authentication.name}">
+                    Pas je recept aan</h2>
+                <h2 th:if="${formRecipe.recipeID != null && formRecipe.author.username != #authentication.name}">
+                    Maak je eigen versie </h2>
             </div>
             <div class="col d-flex flex-column justify-content-start align-items-start border-col p-0">
                 <div class="d-flex align-items-center w-100 px-3 py-2">
                     <div class="flex-grow-1 d-flex flex-column">
-
-                        <label class="mt-2 mx-0 px-0 form-label" for="name">Naam van het
-                            <span th:if="${formRecipe.recipeID == null}">nieuwe</span>
-                            <span th:unless="${formRecipe.recipeID == null}">te wijzigen</span>
-                            recept
-                        </label>
-
+                        <label class="mt-2 mx-0 px-0 form-label" for="name">Naam van het recept</label>
                         <input class="mb-2 mx-0 px-1 form-control w-100" type="text" id="name" th:field="*{name}"
                                placeholder="bijv. Vegan Spaghetti Bolognese">
                         <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="danger">Fout in naam</div>
