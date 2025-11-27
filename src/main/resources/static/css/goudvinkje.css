@@ -50,6 +50,14 @@ input {
     color: #F29120;
 }
 
+/*.navbar-toggler-icon {   werkt niet*/
+/*    color: #450707 !important;*/
+/*}*/
+
+/*.navbar-toggler-icon:hover {*/
+/*    color: #F29120 !important;*/
+/*}*/
+
 /*Footer*/
 .footer {
     color: #450707;

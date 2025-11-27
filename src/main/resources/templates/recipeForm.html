@@ -9,12 +9,14 @@
 <body class="d-flex flex-column min-vh-100 main-width">
 <nav th:replace="~{fragments/general :: navbar}"></nav>
 
+
 <form th:action="@{/recept/opslaan}" method="post" th:object="${formRecipe}">
     <input type="hidden" th:field="*{recipeID}">
     <input type="hidden" th:field="*{dateAdded}">
     <input type="hidden" th:field="*{imageURL}">
 
-    <div class="container-md border-col p-0 my-5 mx-0">
+    <div class="container-md my-5">
+        <div class="outline-col">
         <div class="row g-0 align-items-stretch">
             <div class="border-col">
                 <h2 th:if="${formRecipe.recipeID == null}">Schrijf een nieuw recept</h2>
@@ -182,6 +184,7 @@
                     verwijderen
                 </a>
             </div>
+        </div>
         </div>
     </div>
 </form>
