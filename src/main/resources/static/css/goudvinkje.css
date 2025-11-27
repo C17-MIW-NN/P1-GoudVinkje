@@ -19,7 +19,6 @@
     src: url('/fonts/Chicle-Regular.ttf');
 }
 
-
 body {
     font-family: 'Inria';
     font-weight: 400;
@@ -60,17 +59,17 @@ input {
 
 /*Clickable*/
 a {
-    color: #F29120;
+    color: #450707;
 }
 a:hover {
-    color: #EFD86F;
+    color: #F29120;
 }
 
 .icon-button {
-    color: #F29120;
+    color: #450707;
 }
 .icon-button:hover {
-    color: #EFD86F;
+    color: #F29120;
 }
 
 .btn-primary,
@@ -111,6 +110,13 @@ a:hover {
     border-radius: 30px;
 }
 
+.btn:active,
+.btn:focus,
+.btn:focus:active {
+    background-color: #F0EBD6;
+    border-color: #F29120;
+}
+
 /*Container styling*/
 .border-col {
     border: 1px solid #450707;
@@ -138,6 +144,16 @@ a:hover {
     list-style-position: inside;
 }
 
+/*fragments*/
+.image-button {
+    color: #450707;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.image-button:hover {
+    color: #F29120;
+}
 
 /*recipeCard*/
 .card-image {
@@ -162,6 +178,17 @@ a:hover {
 .card-button:hover {
     color: #F29120;
 }
+
+.card-button i {
+    display: block;
+    vertical-align: top;
+    line-height: 0;
+}
+
+/*#image-btn-in-card {*/
+/*    height: 30px !important;*/
+/*    border-radius: 30px !important;*/
+/*}*/
 
 .hover-parent .card-button {
     display: none;
