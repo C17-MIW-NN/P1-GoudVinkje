@@ -52,8 +52,12 @@
 
 <div th:fragment="editRecipeButton(recipe)">
     <a th:href="@{/recept/aanpassen/{recipeID}(recipeID=${recipe.recipeID})}">
-        <i th:if="${recipe.author.username == #authentication.name}" class="bi-pencil-fill"></i>
-        <i th:unless="${recipe.author.username == #authentication.name}" class="bi bi-pencil-square"></i>
+        <i th:if="${recipe.author.username == #authentication.name}"
+           class="bi-pencil-fill"></i>
+        <i th:unless="${recipe.author.username == #authentication.name}"
+           class="bi bi-pencil-square"
+           title="maak eigen kopie"
+           data-toggle="tooltip"></i>
     </a>
 </div>
 
